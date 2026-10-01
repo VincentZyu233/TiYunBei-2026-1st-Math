@@ -7,17 +7,14 @@
 #import "_math.typ": vec, RR, NN, ZZ, QQ, CC, oo, iff, Longrightarrow, implies, cdot
 
 // ---------- 字体 ----------
-// 霞鹜文楷放在 temp/fonts, 编译时由 build.py 用 --font-path 传入,
-// 不进仓库; 系统字体作为兜底。
-#let kai = "LXGW WenKai"
+// 霞鹜文楷等宽变体 (LXGW WenKai Mono), 本地编译时由 --font-path 注入, 不进仓库; 系统字体作为兜底。
+#let kai = "LXGW WenKai Mono"
 #let song = "Source Han Serif SC"
 
 #set text(
   font: (
-    kai,          // 正文中文: 霞鹜文楷
-    "LXGW WenKai Mono",
+    kai,          // 锁定单一 mono 变体: 霞鹜文楷等宽
     song,         // 兜底
-    "Source Han Serif SC",
     "SimSun",
   ),
   size: 10.5pt,

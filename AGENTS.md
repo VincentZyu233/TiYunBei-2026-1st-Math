@@ -27,15 +27,16 @@
 ### 脚本：`动词_名词.py`
 
 | 脚本 | 职责 |
+| 脚本 | 职责 |
 |---|---|
 | `build_pdf.py` | 编译章节 → `out/<章节>/<章节>.pdf` |
 | `shoot_figs.py` | 按题切图 → `out/<章节>/<章节>-qNN.png` |
+| `build_svg.py` | 编译纯矢量 SVG 与清单 → `site/svg/`、`site/manifest.json` |
 | `fix_punct.py` | 句末西文句点 → 中文句号 |
 | `norm_math.py` | LaTeX → Typst 数学写法规范化 |
-| `sync_fonts.py` | 从本机字体目录同步到 `temp/fonts/` |
 
-`_chapters.py` 是内部模块（下划线前缀），存章节配置的**唯一来源**，
-被 `build_pdf.py` 与 `shoot_figs.py` 共用。新增章节只改这一处。
+`_chapters.py` 是内部模块（下划线前缀），存章节配置与本地字体解析的**唯一来源**，
+被 `build_pdf.py`、`shoot_figs.py` 与 `build_svg.py` 共用。新增章节只改这一处。
 
 ### 新增章节的步骤
 
@@ -51,9 +52,10 @@
 01-2026/                      ← 仓库根
 ├─ .gitignore / .gitattributes
 ├─ AGENTS.md                  本文件
-├─ AGENTS.local.md            个人偏好（gitignore）
+├─ AGENTS.local.example.md    本地配置模板（入库）
+├─ AGENTS.local.md            个人偏好/字体绝对路径（gitignore，不入库）
 ├─ problem/                   题面 PDF（不进追踪）
-├─ fonts/                     霞鹜文楷等字体（不入库，编译时 --font-path 传入）
+├─ site/                      GitHub Pages 前端静态站 (SVG/PDF/WebFont)
 ├─ scripts/                   见上表
 ├─ src/
 │  ├─ _template.typ           字体 / 页面 / 题目骨架 / 答案框
@@ -89,42 +91,47 @@
 ```bash
 cd 01-2026
 
-# 编译全部（推荐入口）
-uv run python temp/scripts/build_pdf.py
+# 编译全部 PDF（推荐入口）
+uv run python scripts/build_pdf.py
 
 # 只编译某几份
-uv run python temp/scripts/build_pdf.py select solve
-uv run python temp/scripts/build_pdf.py s01-select s04-solve
+uv run python scripts/build_pdf.py select solve
+uv run python scripts/build_pdf.py s01-select s04-solve
 
 # 监听 src/ 自动重编译
-uv run python temp/scripts/build_pdf.py --watch
+uv run python scripts/build_pdf.py --watch
 
 # 把每题单独截成 PNG（需 pymupdf，默认 333 DPI 高清出图，正文宽约 2321 px）
 uv pip install pymupdf
-uv run python temp/scripts/shoot_figs.py                    # 全部章节（默认 333 DPI）
-uv run python temp/scripts/shoot_figs.py select             # 指定章节
-uv run python temp/scripts/shoot_figs.py select --dpi 333   # 可自定义指定 DPI（默认 333）
-uv run python temp/scripts/shoot_figs.py select --keep-pdf  # 保留中间 PDF
+uv run python scripts/shoot_figs.py                    # 全部章节（默认 333 DPI）
+uv run python scripts/shoot_figs.py select             # 指定章节
+uv run python scripts/shoot_figs.py select --dpi 333   # 可自定义指定 DPI（默认 333）
+uv run python scripts/shoot_figs.py select --keep-pdf  # 保留中间 PDF
+
+# 编译全卷单题纯矢量 SVG 与发布索引 (供 GitHub Pages 交互使用)
+uv run python scripts/build_svg.py
 
 # 句末西文句点 → 中文句号（写之前先 --check）
-uv run python temp/scripts/fix_punct.py --check
-uv run python temp/scripts/fix_punct.py
+uv run python scripts/fix_punct.py --check
+uv run python scripts/fix_punct.py
 
 # 把源码里的 LaTeX 写法批量改成 Typst 写法
-uv run python temp/scripts/norm_math.py --check   # 先看会改什么
-uv run python temp/scripts/norm_math.py           # 实际写入
-
-# 从本机 X:\字体 同步字体
-uv run python temp/scripts/sync_fonts.py --list
-uv run python temp/scripts/sync_fonts.py lxgw
+uv run python scripts/norm_math.py --check   # 先看会改什么
+uv run python scripts/norm_math.py           # 实际写入
 ```
 
 ## 环境
 
 - **Typst 0.14+**（`typst --version` 自检）。`cetz` 固定用 `0.5.2`。
 - Python 用 `uv` 管理，虚拟环境在 `01-2026/.venv`（无 pip，一律用 `uv pip` / `uv run`）。
-- 字体：`LXGW WenKai` 放在 `temp/fonts/`，**不进仓库**，由 `build_pdf.py` 传
-  `--font-path temp/fonts` 注入。
+- **字体与本地环境配置（强制锁定 Mono 变体）**：
+  - 仓库不再内置数百兆字体，而是通过 `--font-path` 参数直接挂载本机字体目录。
+  - 本地开发者请参考 `AGENTS.local.example.md` 在仓库根目录新建 `AGENTS.local.md`（该文件已在 `.gitignore` 中）：
+    ```ini
+    FONT_DIR=X:\字体\霞鹜文楷LXGW_WenKai\lxgw-wenkai-v1.520
+    ```
+  - 若缺失 `AGENTS.local.md`，编译脚本会输出醒目高亮警告提示开发者补充配置。
+  - 正文字体已锁定单一等宽变体：`"LXGW WenKai Mono"`。
 
 ## 写 Typst 数学的几个硬性约束
 

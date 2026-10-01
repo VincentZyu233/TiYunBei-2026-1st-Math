@@ -26,7 +26,6 @@ OUT_DIR = REPO_ROOT / "out"
 SITE_DIR = REPO_ROOT / "site"
 SVG_DIR = SITE_DIR / "svg"
 PDF_DIR = SITE_DIR / "pdf"
-FONT_DIR = (REPO_ROOT / "fonts") if (REPO_ROOT / "fonts").exists() else (REPO_ROOT / "temp" / "fonts")
 
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 import _chapters as ch
@@ -61,11 +60,12 @@ def compile_question_svg(chap_key: str, q_name: str, target_svg: Path) -> bool:
             "typst",
             "compile",
             "--root", str(REPO_ROOT),
+        ]
+        cmd.extend(ch.get_font_args(REPO_ROOT))
+        cmd.extend([
             str(temp_typ),
             str(target_svg),
-        ]
-        if FONT_DIR.exists():
-            cmd.extend(["--font-path", str(FONT_DIR)])
+        ])
 
         res = subprocess.run(cmd, capture_output=True, text=True)
         if res.returncode != 0:

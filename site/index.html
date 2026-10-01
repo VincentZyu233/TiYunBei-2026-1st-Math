@@ -7,6 +7,8 @@
   <meta name="description" content="2026 年第一届提云杯数学参考解答及全套 333 DPI 纯矢量 SVG 在线交互展台，支持无限平滑缩放、单题聚焦与全卷连续阅读。">
   <link rel="icon" type="image/png" href="assets/avatars/tier.png">
   <link rel="apple-touch-icon" href="assets/avatars/tier.png">
+  <!-- 霞鹜文楷等宽 WebFont (在线 CDN 引入) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-mono-webfont@1.1.0/style.css">
   <style>
     /* ============================================================
        提尔 (sSwar) 主题色彩体系 · 搭配 Typst / Python 语言点缀色
@@ -44,7 +46,7 @@
       --shadow-sm: 0 1px 2px 0 rgba(125, 102, 136, 0.06);
       --shadow-md: 0 4px 10px -2px rgba(125, 102, 136, 0.12), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
       --shadow-lg: 0 14px 28px -6px rgba(125, 102, 136, 0.18), 0 4px 10px -3px rgba(0, 0, 0, 0.06);
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-sans: "LXGW WenKai Mono", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
     }
 
     [data-theme="dark"] {
@@ -175,6 +177,26 @@
       background: var(--primary-light);
       color: var(--primary);
       border: 1px solid var(--panel-border);
+    }
+    .badge-zyu {
+      background: var(--accent-pink-light);
+      color: var(--accent-pink);
+      border: 1px solid rgba(223, 145, 167, 0.35);
+    }
+    .badge-author {
+      gap: 0.32rem;
+      letter-spacing: 0.01em;
+    }
+    .role-tag {
+      font-size: 0.62rem;
+      font-weight: 600;
+      opacity: 0.85;
+      padding: 0.05rem 0.25rem;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+    [data-theme="dark"] .role-tag {
+      background: rgba(255, 255, 255, 0.1);
     }
     .badge-typst {
       background: var(--typst-light);
@@ -599,10 +621,11 @@
           提云杯 2026 · 数学参考解答
         </div>
         <div class="brand-meta">
-          <span class="badge badge-tier">提尔 × VincentZyu</span>
-          <span class="badge badge-typst">Typst 矢量引擎</span>
-          <span class="badge badge-python badge-sub">Python 渲染管线</span>
-          <span class="badge badge-vector badge-sub">333 DPI 无限缩放</span>
+          <span class="badge badge-author badge-tier"><span class="role-tag">出题人</span>提尔sSwar</span>
+          <span class="badge badge-author badge-zyu"><span class="role-tag">写题人</span>VincentZyu</span>
+          <span class="badge badge-typst">Typst 矢量</span>
+          <span class="badge badge-python badge-sub">Python 管线</span>
+          <span class="badge badge-vector badge-sub">333 DPI</span>
         </div>
       </div>
     </div>

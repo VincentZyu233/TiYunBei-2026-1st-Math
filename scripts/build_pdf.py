@@ -89,8 +89,7 @@ def snapshot() -> dict[str, int]:
 
 def base_cmd(typst: str, src: Path, dst: Path) -> list[str]:
     cmd = [typst, "compile"]
-    if FONT_DIR.is_dir():
-        cmd += ["--font-path", str(FONT_DIR)]
+    cmd.extend(ch.get_font_args(TEMP_DIR))
     cmd += ["--root", str(TEMP_DIR), str(src), str(dst)]
     return cmd
 

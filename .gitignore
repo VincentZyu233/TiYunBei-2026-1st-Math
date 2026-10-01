@@ -27,6 +27,7 @@ problem/
 # ---- 个人本地配置 (会搬到仓库根目录, 但不入库) ----
 AGENTS.local.md
 AGENTS.local.*.md
+!AGENTS.local.example.md
 
 # ---- Python ----
 __pycache__/

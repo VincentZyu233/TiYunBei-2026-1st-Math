@@ -87,8 +87,7 @@ def build_pdf(typst: str, chapter: str, src_name: str) -> Path | None:
     pdf = WORK_DIR / f"{chapter}.pdf"
 
     cmd = [typst, "compile"]
-    if FONT_DIR.is_dir():
-        cmd += ["--font-path", str(FONT_DIR)]
+    cmd.extend(ch.get_font_args(TEMP_DIR))
     cmd += ["--root", str(TEMP_DIR), str(src), str(pdf)]
 
     proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
