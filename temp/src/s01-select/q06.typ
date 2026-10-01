@@ -75,20 +75,21 @@
     txt(proj3(pb), anchor: "west", dx: 0.1, tsize: ts, [$B$])
 
     dot(proj3(pc), radius: 0.07, fill: black, stroke: none)
-    txt(proj3(pc), anchor: "south", dy: 0.08, tsize: ts, [$C$])
+    txt(proj3(pc), anchor: "south-east", dx: -0.1, dy: -0.06, tsize: ts, [$C$])
 
     dot(proj3(m), radius: 0.06, fill: gray, stroke: none)
     txt(proj3(m), anchor: "east", dx: 0.12, tsize: ts * 0.85, [$M$])
 
-    // 坐标轴 (教材标准画法)。A 占住了 x 轴, 故 x 轴画得更长让标签落在其后。
+    // 坐标轴 (教材标准画法)。箭头要明显超出 PABC 三条棱的端点, 故轴取得更长。
     axes3(
-      xlen: 4.6,
-      ylen: 2.9,
-      zlen: 2.6,
+      xlen: 5.2,
+      ylen: 4.4,
+      zlen: 4.0,
       xlab: [$x$],
       ylab: [$y$],
       zlab: [$z$],
       tsize: 0.3,
+      arrow: 0.32,
     )
   },
 )

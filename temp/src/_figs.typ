@@ -138,6 +138,7 @@
 )
 
 // 三维坐标轴: z 垂直向上, y 水平向右, x 斜向左下 (教材标准画法)
+// 箭头画成两笔倒钩 (barb), 尖端在轴的末端; 轴标签贴在箭头旁边。
 // 用法: axes3(xlen: 2, ylen: 2, zlen: 2, origin: (0,0,0))
 // 负半轴按需画 (画负轴: xneg: true 等)
 #let axes3(
@@ -154,39 +155,59 @@
   yneg: false,
   zneg: false,
   olabel: none,
+  arrow: 0.22,
+  barbs: 2,
 ) = {
   let o = proj3(origin, k: k)
-  let ax = (xlen, 0.0, 0.0)
-  let ay = (0.0, ylen, 0.0)
-  let az = (0.0, 0.0, zlen)
 
-  // 正半轴
-  ln(o, proj3(origin + ax, k: k), stroke: s(black, th: 0.8pt))
-  ln(o, proj3(origin + ay, k: k), stroke: s(black, th: 0.8pt))
-  ln(o, proj3(origin + az, k: k), stroke: s(black, th: 0.8pt))
+  // 单条带箭头的轴: 从 o 指向 proj3(origin+axis), 末端画 barbs 倒钩
+  let axis-arrow(from, to, color: black) = {
+    ln(from, to, stroke: s(color, th: 0.8pt))
+    let dx = to.at(0) - from.at(0)
+    let dy = to.at(1) - from.at(1)
+    let len = calc.sqrt(dx * dx + dy * dy)
+    if len > 0 {
+      let ux = dx / len
+      let uy = dy / len
+      // 倒钩方向: 与轴垂直
+      let (px, py) = (-uy, ux)
+      for i in range(barbs) {
+        // 沿轴往回退得越多, 倒钩张得越开 -> 经典箭头形
+        let back = arrow * (1 - i * 0.42)
+        let side = if i == 0 { 1.0 } else { 0.62 }
+        ln(
+          to,
+          (
+            to.at(0) - ux * back + px * arrow * side,
+            to.at(1) - uy * back + py * arrow * side,
+          ),
+          stroke: s(color, th: 0.8pt),
+        )
+      }
+    }
+  }
 
-  // 箭头: 沿轴方向再往前伸一小段, 做成折角
-  let ex = proj3(origin + ax, k: k)
-  let ey = proj3(origin + ay, k: k)
-  let ez = proj3(origin + az, k: k)
-  ln(ex, (ex.at(0) - 0.26, ex.at(1) - 0.26), stroke: s(black, th: 0.8pt))
-  ln(ey, (ey.at(0) + 0.26, ey.at(1)), stroke: s(black, th: 0.8pt))
-  ln(ez, (ez.at(0), ez.at(1) + 0.26), stroke: s(black, th: 0.8pt))
+  let ex = proj3(origin + (xlen, 0.0, 0.0), k: k)
+  let ey = proj3(origin + (0.0, ylen, 0.0), k: k)
+  let ez = proj3(origin + (0.0, 0.0, zlen), k: k)
+  axis-arrow(o, ex)
+  axis-arrow(o, ey)
+  axis-arrow(o, ez)
 
-  // 轴标签
-  txt(ex, anchor: "south", dy: -0.1, tsize: tsize, xlab)
-  txt((ey.at(0) + 0.3, ey.at(1) - 0.1), anchor: "west", tsize: tsize, ylab)
-  txt((ez.at(0), ez.at(1) + 0.34), anchor: "south", tsize: tsize, zlab)
+  // 轴标签: 贴住箭头尖端, 沿轴向外的法线一侧
+  txt(ex, anchor: "north-west", dx: -0.12, dy: 0.08, tsize: tsize, xlab)
+  txt(ey, anchor: "north", dy: 0.12, tsize: tsize, ylab)
+  txt(ez, anchor: "north", dy: 0.12, tsize: tsize, zlab)
 
   // 负半轴 (虚线, 无箭头无标签)
   if xneg {
-    dashed(o, proj3(origin - ax, k: k), color: gray, th: 0.5pt)
+    dashed(o, proj3(origin - (xlen, 0.0, 0.0), k: k), color: gray, th: 0.5pt)
   }
   if yneg {
-    dashed(o, proj3(origin - ay, k: k), color: gray, th: 0.5pt)
+    dashed(o, proj3(origin - (0.0, ylen, 0.0), k: k), color: gray, th: 0.5pt)
   }
   if zneg {
-    dashed(o, proj3(origin - az, k: k), color: gray, th: 0.5pt)
+    dashed(o, proj3(origin - (0.0, 0.0, zlen), k: k), color: gray, th: 0.5pt)
   }
 
   // 原点
