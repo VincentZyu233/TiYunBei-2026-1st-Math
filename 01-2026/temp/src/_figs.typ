@@ -137,6 +137,65 @@
   -k * p.at(0) + p.at(2),
 )
 
+// 三维坐标轴: z 垂直向上, y 水平向右, x 斜向左下 (教材标准画法)
+// 用法: axes3(xlen: 2, ylen: 2, zlen: 2, origin: (0,0,0))
+// 负半轴按需画 (画负轴: xneg: true 等)
+#let axes3(
+  xlen: 1.0,
+  ylen: 1.0,
+  zlen: 1.0,
+  xlab: [$x$],
+  ylab: [$y$],
+  zlab: [$z$],
+  origin: (0.0, 0.0, 0.0),
+  k: 0.5,
+  tsize: 0.17,
+  xneg: false,
+  yneg: false,
+  zneg: false,
+  olabel: none,
+) = {
+  let o = proj3(origin, k: k)
+  let ax = (xlen, 0.0, 0.0)
+  let ay = (0.0, ylen, 0.0)
+  let az = (0.0, 0.0, zlen)
+
+  // 正半轴
+  ln(o, proj3(origin + ax, k: k), stroke: s(black, th: 0.8pt))
+  ln(o, proj3(origin + ay, k: k), stroke: s(black, th: 0.8pt))
+  ln(o, proj3(origin + az, k: k), stroke: s(black, th: 0.8pt))
+
+  // 箭头: 沿轴方向再往前伸一小段, 做成折角
+  let ex = proj3(origin + ax, k: k)
+  let ey = proj3(origin + ay, k: k)
+  let ez = proj3(origin + az, k: k)
+  ln(ex, (ex.at(0) - 0.26, ex.at(1) - 0.26), stroke: s(black, th: 0.8pt))
+  ln(ey, (ey.at(0) + 0.26, ey.at(1)), stroke: s(black, th: 0.8pt))
+  ln(ez, (ez.at(0), ez.at(1) + 0.26), stroke: s(black, th: 0.8pt))
+
+  // 轴标签
+  txt(ex, anchor: "south", dy: -0.1, tsize: tsize, xlab)
+  txt((ey.at(0) + 0.3, ey.at(1) - 0.1), anchor: "west", tsize: tsize, ylab)
+  txt((ez.at(0), ez.at(1) + 0.34), anchor: "south", tsize: tsize, zlab)
+
+  // 负半轴 (虚线, 无箭头无标签)
+  if xneg {
+    dashed(o, proj3(origin - ax, k: k), color: gray, th: 0.5pt)
+  }
+  if yneg {
+    dashed(o, proj3(origin - ay, k: k), color: gray, th: 0.5pt)
+  }
+  if zneg {
+    dashed(o, proj3(origin - az, k: k), color: gray, th: 0.5pt)
+  }
+
+  // 原点
+  dot(o, radius: 0.05, fill: black, stroke: none)
+  if olabel != none {
+    txt(o, anchor: "north-east", dx: -0.07, dy: -0.06, tsize: tsize, olabel)
+  }
+}
+
 // ---- 带图题的图 ----
 // vb: 可选的锚定框 (w, h) 单位 cm, 用来锁定画布长宽比
 #let fcap(body, scale: 0.8, pad: 0.1, vb: none, caption: none) = figure(

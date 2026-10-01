@@ -17,57 +17,73 @@
 ))
 
 #sol[
-  以 $P$ 为原点，令 $P A = (p, 0, 0)$，$P B = (0, q, 0)$，$P C = (0, 0, r)$。因三条侧棱两两垂直，
+  以 $P$ 为原点，令 $P A = (a, 0, 0)$，$P B = (0, b, 0)$，$P C = (0, 0, c)$。因三条侧棱两两垂直，
   $
-    A B^2 = p^2 + q^2 = 5, quad quad B C^2 = q^2 + r^2 = 7, quad quad A C^2 = p^2 + r^2 = 4,
+    A B^2 = a^2 + b^2 = 5, quad quad B C^2 = b^2 + c^2 = 7, quad quad A C^2 = a^2 + c^2 = 4,
   $
-  三式相加：$2(p^2 + q^2 + r^2) = 5 + 7 + 4 = 16$，故 $p^2 + q^2 + r^2 = 8$。
+  三式相加：$2(a^2 + b^2 + c^2) = 5 + 7 + 4 = 16$，故 $a^2 + b^2 + c^2 = 8$。
 
   把三棱锥补成长方体，则外接球球心为长方体体对角线的中点，半径
-  $R = 1/2 sqrt(p^2 + q^2 + r^2) = 1/2 sqrt(8) = sqrt(2)$。
+  $R = 1/2 sqrt(a^2 + b^2 + c^2) = 1/2 sqrt(8) = sqrt(2)$。
 
   故 $V = 4/3 pi R^3 = 4/3 pi · 2 sqrt(2) = 8 sqrt(2) pi / 3$。
 ]
 #ans[$V = 8sqrt(2) pi / 3$，选 #text(weight: "bold")[B]]
 
 #fcap(
-  scale: 0.95,
-  caption: [第 6 题  补成长方体，$P$ 与体对角顶点 $M$ 连成外接球直径，$2R = sqrt(8) = 2sqrt(2)$],
+  scale: 0.9,
+  caption: [第 6 题　补成长方体：$P A$、$P B$、$P C$ 沿三坐标轴，两两垂直；$P$ 与体对角顶点 $M$ 连成外接球直径],
   {
+    // 三棱锥补成的长方体: P 在原点, A/B/C 分别落在三坐标轴正方向
     let p0 = (0.0, 0.0, 0.0)
-    let a = (2.5, 0.0, 0.0)
-    let b = (0.0, 2.0, 0.0)
-    let c = (0.0, 0.0, 1.8)
-    let m = (2.5, 2.0, 1.8)
+    let pa = (2.3, 0.0, 0.0) // A 在 x 轴
+    let pb = (0.0, 1.9, 0.0) // B 在 y 轴
+    let pc = (0.0, 0.0, 1.7) // C 在 z 轴
+    let m = (2.3, 1.9, 1.7) // 体对角顶点 M
 
-    // 长方体其余三条棱
-    dashed(proj3((2.5, 2.0, 0.0)), proj3((2.5, 2.0, 1.8)))
-    dashed(proj3((2.5, 0.0, 1.8)), proj3((2.5, 2.0, 1.8)))
-    dashed(proj3((0.0, 2.0, 1.8)), proj3((2.5, 2.0, 1.8)))
+    // 长方体另外三条棱 (虚线)
+    dashed(proj3((2.3, 1.9, 0.0)), proj3(m))
+    dashed(proj3((2.3, 0.0, 1.7)), proj3(m))
+    dashed(proj3((0.0, 1.9, 1.7)), proj3(m))
 
-    // 底面三角形
-    ln(proj3(a), proj3(b), stroke: s(black, th: 1.1pt))
-    ln(proj3(b), proj3(c), stroke: s(black, th: 1.1pt))
-    ln(proj3(c), proj3(a), stroke: s(black, th: 1.1pt))
-    // 三条侧棱
-    ln(proj3(p0), proj3(a), stroke: s(red, th: 1.3pt))
-    ln(proj3(p0), proj3(b), stroke: s(blue, th: 1.3pt))
-    ln(proj3(p0), proj3(c), stroke: s(green, th: 1.3pt))
-    // 直径 PM
-    ln(proj3(p0), proj3(m), stroke: sd(red, th: 1.0pt))
+    // 底面三角形 ABC
+    ln(proj3(pa), proj3(pb), stroke: s(black, th: 1.1pt))
+    ln(proj3(pb), proj3(pc), stroke: s(black, th: 1.1pt))
+    ln(proj3(pc), proj3(pa), stroke: s(black, th: 1.1pt))
 
+    // 三条侧棱 (即三条坐标轴方向)
+    ln(proj3(p0), proj3(pa), stroke: s(red, th: 1.3pt))
+    ln(proj3(p0), proj3(pb), stroke: s(blue, th: 1.3pt))
+    ln(proj3(p0), proj3(pc), stroke: s(green, th: 1.3pt))
+
+    // 外接球直径 PM
+    ln(proj3(p0), proj3(m), stroke: sd(red, th: 1.1pt))
+
+    // 顶点
     dot(proj3(p0), radius: 0.06, fill: red, stroke: none)
     txt(proj3(p0), anchor: "north-east", dx: -0.07, dy: -0.06, [$P$])
-    dot(proj3(a), radius: 0.055, fill: black, stroke: none)
-    txt(proj3(a), anchor: "south-east", dx: 0.06, dy: -0.06, [$A$])
-    dot(proj3(b), radius: 0.055, fill: black, stroke: none)
-    txt(proj3(b), anchor: "north-east", dx: 0.06, dy: 0.06, [$B$])
-    dot(proj3(c), radius: 0.055, fill: black, stroke: none)
-    txt(proj3(c), anchor: "south-west", dx: -0.06, dy: -0.06, [$C$])
+    dot(proj3(pa), radius: 0.055, fill: black, stroke: none)
+    txt(proj3(pa), anchor: "north-west", dx: -0.05, dy: 0.05, [$A$])
+    dot(proj3(pb), radius: 0.055, fill: black, stroke: none)
+    txt(proj3(pb), anchor: "south-east", dx: 0.06, dy: -0.06, [$B$])
+    dot(proj3(pc), radius: 0.055, fill: black, stroke: none)
+    txt(proj3(pc), anchor: "south", dy: -0.1, [$C$])
     dot(proj3(m), radius: 0.05, fill: gray, stroke: none)
-    txt(proj3(m), anchor: "north-west", dx: 0.06, tsize: 0.14, [$M$])
+    txt(proj3(m), anchor: "north-east", dx: 0.06, dy: 0.06, tsize: 0.14, [$M$])
 
-    let mid = ((proj3(p0).at(0) + proj3(m).at(0)) / 2, (proj3(p0).at(1) + proj3(m).at(1)) / 2 + 0.45)
-    txt(mid, tsize: 0.145, [$2R = sqrt(8)$])
+    // 坐标轴 (教材标准画法)
+    axes3(
+      xlen: 3.3,
+      ylen: 2.9,
+      zlen: 2.5,
+      xlab: [$x$],
+      ylab: [$y$],
+      zlab: [$z$],
+      origin: (0.0, 0.0, 0.0),
+    )
+
+    // 直径标注
+    let mid = proj3((1.15, 0.95, 0.85))
+    txt(mid, anchor: "north-east", dx: -0.1, dy: 0.05, tsize: 0.145, [$2R = sqrt(8)$])
   },
 )
