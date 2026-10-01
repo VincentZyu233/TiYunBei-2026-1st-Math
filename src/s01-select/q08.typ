@@ -87,14 +87,16 @@ $x_1 = a/b$，$x_2 = (sin A) / (sin B)$，$x_3 = A/B$，则（本题角度采用
         $ phi(t) > phi(0) = 0 implies tan t > t quad (t < tan t). $
         因此 $t - tan t < 0$，从而 $t cos t - sin t < 0$ 严格成立。 \
         #v(2pt)
-        *【方法二：几何切线直观】* \
-        在单位圆第一象限中，角 $t$ 对应的圆弧长为 $t$，而过切点的切线线段长为 $tan t$。由几何关系显然有 $t < tan t$。
+        *【方法二：原点切线与下凸直观】* \
+        考虑函数 $y = tan t$：对其求导得 $y' = sec^2 t$。 \
+        在原点 $t = 0$ 处，切线斜率为 $k = sec^2 0 = 1$。由于切线过原点 $(0, 0)$，因此直线 $y = t$ 恰好是曲线 $y = tan t$ 在原点处的切线。 \
+        又当 $t in (0, pi/2)$ 时，导数 $sec^2 t > 1$ 随 $t$ 单调递增（$y'' = 2 sec^2 t tan t > 0$，曲线严格下凸），故曲线 $y = tan t$ 在切点右侧始终严格位于切线 $y = t$ 的上方，即恒有 $tan t > t$（$t < tan t$）。
       ],
       [
         #fcap(
-          scale: 1.8,
-          yscale: 0.72,
-          caption: [$t in (0, pi/2)$ 时 $y = tan t$ 恒在 $y = t$ 上方],
+          scale: 1.6,
+          yscale: 0.65,
+          caption: [$y = t$ 为原点切线，$y = tan t$ 严格下凸居其上方],
           {
             let ftan = u => calc.tan(u)
             let fline = u => u
@@ -123,8 +125,10 @@ $x_1 = a/b$，$x_2 = (sin A) / (sin B)$，$x_3 = A/B$，则（本题角度采用
   ]
 )
 
+#v(2pt)
 #fcap(
-  scale: 0.95,
+  scale: 0.85,
+  yscale: 0.60,
   caption: [第 8 题  $x_1 = x_2 < x_3$，而 $g(x) = f(x)/e^x$ 在 $(0, +oo)$ 递减，故 $g(x_1) = g(x_2) > g(x_3)$],
   {
     let gy = u => 3.5 * calc.exp(0.42 * (1.2 - u))
