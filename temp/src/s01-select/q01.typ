@@ -23,31 +23,31 @@
 #ans[$F(1, 0)$，选 #text(weight: "bold")[B]]
 
 #fcap(
-  scale: 0.95,
+  // 图放大以充分利用正文宽度 (正文宽约 16.9cm)
+  scale: 1.5,
   caption: [第 1 题　$2p = 4 ⟹ p = 2$，焦点 $F(1, 0)$，准线 $x = -1$],
   {
-    // 高度 (y 轴范围) 不变; x 轴负半轴不变, 正半轴上限加长
+    // 高度 (y 轴范围) 不变; 宽度加大 — x 轴负半轴仍取 -2.9,
+    // 正半轴上限约为负半轴的 3 倍, 充分利用左右空白。
     let ytop = 3.1
     // y^2 = 4x 即 x = y^2/4, 参数 t: (t^2/4, t)
-    // t 取 ±2.8 -> 曲线右端 x ≈ 1.96, 明显越过焦点 F(1,0);
-    // 须小于 ytop, 否则曲线会顶到 y 轴箭头。
-    param(t => (t * t / 4, t), -2.8, 2.8, stroke: s(blue, th: 1.2pt))
-    // 准线 x = -1
+    // t 取 ±3.0 -> 曲线右端 x = 9/4 ≈ 2.25, 远超焦点 F(1,0);
+    // 须略小于 ytop, 否则曲线会顶到 y 轴箭头。
+    param(t => (t * t / 4, t), -3.0, 3.0, stroke: s(blue, th: 1.2pt))
+    // 准线 x = -1 (只画 ytop 内, 不顶到箭头)
     dashed((-1.0, -ytop * 0.86), (-1.0, ytop * 0.86))
-    txt((-1.0, ytop * 0.86), anchor: "south", dy: 0.04, [准线 $x=-1$])
-    axes(-2.9, 4.2, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.22)
-    // 准线 x = -1
-    dashed((-1.0, -ytop * 0.86), (-1.0, ytop * 0.86))
-    txt((-1.0, ytop * 0.86), anchor: "south", dy: 0.04, [准线 $x=-1$])
-    axes(-2.9, 4.2, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.22)
+    txt((-1.0, ytop * 0.86), anchor: "south", dy: 0.04, tsize: 0.22, [准线 $x=-1$])
+    // x 轴: 负半轴 -2.9, 正半轴 +8.6 (约 3 倍)
+    // tsize 不随 scale 缩放, 故按 scale=1.5 同步放大约 1.5 倍
+    axes(-2.9, 8.6, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.22, tsize: 0.24)
     // 焦点与顶点
-    pt((1.0, 0.0), label: [$F(1,0)$], r: 0.06, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west")
+    pt((1.0, 0.0), label: [$F(1,0)$], r: 0.06, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west", tsize: 0.22)
     pt((0.0, 0.0), r: 0.05, fill: black)
-    txt((0.0, 0.0), anchor: "south-east", dx: -0.06, dy: -0.06, [$O$])
+    txt((0.0, 0.0), anchor: "south-east", dx: -0.06, dy: -0.06, tsize: 0.22, [$O$])
     // 标出顶点到焦点的距离 p/2 = 1 (画在 x 轴下方, 避开曲线)
     ln((0.0, -0.62), (1.0, -0.62), stroke: s(gray, th: 0.5pt))
     ln((0.0, -0.72), (0.0, -0.52), stroke: s(gray, th: 0.5pt))
     ln((1.0, -0.72), (1.0, -0.52), stroke: s(gray, th: 0.5pt))
-    txt((0.5, -0.62), anchor: "north", dy: -0.05, [$p/2 = 1$])
+    txt((0.5, -0.62), anchor: "north", dy: -0.05, tsize: 0.22, [$p/2 = 1$])
   },
 )
