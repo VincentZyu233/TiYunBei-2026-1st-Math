@@ -252,6 +252,19 @@
       color: var(--typst);
       border: 1px solid rgba(35, 157, 173, 0.25);
     }
+    .badge-link {
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .badge-link:hover {
+      transform: translateY(-1.5px) scale(1.02);
+      box-shadow: 0 3px 8px rgba(35, 157, 173, 0.25);
+      border-color: var(--typst);
+    }
+    .badge-link:active {
+      transform: translateY(0) scale(0.97);
+    }
     .badge-python {
       background: var(--python-light);
       color: var(--python);
@@ -690,7 +703,7 @@
         <div class="brand-meta">
           <span class="badge badge-author badge-tier" id="badgeTier" title="点击复制出题人 提尔 QQ: 1210183458" data-qq="1210183458"><span class="role-tag">出题人</span>提尔sSwar</span>
           <span class="badge badge-author badge-zyu" id="badgeZyu" title="点击复制写题人 VincentZyu QQ: 1830540513" data-qq="1830540513"><span class="role-tag">写题人</span>VincentZyu</span>
-          <span class="badge badge-typst">Typst 矢量</span>
+          <a class="badge badge-typst badge-link" href="https://typst.app/" target="_blank" rel="noopener noreferrer" title="访问 Typst 科学排版引擎官网 (新标签页打开)">Typst 矢量 ↗</a>
           <span class="badge badge-python badge-sub">Python 管线</span>
           <span class="badge badge-vector badge-sub">333 DPI</span>
         </div>
