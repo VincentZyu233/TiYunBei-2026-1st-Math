@@ -38,8 +38,8 @@
     // 准线 x = -1 (只画 ytop 内, 不顶到箭头)
     dashed((-1.0, -ytop * 0.88), (-1.0, ytop * 0.88))
     txt((-1.0, ytop * 0.88), anchor: "south", dy: 0.04, tsize: 0.24, [准线 $x=-1$])
-    // x 轴: 负半轴左界 -2.4, 正半轴 7.6
-    axes(-2.4, 7.6, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.24, tsize: 0.26)
+    // x 轴: 负半轴左界 -2.4 不变, 正半轴上限 7.6 -> 6.6 (箭头与 x 标签随之内移)
+    axes(-2.4, 6.6, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.24, tsize: 0.26)
     // 焦点与顶点
     pt((1.0, 0.0), label: [$F(1,0)$], r: 0.06, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west", tsize: 0.24)
     pt((0.0, 0.0), r: 0.05, fill: black)
