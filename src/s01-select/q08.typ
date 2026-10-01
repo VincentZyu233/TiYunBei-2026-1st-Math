@@ -56,12 +56,35 @@ $x_1 = a/b$，$x_2 = (sin A) / (sin B)$，$x_3 = A/B$，则（本题角度采用
 ]
 #ans[$f(x_1)/e^(x_1) = f(x_2)/e^(x_2) > f(x_3)/e^(x_3)$，选 #text(weight: "bold")[B]]
 
-#v(4pt)
+#v(2pt)
+#fcap(
+  scale: 0.85,
+  yscale: 0.58,
+  caption: [第 8 题  $x_1 = x_2 < x_3$，而 $g(x) = f(x)/e^x$ 在 $(0, +oo)$ 递减，故 $g(x_1) = g(x_2) > g(x_3)$],
+  {
+    let gy = u => 3.5 * calc.exp(0.42 * (1.2 - u))
+    plot(gy, 0.02, 4.7, stroke: s(blue, th: 1.3pt))
+    axes(-0.2, 5.0, -0.4, 4.4, xl: [$x$], yl: [$g$], tsize: 0.28)
+    txt((-0.18, -0.22), tsize: 0.24, weight: "bold", [$O$])
+
+    pt((1.1, gy(1.1)), r: 0.07, fill: red)
+    ln((1.1, 0.0), (1.1, gy(1.1)), stroke: sd(red, th: 0.6pt))
+    txt((1.1, gy(1.1)), anchor: "south-west", dx: 0.04, dy: 0.08, tsize: 0.27, [$g(x_1)=g(x_2)$])
+    txt((1.1, 0.0), anchor: "north", dy: -0.09, tsize: 0.27, [$x_1 = x_2$])
+
+    pt((3.3, gy(3.3)), r: 0.07, fill: green)
+    ln((3.3, 0.0), (3.3, gy(3.3)), stroke: sd(green, th: 0.6pt))
+    txt((3.3, gy(3.3)), anchor: "south-west", dx: 0.04, dy: 0.08, tsize: 0.27, [$g(x_3)$])
+    txt((3.3, 0.0), anchor: "north", dy: -0.09, tsize: 0.27, [$x_3$])
+  },
+)
+
+#v(3pt)
 #block(
   breakable: false,
   stroke: 0.8pt + rgb("#2a6f97"),
   radius: 6pt,
-  inset: (x: 10pt, y: 9pt),
+  inset: (x: 10pt, y: 8pt),
   fill: rgb("#f4f9fd"),
   [
     #text(weight: "bold", fill: rgb("#1a4d8f"))[💡 深度探究：为什么 $h'(t) < 0$？—— 比较 $t$ 与 $tan t$ 的大小] \
@@ -73,20 +96,18 @@ $x_1 = a/b$，$x_2 = (sin A) / (sin B)$，$x_3 = A/B$，则（本题角度采用
       由于 $cos t > 0$，判断分子正负等价于比较 $t$ 与 $tan t$ 的大小。
 
     #v(2pt)
+    *【方法一：求导严谨证明】* \
+    构造辅助差函数 $phi(t) = tan t - t$（$t in [0, pi/2)$）。对其求导得：$phi'(t) = sec^2 t - 1 = tan^2 t$。 \
+    当 $t in (0, pi/2)$ 时，$tan t > 0$，故 $phi'(t) = tan^2 t > 0$ 恒成立，因此 $phi(t)$ 在 $[0, pi/2)$ 上严格单调递增。 \
+    又 $phi(0) = tan 0 - 0 = 0$，故对任意 $t in (0, pi/2)$ 恒有 $phi(t) > phi(0) = 0 implies tan t > t quad (t < tan t)$。 \
+    因此 $t - tan t < 0$，从而 $t cos t - sin t < 0$ 严格成立。
+
+    #v(2pt)
     #grid(
-      columns: (1.25fr, 1fr),
+      columns: (1.2fr, 1fr),
       gutter: 10pt,
       align: (top + left, top + center),
       [
-        *【方法一：求导严谨证明】* \
-        构造辅助差函数 $phi(t) = tan t - t$（$t in [0, pi/2)$）。 \
-        求导得：
-        $ phi'(t) = sec^2 t - 1 = tan^2 t. $
-        当 $t in (0, pi/2)$ 时，$tan t > 0$，故 $phi'(t) = tan^2 t > 0$ 恒成立，因此 $phi(t)$ 在 $[0, pi/2)$ 上严格单调递增。 \
-        又 $phi(0) = tan 0 - 0 = 0$，故对任意 $t in (0, pi/2)$ 恒有：
-        $ phi(t) > phi(0) = 0 implies tan t > t quad (t < tan t). $
-        因此 $t - tan t < 0$，从而 $t cos t - sin t < 0$ 严格成立。 \
-        #v(2pt)
         *【方法二：原点切线与下凸直观】* \
         考虑函数 $y = tan t$：对其求导得 $y' = sec^2 t$。 \
         在原点 $t = 0$ 处，切线斜率为 $k = sec^2 0 = 1$。由于切线过原点 $(0, 0)$，因此直线 $y = t$ 恰好是曲线 $y = tan t$ 在原点处的切线。 \
@@ -94,8 +115,8 @@ $x_1 = a/b$，$x_2 = (sin A) / (sin B)$，$x_3 = A/B$，则（本题角度采用
       ],
       [
         #fcap(
-          scale: 1.6,
-          yscale: 0.65,
+          scale: 1.5,
+          yscale: 0.60,
           caption: [$y = t$ 为原点切线，$y = tan t$ 严格下凸居其上方],
           {
             let ftan = u => calc.tan(u)
@@ -123,27 +144,4 @@ $x_1 = a/b$，$x_2 = (sin A) / (sin B)$，$x_3 = A/B$，则（本题角度采用
       ],
     )
   ]
-)
-
-#v(2pt)
-#fcap(
-  scale: 0.85,
-  yscale: 0.60,
-  caption: [第 8 题  $x_1 = x_2 < x_3$，而 $g(x) = f(x)/e^x$ 在 $(0, +oo)$ 递减，故 $g(x_1) = g(x_2) > g(x_3)$],
-  {
-    let gy = u => 3.5 * calc.exp(0.42 * (1.2 - u))
-    plot(gy, 0.02, 4.7, stroke: s(blue, th: 1.3pt))
-    axes(-0.2, 5.0, -0.4, 4.4, xl: [$x$], yl: [$g$], tsize: 0.28)
-    txt((-0.18, -0.22), tsize: 0.24, weight: "bold", [$O$])
-
-    pt((1.1, gy(1.1)), r: 0.07, fill: red)
-    ln((1.1, 0.0), (1.1, gy(1.1)), stroke: sd(red, th: 0.6pt))
-    txt((1.1, gy(1.1)), anchor: "south-west", dx: 0.04, dy: 0.08, tsize: 0.27, [$g(x_1)=g(x_2)$])
-    txt((1.1, 0.0), anchor: "north", dy: -0.09, tsize: 0.27, [$x_1 = x_2$])
-
-    pt((3.3, gy(3.3)), r: 0.07, fill: green)
-    ln((3.3, 0.0), (3.3, gy(3.3)), stroke: sd(green, th: 0.6pt))
-    txt((3.3, gy(3.3)), anchor: "south-west", dx: 0.04, dy: 0.08, tsize: 0.27, [$g(x_3)$])
-    txt((3.3, 0.0), anchor: "north", dy: -0.09, tsize: 0.27, [$x_3$])
-  },
 )
