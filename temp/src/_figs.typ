@@ -41,16 +41,27 @@
 )
 
 // ---- 画布 ----
-// scale: 1 个坐标单位对应的物理长度 (cm)。图要放大就调它。
-// pad:   画布四周留白 (cm), 防止标签贴边。
-// vb:    可选外框 (w, h) 单位 cm。
+// scale:  1 个 x 坐标单位对应的物理长度 (cm)。图要放大就调它。
+// yscale: y 坐标单位的物理长度, 默认与 scale 相同 (= 等比坐标系)。
+//         显式给不同值即为【非等比坐标系】, 可把 y 方向压扁或拉长,
+//         常用于让曲线"更扁"而不改定义域。典型: yscale = scale * 0.55
+// pad:    画布四周留白 (cm), 防止标签贴边。
+// vb:     可选外框 (w, h) 单位 cm。
 //
 // 注意: cetz.canvas 按内容 bounding box 定尺寸, 但【不做非等比拉伸】——
 // 坐标比例失真不会让图形变形 (已实测: x/y 比例 4.3:1 时圆仍是圆)。
 // 所以 vb 只影响外框留白, 不是"锁比例"的手段, 多数情况不需要传。
 // 若图形看起来不对, 先查 padding 与标签是否溢出, 而不是加 vb。
-#let cv(scale: 0.8, pad: 0.1, vb: none, body) = {
-  let c = cetz.canvas(length: scale * 1cm, padding: pad * 1cm, body)
+// 注意: 非等比坐标系下"点的位置"会被拉伸, 故点的半径(radius)、
+//       线宽、字号等【长度量】不受影响, 但涉及角度/距离的标注会失真,
+//       使用时须确认图上标注的是坐标值而非几何长度。
+#let cv(scale: 0.8, yscale: 0.0, pad: 0.1, vb: none, body) = {
+  let c = cetz.canvas(
+    length: scale * 1cm,
+    y: if yscale > 0 { yscale / scale } else { 1.0 },
+    padding: pad * 1cm,
+    body,
+  )
   if vb == none {
     c
   } else {
@@ -285,8 +296,9 @@
 
 // ---- 带图题的图 ----
 // vb: 可选外框 (w, h) 单位 cm, 仅影响留白, 详见 cv() 的说明
-#let fcap(body, scale: 0.8, pad: 0.1, vb: none, caption: none) = figure(
-  cv(scale: scale, pad: pad, vb: vb, body),
+// yscale: 非等比坐标系的 y 单位长度, 详见 cv() 的说明
+#let fcap(body, scale: 0.8, yscale: 0.0, pad: 0.1, vb: none, caption: none) = figure(
+  cv(scale: scale, yscale: yscale, pad: pad, vb: vb, body),
   caption: if caption == none { none } else { figcap(caption) },
   gap: 4pt,
 )

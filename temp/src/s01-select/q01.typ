@@ -23,31 +23,32 @@
 #ans[$F(1, 0)$，选 #text(weight: "bold")[B]]
 
 #fcap(
-  // 图放大以充分利用正文宽度 (正文宽约 16.9cm)
-  scale: 1.5,
+  // 图幅贴近正文宽度 (正文宽约 16.9cm)。
+  // yscale < scale: y 方向单位画得更短, 抛物线因此显得更"扁",
+  // 且【不改变定义域】—— 坐标值仍是 x∈[0,3], 只是纵向拉伸系数变了。
+  scale: 1.15,
+  yscale: 0.62,
   caption: [第 1 题　$2p = 4 ⟹ p = 2$，焦点 $F(1, 0)$，准线 $x = -1$],
   {
-    // 高度 (y 轴范围) 不变; 宽度加大 — x 轴负半轴仍取 -2.9,
-    // 正半轴上限约为负半轴的 3 倍, 充分利用左右空白。
-    let ytop = 3.1
+    // 要让抛物线展到 x = 3, 需 |y| = sqrt(12) ≈ 3.46, 故 y 轴取到 ±3.5
+    let ytop = 3.5
     // y^2 = 4x 即 x = y^2/4, 参数 t: (t^2/4, t)
-    // t 取 ±3.0 -> 曲线右端 x = 9/4 ≈ 2.25, 远超焦点 F(1,0);
-    // 须略小于 ytop, 否则曲线会顶到 y 轴箭头。
-    param(t => (t * t / 4, t), -3.0, 3.0, stroke: s(blue, th: 1.2pt))
+    // t = ±sqrt(12) -> 右端 x = 3, 恰为要求的最远点
+    param(t => (t * t / 4, t), -3.46, 3.46, stroke: s(blue, th: 1.2pt))
     // 准线 x = -1 (只画 ytop 内, 不顶到箭头)
-    dashed((-1.0, -ytop * 0.86), (-1.0, ytop * 0.86))
-    txt((-1.0, ytop * 0.86), anchor: "south", dy: 0.04, tsize: 0.22, [准线 $x=-1$])
-    // x 轴: 负半轴 -2.9, 正半轴 +8.6 (约 3 倍)
-    // tsize 不随 scale 缩放, 故按 scale=1.5 同步放大约 1.5 倍
-    axes(-2.9, 8.6, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.22, tsize: 0.24)
+    dashed((-1.0, -ytop * 0.88), (-1.0, ytop * 0.88))
+    txt((-1.0, ytop * 0.88), anchor: "south", dy: 0.04, tsize: 0.24, [准线 $x=-1$])
+    // x 轴: 负半轴左界 -2.4, 正半轴 7.6
+    axes(-2.4, 7.6, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.24, tsize: 0.26)
     // 焦点与顶点
-    pt((1.0, 0.0), label: [$F(1,0)$], r: 0.06, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west", tsize: 0.22)
+    pt((1.0, 0.0), label: [$F(1,0)$], r: 0.06, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west", tsize: 0.24)
     pt((0.0, 0.0), r: 0.05, fill: black)
-    txt((0.0, 0.0), anchor: "south-east", dx: -0.06, dy: -0.06, tsize: 0.22, [$O$])
-    // 标出顶点到焦点的距离 p/2 = 1 (画在 x 轴下方, 避开曲线)
-    ln((0.0, -0.62), (1.0, -0.62), stroke: s(gray, th: 0.5pt))
-    ln((0.0, -0.72), (0.0, -0.52), stroke: s(gray, th: 0.5pt))
-    ln((1.0, -0.72), (1.0, -0.52), stroke: s(gray, th: 0.5pt))
-    txt((0.5, -0.62), anchor: "north", dy: -0.05, tsize: 0.22, [$p/2 = 1$])
+    txt((0.0, 0.0), anchor: "south-east", dx: -0.06, dy: -0.06, tsize: 0.24, [$O$])
+    // 本图为非等比坐标系 (yscale < scale), 图上线段长度不等于坐标值,
+    // 故焦点横坐标直接标在 x 轴上, 不用线段标注, 避免几何失真。
+    dashed((1.0, 0.0), (1.0, -1.15), color: gray, th: 0.5pt)
+    txt((1.0, -1.15), anchor: "north", dy: -0.06, tsize: 0.24, [$x_F = p/2 = 1$])
+    // 抛物线最远点 (x = 3), 明确标出定义域端点
+    pt((3.0, 3.46), label: [$x = 3$], r: 0.055, fill: blue, dx: 0.1, dy: -0.04, anchor: "north-west", tsize: 0.24)
   },
 )
