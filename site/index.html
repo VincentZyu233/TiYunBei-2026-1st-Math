@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>2026 年第一届“提云杯”线上联考 · 数学参考解答 (纯矢量超清展台)</title>
+  <meta name="description" content="2026 年第一届提云杯数学参考解答及全套 333 DPI 纯矢量 SVG 在线交互展台，支持无限平滑缩放、单题聚焦与全卷连续阅读。">
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --panel: #ffffff;
+      --panel-border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --accent: #059669;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #090d16;
+      --panel: #131c2e;
+      --panel-border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --primary-light: #1e293b;
+      --accent: #10b981;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- 顶栏 ---- */
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--panel-border);
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      z-index: 30;
+      flex-shrink: 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+    }
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--panel-border);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--panel-border);
+      background: var(--panel);
+      color: var(--text);
+      transition: all 0.15s ease;
+      text-decoration: none;
+      user-select: none;
+    }
+    .btn:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      color: white;
+    }
+    .btn-icon {
+      padding: 0.45rem;
+      width: 34px;
+      height: 34px;
+    }
+
+    /* ---- 主容器布局 ---- */
+    .app-layout {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 58px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ---- 左侧题号导航侧栏 ---- */
+    aside {
+      width: 310px;
+      background: var(--panel);
+      border-right: 1px solid var(--panel-border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      z-index: 20;
+      transition: transform 0.25s ease;
+    }
+    .aside-header {
+      padding: 1rem 1.1rem 0.6rem;
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .aside-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .view-toggle {
+      display: flex;
+      background: var(--bg);
+      padding: 2px;
+      border-radius: 6px;
+      border: 1px solid var(--panel-border);
+    }
+    .view-toggle-btn {
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .view-toggle-btn.active {
+      background: var(--panel);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem;
+    }
+    .nav-chap-group {
+      margin-bottom: 1.1rem;
+    }
+    .nav-chap-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 0.35rem 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-chap-download {
+      font-size: 0.72rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-chap-download:hover { text-decoration: underline; }
+    .q-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+    }
+    .q-item {
+      padding: 0.55rem 0.2rem;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid var(--panel-border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .q-item:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+    .q-item.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+    }
+    .q-item.special {
+      grid-column: span 4;
+      font-size: 0.8rem;
+      padding: 0.5rem;
+      text-align: left;
+      padding-left: 0.75rem;
+    }
+
+    /* ---- 展台视口 (Panzoom 核心) ---- */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .viewport {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      touch-action: none;
+    }
+    .viewport:active {
+      cursor: grabbing;
+    }
+    .panzoom-layer {
+      position: absolute;
+      transform-origin: 0 0;
+      will-change: transform;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .paper-card {
+      background: #ffffff;
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 2rem;
+      transition: box-shadow 0.2s ease;
+      display: inline-block;
+    }
+    .paper-card svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* 连续滚动视图 */
+    .continuous-scroll-view {
+      display: none;
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem;
+      width: 100%;
+    }
+    .continuous-scroll-view.active {
+      display: block;
+    }
+    .continuous-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .scroll-card {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border: 1px solid var(--panel-border);
+      position: relative;
+    }
+    .scroll-card svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .scroll-card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      color: white;
+      backdrop-filter: blur(4px);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* ---- 浮动控制工具条 (Floating HUD) ---- */
+    .hud-controls {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--panel-border);
+      padding: 6px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-lg);
+      z-index: 25;
+      user-select: none;
+    }
+    [data-theme="dark"] .hud-controls {
+      background: rgba(19, 28, 46, 0.9);
+    }
+    .hud-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .hud-btn:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    .hud-zoom-val {
+      font-size: 0.8rem;
+      font-weight: 700;
+      min-width: 48px;
+      text-align: center;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0 4px;
+    }
+    .hud-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--panel-border);
+    }
+
+    /* 底部上一题/下一题悬浮条 */
+    .nav-bar-bottom {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--panel-border);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-lg);
+      z-index: 25;
+    }
+    [data-theme="dark"] .nav-bar-bottom {
+      background: rgba(19, 28, 46, 0.9);
+    }
+    .nav-info {
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* 移动端汉堡菜单 */
+    .mobile-menu-btn {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: inline-flex; }
+      aside {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        box-shadow: var(--shadow-lg);
+        transform: translateX(-100%);
+      }
+      aside.open {
+        transform: translateX(0);
+      }
+      .brand-title { font-size: 0.92rem; }
+      .brand-badge { display: none; }
+      .hud-controls { bottom: 16px; right: 16px; }
+      .nav-bar-bottom { bottom: 76px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶栏 -->
+  <header>
+    <div class="brand">
+      <button class="btn btn-icon mobile-menu-btn" id="btnToggleAside" title="题号目录">☰</button>
+      <div class="brand-logo">∑</div>
+      <div>
+        <div class="brand-title">提云杯 2026 · 数学参考解答</div>
+      </div>
+      <span class="brand-badge">⚡ 纯矢量 SVG · 无限缩放不失真</span>
+    </div>
+    <div class="header-actions">
+      <a class="btn" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v1.0.0" target="_blank" title="下载全套 333 DPI 离线压缩包">
+        📦 Release 归档
+      </a>
+      <a class="btn" id="btnDownloadSvg" href="#" download="question.svg" title="下载当前题目的矢量 SVG 文件">
+        ⬇ 导出 SVG
+      </a>
+      <button class="btn btn-icon" id="btnToggleTheme" title="切换深色/浅色模式">🌓</button>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <!-- 左侧导航 -->
+    <aside id="asideNav">
+      <div class="aside-header">
+        <span class="aside-title">题号索引 (1—19)</span>
+        <div class="view-toggle">
+          <button class="view-toggle-btn active" id="btnModeSingle">单题缩放</button>
+          <button class="view-toggle-btn" id="btnModeContinuous">全卷连续</button>
+        </div>
+      </div>
+      <div class="nav-content" id="navContainer">
+        <!-- 动态生成章节与题目按钮 -->
+      </div>
+    </aside>
+
+    <!-- 主展示区 -->
+    <main>
+      <!-- 单题 Panzoom 矢量视口 -->
+      <div class="viewport" id="viewport">
+        <div class="panzoom-layer" id="panzoomLayer">
+          <div class="paper-card" id="paperCard">
+            <!-- 动态载入当前 SVG -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 全卷连续滚动视图 -->
+      <div class="continuous-scroll-view" id="continuousScrollView">
+        <div class="continuous-container" id="continuousContainer">
+          <!-- 动态载入所有 SVG -->
+        </div>
+      </div>
+
+      <!-- 底部快捷切换条 (单题模式显示) -->
+      <div class="nav-bar-bottom" id="bottomNav">
+        <button class="btn btn-icon" id="btnPrevQ" title="上一题 (快捷键: ← 或 A)">‹</button>
+        <span class="nav-info" id="currentQTitle">第 1 题</span>
+        <button class="btn btn-icon" id="btnNextQ" title="下一题 (快捷键: → 或 D)">›</button>
+      </div>
+
+      <!-- 浮动缩放控制条 (HUD) -->
+      <div class="hud-controls" id="hudControls">
+        <button class="hud-btn" id="btnZoomOut" title="缩小 (快捷键: -)">−</button>
+        <span class="hud-zoom-val" id="zoomVal" title="点击复位为 100%">100%</span>
+        <button class="hud-btn" id="btnZoomIn" title="放大 (快捷键: +)">+</button>
+        <div class="hud-divider"></div>
+        <button class="hud-btn" id="btnFitWidth" title="适应屏幕宽度">↔</button>
+        <button class="hud-btn" id="btnResetZoom" title="居中复位 (快捷键: 0)">↺</button>
+        <button class="hud-btn" id="btnFullscreen" title="全屏显示">⛶</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ============================================================
+    //  现代纯原生 Panzoom 缩放平移引擎 (无任何外部库依赖)
+    // ============================================================
+    class PanzoomEngine {
+      constructor(viewportEl, layerEl, onChange) {
+        this.viewport = viewportEl;
+        this.layer = layerEl;
+        this.onChange = onChange;
+
+        this.scale = 1.0;
+        this.minScale = 0.2;
+        this.maxScale = 20.0; // 支持高达 2000% 极速无损放大
+        this.x = 0;
+        this.y = 0;
+
+        this.isDragging = false;
+        this.startX = 0;
+        this.startY = 0;
+
+        this.initEvents();
+      }
+
+      applyTransform() {
+        this.layer.style.transform = `translate(${this.x}px, ${this.y}px) scale(${this.scale})`;
+        if (this.onChange) this.onChange(this.scale);
+      }
+
+      zoomAt(factor, clientX, clientY) {
+        const rect = this.viewport.getBoundingClientRect();
+        const pivotX = clientX - rect.left;
+        const pivotY = clientY - rect.top;
+
+        const newScale = Math.min(Math.max(this.scale * factor, this.minScale), this.maxScale);
+        if (newScale === this.scale) return;
+
+        // 以鼠标指针为中心进行等比缩放
+        const ratio = newScale / this.scale;
+        this.x = pivotX - (pivotX - this.x) * ratio;
+        this.y = pivotY - (pivotY - this.y) * ratio;
+        this.scale = newScale;
+
+        this.applyTransform();
+      }
+
+      reset(targetScale = 1.0) {
+        const vpRect = this.viewport.getBoundingClientRect();
+        const card = this.layer.firstElementChild;
+        if (!card) return;
+
+        const cardW = card.offsetWidth || 800;
+        const cardH = card.offsetHeight || 600;
+
+        this.scale = targetScale;
+        this.x = (vpRect.width - cardW * this.scale) / 2;
+        this.y = (vpRect.height - cardH * this.scale) / 2;
+
+        // 如果高度超出，上对齐并留点间距
+        if (cardH * this.scale > vpRect.height) {
+          this.y = 20;
+        }
+
+        this.applyTransform();
+      }
+
+      fitWidth() {
+        const vpRect = this.viewport.getBoundingClientRect();
+        const card = this.layer.firstElementChild;
+        if (!card) return;
+
+        const cardW = card.offsetWidth || 800;
+        const padding = 40;
+        const targetScale = Math.min(Math.max((vpRect.width - padding) / cardW, 0.4), 2.5);
+
+        this.scale = targetScale;
+        this.x = (vpRect.width - cardW * this.scale) / 2;
+        this.y = 24;
+        this.applyTransform();
+      }
+
+      initEvents() {
+        // 鼠标滚轮缩放
+        this.viewport.addEventListener("wheel", (e) => {
+          e.preventDefault();
+          const zoomFactor = e.deltaY < 0 ? 1.15 : 0.87;
+          this.zoomAt(zoomFactor, e.clientX, e.clientY);
+        }, { passive: false });
+
+        // 鼠标拖拽平移
+        this.viewport.addEventListener("mousedown", (e) => {
+          if (e.button !== 0) return;
+          this.isDragging = true;
+          this.startX = e.clientX - this.x;
+          this.startY = e.clientY - this.y;
+        });
+
+        window.addEventListener("mousemove", (e) => {
+          if (!this.isDragging) return;
+          this.x = e.clientX - this.startX;
+          this.y = e.clientY - this.startY;
+          this.applyTransform();
+        });
+
+        window.addEventListener("mouseup", () => {
+          this.isDragging = false;
+        });
+
+        // 双击放大/复位
+        this.viewport.addEventListener("dblclick", (e) => {
+          if (this.scale > 1.8) {
+            this.fitWidth();
+          } else {
+            this.zoomAt(1.8, e.clientX, e.clientY);
+          }
+        });
+
+        // 移动端双指手势缩放 (Pinch-to-zoom)
+        let initialDistance = 0;
+        let initialScale = 1.0;
+        let initialCenterX = 0;
+        let initialCenterY = 0;
+
+        this.viewport.addEventListener("touchstart", (e) => {
+          if (e.touches.length === 1) {
+            this.isDragging = true;
+            this.startX = e.touches[0].clientX - this.x;
+            this.startY = e.touches[0].clientY - this.y;
+          } else if (e.touches.length === 2) {
+            this.isDragging = false;
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            initialDistance = Math.hypot(dx, dy);
+            initialScale = this.scale;
+            initialCenterX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+            initialCenterY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+          }
+        }, { passive: false });
+
+        this.viewport.addEventListener("touchmove", (e) => {
+          if (e.touches.length === 1 && this.isDragging) {
+            e.preventDefault();
+            this.x = e.touches[0].clientX - this.startX;
+            this.y = e.touches[0].clientY - this.startY;
+            this.applyTransform();
+          } else if (e.touches.length === 2 && initialDistance > 0) {
+            e.preventDefault();
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const currentDist = Math.hypot(dx, dy);
+            const factor = currentDist / initialDistance;
+            const targetScale = Math.min(Math.max(initialScale * factor, this.minScale), this.maxScale);
+
+            const ratio = targetScale / this.scale;
+            const rect = this.viewport.getBoundingClientRect();
+            const pivotX = initialCenterX - rect.left;
+            const pivotY = initialCenterY - rect.top;
+
+            this.x = pivotX - (pivotX - this.x) * ratio;
+            this.y = pivotY - (pivotY - this.y) * ratio;
+            this.scale = targetScale;
+            this.applyTransform();
+          }
+        }, { passive: false });
+
+        this.viewport.addEventListener("touchend", () => {
+          this.isDragging = false;
+          initialDistance = 0;
+        });
+      }
+    }
+
+    // ============================================================
+    //  应用状态与业务逻辑
+    // ============================================================
+    const state = {
+      manifest: null,
+      currentQuestionId: "q01",
+      allQuestions: [],
+      mode: "single", // "single" | "continuous"
+      svgCache: new Map(),
+    };
+
+    let pz = null;
+
+    // 初始化
+    async function init() {
+      try {
+        const res = await fetch("manifest.json");
+        state.manifest = await res.json();
+        
+        // 展平所有题目方便前后翻页
+        state.allQuestions = [];
+        state.manifest.chapters.forEach(ch => {
+          ch.questions.forEach(q => {
+            state.allQuestions.push({ ...q, chapterId: ch.id, chapterTitle: ch.title });
+          });
+        });
+
+        renderNav();
+        setupEvents();
+
+        // 默认载入第一题
+        await loadQuestion(state.allQuestions[0].id);
+
+        pz = new PanzoomEngine(
+          document.getElementById("viewport"),
+          document.getElementById("panzoomLayer"),
+          (scale) => {
+            document.getElementById("zoomVal").textContent = Math.round(scale * 100) + "%";
+          }
+        );
+
+        // 首次加载适应宽度
+        setTimeout(() => pz.fitWidth(), 100);
+
+      } catch (err) {
+        console.error("加载清单失败:", err);
+      }
+    }
+
+    // 渲染左侧导航目录
+    function renderNav() {
+      const container = document.getElementById("navContainer");
+      container.innerHTML = "";
+
+      state.manifest.chapters.forEach(ch => {
+        const group = document.createElement("div");
+        group.className = "nav-chap-group";
+
+        const header = document.createElement("div");
+        header.className = "nav-chap-title";
+        header.innerHTML = `
+          <span>${ch.label}</span>
+          <a class="nav-chap-download" href="${ch.pdf}" target="_blank" title="下载该大题 PDF">PDF ↗</a>
+        `;
+        group.appendChild(header);
+
+        const grid = document.createElement("div");
+        grid.className = "q-grid";
+
+        ch.questions.forEach(q => {
+          const btn = document.createElement("button");
+          const isSpecial = q.id.includes("bonus");
+          btn.className = `q-item ${isSpecial ? "special" : ""}`;
+          btn.dataset.qid = q.id;
+          btn.textContent = isSpecial ? "💡 探究思考题" : q.id.replace("q", "");
+          btn.title = q.title;
+
+          btn.addEventListener("click", () => {
+            if (state.mode === "single") {
+              loadQuestion(q.id).then(() => {
+                pz.fitWidth();
+              });
+            } else {
+              const targetCard = document.getElementById(`scroll-${q.id}`);
+              if (targetCard) targetCard.scrollIntoView({ behavior: "smooth" });
+            }
+            // 移动端点击后自动收起菜单
+            document.getElementById("asideNav").classList.remove("open");
+          });
+
+          grid.appendChild(btn);
+        });
+
+        group.appendChild(grid);
+        container.appendChild(group);
+      });
+    }
+
+    // 加载单题 SVG
+    async function loadQuestion(qid) {
+      const q = state.allQuestions.find(item => item.id === qid);
+      if (!q) return;
+
+      state.currentQuestionId = qid;
+      document.getElementById("currentQTitle").textContent = q.title;
+      document.getElementById("btnDownloadSvg").href = q.svg;
+      document.getElementById("btnDownloadSvg").download = `提云杯-2026-${qid}.svg`;
+
+      // 高亮左侧激活状态
+      document.querySelectorAll(".q-item").forEach(el => {
+        el.classList.toggle("active", el.dataset.qid === qid);
+      });
+
+      const paperCard = document.getElementById("paperCard");
+
+      // 缓存读取或网络拉取
+      if (state.svgCache.has(q.svg)) {
+        paperCard.innerHTML = state.svgCache.get(q.svg);
+      } else {
+        const svgRes = await fetch(q.svg);
+        const svgText = await svgRes.text();
+        state.svgCache.set(q.svg, svgText);
+        paperCard.innerHTML = svgText;
+      }
+    }
+
+    // 加载连续视图
+    async function loadContinuousView() {
+      const container = document.getElementById("continuousContainer");
+      if (container.children.length > 0) return; // 已经渲染过
+
+      for (const q of state.allQuestions) {
+        const card = document.createElement("div");
+        card.className = "scroll-card";
+        card.id = `scroll-${q.id}`;
+
+        const badge = document.createElement("div");
+        badge.className = "scroll-card-badge";
+        badge.textContent = q.title;
+        card.appendChild(badge);
+
+        const svgRes = await fetch(q.svg);
+        const svgText = await svgRes.text();
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = svgText;
+        card.appendChild(wrapper);
+
+        container.appendChild(card);
+      }
+    }
+
+    // 事件绑定
+    function setupEvents() {
+      // 放大 / 缩小 / 适应宽度 / 复位
+      document.getElementById("btnZoomIn").addEventListener("click", () => {
+        const rect = document.getElementById("viewport").getBoundingClientRect();
+        pz.zoomAt(1.25, rect.left + rect.width / 2, rect.top + rect.height / 2);
+      });
+      document.getElementById("btnZoomOut").addEventListener("click", () => {
+        const rect = document.getElementById("viewport").getBoundingClientRect();
+        pz.zoomAt(0.8, rect.left + rect.width / 2, rect.top + rect.height / 2);
+      });
+      document.getElementById("btnFitWidth").addEventListener("click", () => pz.fitWidth());
+      document.getElementById("btnResetZoom").addEventListener("click", () => pz.fitWidth());
+      document.getElementById("zoomVal").addEventListener("click", () => pz.reset(1.0));
+
+      // 上一题 / 下一题
+      function stepQuestion(delta) {
+        const idx = state.allQuestions.findIndex(q => q.id === state.currentQuestionId);
+        if (idx === -1) return;
+        const nextIdx = idx + delta;
+        if (nextIdx >= 0 && nextIdx < state.allQuestions.length) {
+          loadQuestion(state.allQuestions[nextIdx].id).then(() => pz.fitWidth());
+        }
+      }
+
+      document.getElementById("btnPrevQ").addEventListener("click", () => stepQuestion(-1));
+      document.getElementById("btnNextQ").addEventListener("click", () => stepQuestion(1));
+
+      // 键盘快捷键 (左右箭头切换题号，加减号缩放)
+      window.addEventListener("keydown", (e) => {
+        if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+        if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
+          stepQuestion(-1);
+        } else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
+          stepQuestion(1);
+        } else if (e.key === "+" || e.key === "=") {
+          const rect = document.getElementById("viewport").getBoundingClientRect();
+          pz.zoomAt(1.2, rect.left + rect.width / 2, rect.top + rect.height / 2);
+        } else if (e.key === "-") {
+          const rect = document.getElementById("viewport").getBoundingClientRect();
+          pz.zoomAt(0.8, rect.left + rect.width / 2, rect.top + rect.height / 2);
+        } else if (e.key === "0") {
+          pz.fitWidth();
+        }
+      });
+
+      // 模式切换: 单题缩放 vs 全卷连续
+      const btnModeSingle = document.getElementById("btnModeSingle");
+      const btnModeContinuous = document.getElementById("btnModeContinuous");
+      const viewport = document.getElementById("viewport");
+      const continuousView = document.getElementById("continuousScrollView");
+      const bottomNav = document.getElementById("bottomNav");
+      const hudControls = document.getElementById("hudControls");
+
+      btnModeSingle.addEventListener("click", () => {
+        btnModeSingle.classList.add("active");
+        btnModeContinuous.classList.remove("active");
+        viewport.style.display = "flex";
+        continuousView.classList.remove("active");
+        bottomNav.style.display = "flex";
+        hudControls.style.display = "flex";
+        state.mode = "single";
+      });
+
+      btnModeContinuous.addEventListener("click", async () => {
+        btnModeContinuous.classList.add("active");
+        btnModeSingle.classList.remove("active");
+        viewport.style.display = "none";
+        continuousView.classList.add("active");
+        bottomNav.style.display = "none";
+        hudControls.style.display = "none";
+        state.mode = "continuous";
+        await loadContinuousView();
+      });
+
+      // 全屏切换
+      document.getElementById("btnFullscreen").addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+
+      // 主题切换
+      const btnTheme = document.getElementById("btnToggleTheme");
+      btnTheme.addEventListener("click", () => {
+        const isDark = document.body.getAttribute("data-theme") === "dark";
+        document.body.setAttribute("data-theme", isDark ? "light" : "dark");
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+      });
+
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        document.body.setAttribute("data-theme", savedTheme);
+      } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.body.setAttribute("data-theme", "dark");
+      }
+
+      // 移动端侧栏折叠
+      document.getElementById("btnToggleAside").addEventListener("click", () => {
+        document.getElementById("asideNav").classList.toggle("open");
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+{
+  "title": "2026 年第一届“提云杯”线上联考 · 数学参考解答",
+  "author": "VincentZyu",
+  "build_time": "2026-10-02 02:10:06",
+  "chapters": [
+    {
+      "id": "s01-select",
+      "title": "一、选择题（第 1—8 题，每小题 5 分，共 40 分）",
+      "label": "一、选择题 (1-8)",
+      "pdf": "pdf/s01-select.pdf",
+      "questions": [
+        {
+          "id": "q01",
+          "title": "第 1 题",
+          "svg": "svg/q01.svg",
+          "size_kb": 226.2
+        },
+        {
+          "id": "q02",
+          "title": "第 2 题",
+          "svg": "svg/q02.svg",
+          "size_kb": 252.6
+        },
+        {
+          "id": "q03",
+          "title": "第 3 题",
+          "svg": "svg/q03.svg",
+          "size_kb": 252.8
+        },
+        {
+          "id": "q04",
+          "title": "第 4 题",
+          "svg": "svg/q04.svg",
+          "size_kb": 162.0
+        },
+        {
+          "id": "q05",
+          "title": "第 5 题",
+          "svg": "svg/q05.svg",
+          "size_kb": 267.5
+        },
+        {
+          "id": "q06",
+          "title": "第 6 题",
+          "svg": "svg/q06.svg",
+          "size_kb": 333.8
+        },
+        {
+          "id": "q07",
+          "title": "第 7 题",
+          "svg": "svg/q07.svg",
+          "size_kb": 835.7
+        },
+        {
+          "id": "q08",
+          "title": "第 8 题",
+          "svg": "svg/q08.svg",
+          "size_kb": 578.1
+        }
+      ]
+    },
+    {
+      "id": "s02-multi",
+      "title": "二、选择题（第 9—11 题，每小题 6 分，共 18 分）",
+      "label": "二、选择题 (9-11, 多选)",
+      "pdf": "pdf/s02-multi.pdf",
+      "questions": [
+        {
+          "id": "q09",
+          "title": "第 9 题",
+          "svg": "svg/q09.svg",
+          "size_kb": 460.6
+        },
+        {
+          "id": "q10",
+          "title": "第 10 题",
+          "svg": "svg/q10.svg",
+          "size_kb": 781.6
+        },
+        {
+          "id": "q11",
+          "title": "第 11 题",
+          "svg": "svg/q11.svg",
+          "size_kb": 1486.6
+        }
+      ]
+    },
+    {
+      "id": "s03-fill",
+      "title": "三、填空题（第 12—14 题，每小题 5 分，共 15 分）",
+      "label": "三、填空题 (12-14)",
+      "pdf": "pdf/s03-fill.pdf",
+      "questions": [
+        {
+          "id": "q12",
+          "title": "第 12 题",
+          "svg": "svg/q12.svg",
+          "size_kb": 838.6
+        },
+        {
+          "id": "q13",
+          "title": "第 13 题",
+          "svg": "svg/q13.svg",
+          "size_kb": 627.3
+        },
+        {
+          "id": "q14",
+          "title": "第 14 题",
+          "svg": "svg/q14.svg",
+          "size_kb": 642.2
+        },
+        {
+          "id": "q14_bonus",
+          "title": "第 14 题 思考题 · 反比例切线构图深入探究",
+          "svg": "svg/q14_bonus.svg",
+          "size_kb": 2132.5
+        }
+      ]
+    },
+    {
+      "id": "s04-solve",
+      "title": "四、解答题（第 15—19 题，共 77 分）",
+      "label": "四、解答题 (15-19)",
+      "pdf": "pdf/s04-solve.pdf",
+      "questions": [
+        {
+          "id": "q15",
+          "title": "第 15 题",
+          "svg": "svg/q15.svg",
+          "size_kb": 1186.3
+        },
+        {
+          "id": "q16",
+          "title": "第 16 题",
+          "svg": "svg/q16.svg",
+          "size_kb": 1306.6
+        },
+        {
+          "id": "q17",
+          "title": "第 17 题",
+          "svg": "svg/q17.svg",
+          "size_kb": 1568.0
+        },
+        {
+          "id": "q18",
+          "title": "第 18 题",
+          "svg": "svg/q18.svg",
+          "size_kb": 2114.5
+        },
+        {
+          "id": "q19",
+          "title": "第 19 题",
+          "svg": "svg/q19.svg",
+          "size_kb": 1613.0
+        }
+      ]
+    }
+  ]
+}
