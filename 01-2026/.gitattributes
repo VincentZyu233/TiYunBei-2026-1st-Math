@@ -1,0 +1,24 @@
+# 默认按文本自动处理
+* text=auto
+
+# ---- 源码 ----
+*.py           text diff=python
+*.typ          text eol=lf
+*.md           text eol=lf
+*.txt          text eol=lf
+*.gitignore    text eol=lf
+*.gitattributes text eol=lf
+
+# ---- 文本型资源 ----
+*.svg          text eol=lf
+
+# ---- 二进制资源 ----
+*.pdf    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.ttf    binary
+*.otf    binary
+*.ttc    binary
+*.woff   binary
+*.woff2  binary

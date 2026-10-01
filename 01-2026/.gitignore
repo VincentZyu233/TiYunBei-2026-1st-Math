@@ -1,0 +1,57 @@
+# ============================================================
+#  2026 提云杯 数学 —— 参考解答
+#
+#  说明: temp/ 目前整体纳入版本追踪 (源码 + 产物), 作为进度备份。
+#        题面 PDF 体积大且属外部资料, 不入库。
+#  gitignore 内以 "/" 结尾的规则只对目录生效,
+#  git 不会因为文件被 ignore 就跳过它所在目录, 因此逐项列出。
+# ============================================================
+
+# ---- 不入库: 体积大 / 临时产物 ----
+
+# 字体 (145MB, 由 sync_fonts.py 从本机 X:\字体 同步)
+temp/fonts/
+
+# 编译中间产物 (shoot_figs.py 用完即删)
+temp/build/
+
+# 源码拆分前的备份
+temp/bak/
+
+# 参考截图
+temp/screenshot/
+
+# 题面 PDF (外部资料, 420KB)
+problem/
+
+# ---- 个人本地配置 (会搬到仓库根目录, 但不入库) ----
+AGENTS.local.md
+AGENTS.local.*.md
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- LaTeX 中间产物 ----
+*.aux
+*.log
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.toc
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+*.swp
+*~
+Thumbs.db
+desktop.ini
+.DS_Store
