@@ -421,9 +421,6 @@
       overflow: hidden;
       position: relative;
       cursor: grab;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       user-select: none;
       touch-action: none;
       background-image: radial-gradient(var(--panel-border) 1px, transparent 1px);
@@ -434,18 +431,17 @@
     }
     .panzoom-layer {
       position: absolute;
+      top: 0;
+      left: 0;
       transform-origin: 0 0;
       will-change: transform;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
     .paper-card {
       background: #ffffff;
       box-shadow: var(--shadow-lg), 0 0 0 1px rgba(125, 102, 136, 0.08);
       border-radius: 10px;
       overflow: hidden;
-      margin: 2.5rem;
+      margin: 0;
       transition: box-shadow 0.2s ease;
       display: inline-block;
     }
@@ -747,12 +743,10 @@
         const cardH = card.offsetHeight || 600;
 
         this.scale = targetScale;
-        this.x = (vpRect.width - cardW * this.scale) / 2;
-        this.y = (vpRect.height - cardH * this.scale) / 2;
-
-        if (cardH * this.scale > vpRect.height) {
-          this.y = 20;
-        }
+        const availableX = vpRect.width - cardW * this.scale;
+        // 纸张左上角靠左对齐 (左移更多)，顶部轻量留白 12px (上移)
+        this.x = availableX > 32 ? Math.min(24, Math.max(16, availableX * 0.12)) : 16;
+        this.y = 12;
 
         this.applyTransform();
       }
@@ -767,8 +761,10 @@
         const targetScale = Math.min(Math.max((vpRect.width - padding) / cardW, 0.4), 2.8);
 
         this.scale = targetScale;
-        this.x = (vpRect.width - cardW * this.scale) / 2;
-        this.y = 24;
+        const availableX = vpRect.width - cardW * this.scale;
+        // 纸张左上角靠左对齐 (左移更多)，顶部轻量留白 12px (上移)，大小不变
+        this.x = availableX > 32 ? Math.min(24, Math.max(16, availableX * 0.12)) : 16;
+        this.y = 12;
         this.applyTransform();
       }
 
