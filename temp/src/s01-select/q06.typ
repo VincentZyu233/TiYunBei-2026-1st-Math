@@ -31,65 +31,70 @@
 #ans[$V = 8sqrt(2) pi / 3$，选 #text(weight: "bold")[B]]
 
 #fcap(
-  scale: 0.9,
+  scale: 1.05,
   caption: [第 6 题　三棱锥补成长方体：$P A$、$P B$、$P C$ 沿三条坐标轴且两两垂直，等于体对角线的一半],
   {
     // 长方体顶点: P 在原点, A/B/C 落在三坐标轴正方向, M 为体对角顶点
     let p0 = (0.0, 0.0, 0.0)
-    let pa = (2.3, 0.0, 0.0) // A 在 x 轴
-    let pb = (0.0, 1.9, 0.0) // B 在 y 轴
-    let pc = (0.0, 0.0, 1.7) // C 在 z 轴
-    let n = (2.3, 1.9, 0.0) // 底面第四点 A+B
-    let m = (2.3, 1.9, 1.7) // 体对角顶点
-    let u = (2.3, 0.0, 1.7) // A+C
-    let w = (0.0, 1.9, 1.7) // B+C
+    let pa = (2.4, 0.0, 0.0) // A 在 x 轴
+    let pb = (0.0, 2.0, 0.0) // B 在 y 轴
+    let pc = (0.0, 0.0, 1.8) // C 在 z 轴
+    let n = (2.4, 2.0, 0.0)  // 底面第四点 A+B
+    let m = (2.4, 2.0, 1.8)  // 体对角顶点
+    let u = (2.4, 0.0, 1.8)  // A+C
+    let w = (0.0, 2.0, 1.8)  // B+C
 
-    // 三条侧棱 (沿坐标轴, 醒目)
-    ln(proj3(p0), proj3(pa), stroke: s(red, th: 1.4pt))
-    ln(proj3(p0), proj3(pb), stroke: s(blue, th: 1.4pt))
-    ln(proj3(p0), proj3(pc), stroke: s(green, th: 1.4pt))
-
-    // 底面三角形 ABC (可见棱)
-    ln(proj3(pa), proj3(pb), stroke: s(black, th: 1.1pt))
-    ln(proj3(pb), proj3(pc), stroke: s(black, th: 1.1pt))
-    ln(proj3(pc), proj3(pa), stroke: s(black, th: 1.1pt))
-
-    // 长方体其余六条棱 (被遮挡, 虚线)
+    // 1. 底层: 长方体其余六条不可见棱 (灰色虚线)
     for (a, b) in ((pa, n), (pb, n), (pa, u), (pc, u), (pb, w), (pc, w)) {
-      dashed(proj3(a), proj3(b), color: gray, th: 0.7pt)
+      dashed(proj3(a), proj3(b), color: gray, th: 0.75pt)
     }
     // 汇于 M 的三条棱
     for (a, b) in ((n, m), (u, m), (w, m)) {
-      dashed(proj3(a), proj3(b), color: gray, th: 0.7pt)
+      dashed(proj3(a), proj3(b), color: gray, th: 0.75pt)
     }
 
-    // 顶点标注 (tsize 要够大, 否则截图里几乎看不清)
-    let ts = 0.32
-    dot(proj3(p0), radius: 0.07, fill: red, stroke: none)
-    txt(proj3(p0), anchor: "south-east", dx: -0.08, dy: 0.08, tsize: ts, [$P$])
+    // 2. 截面三角形 ABC 轮廓线 (黑色实线)
+    ln(proj3(pa), proj3(pb), stroke: s(black, th: 1.0pt))
+    ln(proj3(pb), proj3(pc), stroke: s(black, th: 1.0pt))
+    ln(proj3(pc), proj3(pa), stroke: s(black, th: 1.0pt))
 
-    dot(proj3(pa), radius: 0.07, fill: black, stroke: none)
-    txt(proj3(pa), anchor: "north-west", dx: 0.06, dy: 0.02, tsize: ts, [$A$])
+    // 3. 空间直角坐标系: x, y, z 轴带箭头延伸线 (黑色)
+    let x_axis_end = (3.5, 0.0, 0.0)
+    let y_axis_end = (0.0, 2.9, 0.0)
+    let z_axis_end = (0.0, 0.0, 2.6)
 
-    dot(proj3(pb), radius: 0.07, fill: black, stroke: none)
-    txt(proj3(pb), anchor: "west", dx: 0.1, tsize: ts, [$B$])
+    ln(proj3(p0), proj3(x_axis_end), stroke: s(black, th: 0.9pt))
+    arrowhead(proj3(x_axis_end), -1.0, 1.0, size: 0.26, filled: true)
+    txt(proj3(x_axis_end), anchor: "south-east", dx: -0.04, dy: -0.1, tsize: 0.28, [text(weight: "bold")[$x$]])
 
-    dot(proj3(pc), radius: 0.07, fill: black, stroke: none)
-    txt(proj3(pc), anchor: "south-east", dx: -0.1, dy: -0.06, tsize: ts, [$C$])
+    ln(proj3(p0), proj3(y_axis_end), stroke: s(black, th: 0.9pt))
+    arrowhead(proj3(y_axis_end), 1.0, 0.0, size: 0.26, filled: true)
+    txt(proj3(y_axis_end), anchor: "north", dy: 0.12, tsize: 0.28, [text(weight: "bold")[$y$]])
+
+    ln(proj3(p0), proj3(z_axis_end), stroke: s(black, th: 0.9pt))
+    arrowhead(proj3(z_axis_end), 0.0, 1.0, size: 0.26, filled: true)
+    txt(proj3(z_axis_end), anchor: "south", dy: 0.14, tsize: 0.28, [text(weight: "bold")[$z$]])
+
+    // 4. 最顶层染色: 三条两两垂直的侧棱 PA(红), PB(蓝), PC(绿) —— 线宽 2.0pt 置于最上层
+    ln(proj3(p0), proj3(pa), stroke: s(red, th: 2.0pt))
+    ln(proj3(p0), proj3(pb), stroke: s(blue, th: 2.0pt))
+    ln(proj3(p0), proj3(pc), stroke: s(green, th: 2.0pt))
+
+    // 5. 顶点标记与圆点 (顶层显示, 避免被线条覆盖)
+    let ts = 0.26
+    dot(proj3(p0), radius: 0.075, fill: black, stroke: none)
+    txt(proj3(p0), anchor: "south-east", dx: -0.10, dy: 0.08, tsize: ts, text(weight: "bold")[$P$])
+
+    dot(proj3(pa), radius: 0.07, fill: red, stroke: none)
+    txt(proj3(pa), anchor: "south-east", dx: -0.10, dy: 0.02, tsize: ts, text(weight: "bold")[$A$])
+
+    dot(proj3(pb), radius: 0.07, fill: blue, stroke: none)
+    txt(proj3(pb), anchor: "north-west", dx: 0.06, dy: -0.08, tsize: ts, text(weight: "bold")[$B$])
+
+    dot(proj3(pc), radius: 0.07, fill: green, stroke: none)
+    txt(proj3(pc), anchor: "east", dx: -0.10, dy: 0.06, tsize: ts, text(weight: "bold")[$C$])
 
     dot(proj3(m), radius: 0.06, fill: gray, stroke: none)
-    txt(proj3(m), anchor: "east", dx: 0.12, tsize: ts * 0.85, [$M$])
-
-    // 坐标轴 (教材标准画法)。箭头要明显超出 PABC 三条棱的端点, 故轴取得更长。
-    axes3(
-      xlen: 5.2,
-      ylen: 4.4,
-      zlen: 4.0,
-      xlab: [$x$],
-      ylab: [$y$],
-      zlab: [$z$],
-      tsize: 0.3,
-      arrow: 0.32,
-    )
+    txt(proj3(m), anchor: "west", dx: 0.10, tsize: ts * 0.9, text(fill: gray)[$M$])
   },
 )

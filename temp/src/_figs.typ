@@ -76,10 +76,21 @@
 #let box2(a, b, ..style) = cetz.draw.rect(a, b, ..style)
 #let seg(a, b, stroke: black + 0.8pt) = cetz.draw.line(a, b, stroke: stroke)
 
-// 文本标签 (tsize 是图上单位数, 实际字号 = tsize * 画布比例)
-#let txt(pos, anchor: "base", dx: 0.0, dy: 0.0, tsize: 0.15, body) = cetz.draw.content(
+// 文本标签
+// tsize: 图上单位数, 实际字号 = tsize * 画布比例。注意 tsize 是绝对值,
+//         不随 fcap(scale:) 缩放 —— 放大图时须同步调大 tsize。
+// weight: "regular" / "bold" / "bold"-ish, 轴名与关键标注建议加粗。
+#let txt(
+  pos,
+  anchor: "base",
+  dx: 0.0,
+  dy: 0.0,
+  tsize: 0.15,
+  weight: "regular",
+  body,
+) = cetz.draw.content(
   (pos.at(0) + dx, pos.at(1) + dy),
-  text(size: tsize * 1cm)[#body],
+  text(size: tsize * 1cm, weight: weight)[#body],
   anchor: anchor,
 )
 
@@ -96,9 +107,12 @@
   dy: 0.0,
   anchor: "base",
   tsize: 0.15,
+  weight: "regular",
 ) = {
   dot(p, radius: r, fill: fill, stroke: none)
-  if label != none { txt(p, anchor: anchor, dx: dx, dy: dy, tsize: tsize, label) }
+  if label != none {
+    txt(p, anchor: anchor, dx: dx, dy: dy, tsize: tsize, weight: weight, label)
+  }
 }
 
 // ============================================================
@@ -177,6 +191,8 @@
   arrow: 0.2,
   tsize: 0.16,
   filled: true,
+  axisweight: "bold",
+  tickweight: "regular",
 ) = {
   // 正半轴画到边界, 箭头再往前伸一点, 保证箭头完整可见
   let ex = (xmax * 1.0 + arrow * 0.9, 0.0)
@@ -187,8 +203,9 @@
   arrowhead(ex, 1.0, 0.0, size: arrow, th: 0.7pt, filled: filled)
   arrowhead(ey, 0.0, 1.0, size: arrow, th: 0.7pt, filled: filled)
 
-  if xl != none { txt(ex, anchor: "west", dx: 0.04, tsize: tsize, xl) }
-  if yl != none { txt(ey, anchor: "south", dy: 0.04, tsize: tsize, yl) }
+  // 轴名默认加粗, 醒目易读
+  if xl != none { txt(ex, anchor: "west", dx: 0.04, tsize: tsize, weight: axisweight, xl) }
+  if yl != none { txt(ey, anchor: "south", dy: 0.04, tsize: tsize, weight: axisweight, yl) }
 }
 
 // ---- 曲线 ----
@@ -255,9 +272,10 @@
   olabel: none,
   arrow: 0.22,
   barbs: 2,
+  filled: true,
+  axisweight: "bold",
 ) = {
   let o = proj3(origin, k: k)
-
 
   let ex = proj3(origin + (xlen, 0.0, 0.0), k: k)
   let ey = proj3(origin + (0.0, ylen, 0.0), k: k)
@@ -267,14 +285,14 @@
   ln(o, ex, stroke: s(black, th: 0.8pt))
   ln(o, ey, stroke: s(black, th: 0.8pt))
   ln(o, ez, stroke: s(black, th: 0.8pt))
-  arrowhead(ex, ex.at(0) - o.at(0), ex.at(1) - o.at(1), size: arrow, barbs: barbs)
-  arrowhead(ey, ey.at(0) - o.at(0), ey.at(1) - o.at(1), size: arrow, barbs: barbs)
-  arrowhead(ez, ez.at(0) - o.at(0), ez.at(1) - o.at(1), size: arrow, barbs: barbs)
+  arrowhead(ex, ex.at(0) - o.at(0), ex.at(1) - o.at(1), size: arrow, barbs: barbs, filled: filled)
+  arrowhead(ey, ey.at(0) - o.at(0), ey.at(1) - o.at(1), size: arrow, barbs: barbs, filled: filled)
+  arrowhead(ez, ez.at(0) - o.at(0), ez.at(1) - o.at(1), size: arrow, barbs: barbs, filled: filled)
 
-  // 轴标签: 贴住箭头尖端
-  txt(ex, anchor: "north-west", dx: -0.12, dy: 0.08, tsize: tsize, xlab)
-  txt(ey, anchor: "north", dy: 0.12, tsize: tsize, ylab)
-  txt(ez, anchor: "north", dy: 0.12, tsize: tsize, zlab)
+  // 轴标签: 贴住箭头尖端, 默认加粗
+  txt(ex, anchor: "north-west", dx: -0.12, dy: 0.08, tsize: tsize, weight: axisweight, xlab)
+  txt(ey, anchor: "north", dy: 0.12, tsize: tsize, weight: axisweight, ylab)
+  txt(ez, anchor: "north", dy: 0.12, tsize: tsize, weight: axisweight, zlab)
 
   // 负半轴 (虚线, 无箭头无标签)
   if xneg {

@@ -64,17 +64,17 @@ $x_1 = a/b$，$x_2 = sin A / sin B$，$x_3 = A/B$，则（本题角度采用弧�
     plot(gy, 0.02, 4.7, stroke: s(blue, th: 1.3pt))
     ln((-0.2, 0.0), (5.0, 0.0), stroke: s(black, th: 0.7pt))
     ln((0.0, -0.4), (0.0, 4.4), stroke: s(black, th: 0.7pt))
-    txt((5.1, 0.0), anchor: "west", dx: 0.05, [$x$])
-    txt((0.0, 4.5), anchor: "south", [$g$])
+    txt((5.1, 0.0), anchor: "west", dx: 0.05, [text(weight: "bold")[$x$]])
+    txt((0.0, 4.5), anchor: "south", [text(weight: "bold")[$g$]])
 
     pt((1.1, gy(1.1)), r: 0.07, fill: red)
     ln((1.1, 0.0), (1.1, gy(1.1)), stroke: sd(red, th: 0.6pt))
-    txt((1.1, gy(1.1)), anchor: "south", dy: 0.1, tsize: 0.145, [$g(x_1)=g(x_2)$])
-    txt((1.1, 0.0), anchor: "north", dy: -0.09, tsize: 0.145, [$x_1 = x_2$])
+    txt((1.1, gy(1.1)), anchor: "south", dy: 0.1, tsize: 0.24, [text(weight: "bold")[$g(x_1)=g(x_2)$]])
+    txt((1.1, 0.0), anchor: "north", dy: -0.09, tsize: 0.24, [text(weight: "bold")[$x_1 = x_2$]])
 
     pt((3.3, gy(3.3)), r: 0.07, fill: green)
     ln((3.3, 0.0), (3.3, gy(3.3)), stroke: sd(green, th: 0.6pt))
-    txt((3.3, gy(3.3)), anchor: "south", dy: 0.1, tsize: 0.145, [$g(x_3)$])
-    txt((3.3, 0.0), anchor: "north", dy: -0.09, tsize: 0.145, [$x_3$])
+    txt((3.3, gy(3.3)), anchor: "south", dy: 0.1, tsize: 0.24, [text(weight: "bold")[$g(x_3)$]])
+    txt((3.3, 0.0), anchor: "north", dy: -0.09, tsize: 0.24, [text(weight: "bold")[$x_3$]])
   },
 )
