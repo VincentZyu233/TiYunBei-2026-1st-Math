@@ -28,17 +28,18 @@
   caption: [第 5 题　$X ~ B(3, 1/2)$，所求为\u{201C}三件全为次品\u{201D}之外的全部情形],
   {
     let ps = (1.0 / 8, 3.0 / 8, 3.0 / 8, 1.0 / 8)
+    let p_strs = ($1/8$, $3/8$, $3/8$, $1/8$)
     ln((0.0, 0.0), (4.7, 0.0), stroke: s(black, th: 0.8pt))
     ln((0.0, 0.0), (0.0, 3.5), stroke: s(black, th: 0.8pt))
-    txt((0.0, 3.6), anchor: "south", [text(weight: "bold")[$P$]])
+    txt((0.0, 3.6), anchor: "south", tsize: 0.28, [$P$])
     for (k, p) in ps.enumerate() {
       let x0 = 0.55 + k * 1.02
       box2((x0, 0.0), (x0 + 0.68, p * 7.0), fill: bluefill, stroke: s(blue, th: 0.7pt))
-      txt((x0 + 0.34, p * 7.0), anchor: "south", dy: 0.05, tsize: 0.24, [text(weight: "bold")[$#repr(p)$]])
-      txt((x0 + 0.34, 0.0), anchor: "north", dy: -0.06, tsize: 0.24, [#str(k)])
+      txt((x0 + 0.34, p * 7.0), anchor: "south", dy: 0.05, tsize: 0.27, p_strs.at(k))
+      txt((x0 + 0.34, 0.0), anchor: "north", dy: -0.06, tsize: 0.27, [#str(k)])
     }
     let x3 = 0.55 + 3.0 * 1.02
     box2((x3, 0.0), (x3 + 0.68, 1.0 / 8 * 7.0), fill: redfill, stroke: s(red, th: 0.9pt))
-    txt((x3 + 0.34, 1.62), anchor: "south", tsize: 0.24, [text(weight: "bold")[$P(X=3)=1/8$]])
+    txt((x3 + 0.34, 1.62), anchor: "south", tsize: 0.27, [$P(X=3)=1/8$])
   },
 )

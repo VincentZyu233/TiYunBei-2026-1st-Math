@@ -37,18 +37,18 @@
     param(t => (t * t / 4, t), -3.46, 3.46, stroke: s(blue, th: 1.2pt))
     // 准线 x = -1 (只画 ytop 内, 不顶到箭头)
     dashed((-1.0, -ytop * 0.88), (-1.0, ytop * 0.88))
-    txt((-1.0, ytop * 0.88), anchor: "south", dy: 0.04, tsize: 0.24, [准线 $x=-1$])
+    txt((-1.0, ytop * 0.88), anchor: "south", dy: 0.04, tsize: 0.28, [准线 $x=-1$])
     // x 轴: 负半轴左界 -2.4 不变, 正半轴上限 7.6 -> 6.6 (箭头与 x 标签随之内移)
-    axes(-2.4, 6.6, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.24, tsize: 0.26)
+    axes(-2.4, 6.6, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.24, tsize: 0.28)
     // 焦点与顶点
-    pt((1.0, 0.0), label: [text(weight: "bold")[$F(1,0)$]], r: 0.06, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west", tsize: 0.24)
-    pt((0.0, 0.0), r: 0.05, fill: black)
-    txt((0.0, 0.0), anchor: "south-east", dx: -0.06, dy: -0.06, tsize: 0.24, [text(weight: "bold")[$O$]])
+    pt((1.0, 0.0), label: [$F(1, 0)$], r: 0.065, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west", tsize: 0.28)
+    pt((0.0, 0.0), r: 0.055, fill: black)
+    txt((0.0, 0.0), anchor: "south-east", dx: -0.06, dy: -0.06, tsize: 0.28, [$O$])
     // 本图为非等比坐标系 (yscale < scale), 图上线段长度不等于坐标值,
     // 故焦点横坐标直接标在 x 轴上, 不用线段标注, 避免几何失真。
     dashed((1.0, 0.0), (1.0, -1.15), color: gray, th: 0.5pt)
-    txt((1.0, -1.15), anchor: "north", dy: -0.06, tsize: 0.24, [text(weight: "bold")[$x_F = p/2 = 1$]])
+    txt((1.0, -1.15), anchor: "north", dy: -0.06, tsize: 0.27, [$x_F = p/2 = 1$])
     // 抛物线最远点 (x = 3), 明确标出定义域端点
-    pt((3.0, 3.46), label: [text(weight: "bold")[$x = 3$]], r: 0.055, fill: blue, dx: 0.1, dy: -0.04, anchor: "north-west", tsize: 0.24)
+    pt((3.0, 3.46), label: [$x = 3$], r: 0.06, fill: blue, dx: 0.1, dy: -0.04, anchor: "north-west", tsize: 0.27)
   },
 )

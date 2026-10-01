@@ -70,24 +70,24 @@
         )
 
         // 原点 (标记与标签加大)
-        pt((0.0, 0.0), label: [text(weight: "bold")[$O$]], r: 0.08, fill: black, dx: -0.22, dy: -0.20, anchor: "north-east", tsize: 0.27)
+        pt((0.0, 0.0), label: [$O$], r: 0.08, fill: black, dx: -0.22, dy: -0.20, anchor: "north-east", tsize: 0.30)
 
         // 零点标注 (-3, 0) 与 (3, 0) 加大红点与字号，置于 x 轴下方
-        pt((-3.0, 0.0), label: [text(weight: "bold")[$-3$]], r: 0.09, fill: red, dx: 0.0, dy: -0.18, anchor: "north", tsize: 0.29)
-        pt((3.0, 0.0), label: [text(weight: "bold")[$3$]], r: 0.09, fill: red, dx: 0.0, dy: -0.18, anchor: "north", tsize: 0.29)
+        pt((-3.0, 0.0), label: [$-3$], r: 0.09, fill: red, dx: 0.0, dy: -0.18, anchor: "north", tsize: 0.32)
+        pt((3.0, 0.0), label: [$3$], r: 0.09, fill: red, dx: 0.0, dy: -0.18, anchor: "north", tsize: 0.32)
 
         // 函数图像曲线标签 (字号加大)
-        txt((3.9, 0.8), anchor: "south", tsize: 0.25, text(fill: blue, weight: "bold")[$y = f(x)$])
-        txt((-3.9, -0.8), anchor: "north", tsize: 0.25, text(fill: blue, weight: "bold")[$y = f(x)$])
+        txt((3.9, 0.8), anchor: "south", tsize: 0.28, text(fill: blue)[$y = f(x)$])
+        txt((-3.9, -0.8), anchor: "north", tsize: 0.28, text(fill: blue)[$y = f(x)$])
 
         // 各区间正负号明确标注 (字号加大，避开曲线与轴线)
 // 左半区 (-3, 3): f > 0
-    txt((-2.2, 1.8), anchor: "center", tsize: 0.27, text(fill: green, weight: "bold")[$f > 0$])
+    txt((-2.2, 1.8), anchor: "center", tsize: 0.30, text(fill: rgb("#1b7a2b"))[$f > 0$])
     // 右半区: f < 0
-    txt((2.2, -1.8), anchor: "center", tsize: 0.27, text(fill: red, weight: "bold")[$f < 0$])
+    txt((2.2, -1.8), anchor: "center", tsize: 0.30, text(fill: red)[$f < 0$])
     // 两端外侧: 左 f<0, 右 f>0
-    txt((-3.5, -1.9), anchor: "center", tsize: 0.27, text(fill: red, weight: "bold")[$f < 0$])
-    txt((3.5, 1.9), anchor: "center", tsize: 0.27, text(fill: green, weight: "bold")[$f > 0$])
+    txt((-3.5, -1.9), anchor: "center", tsize: 0.30, text(fill: red)[$f < 0$])
+    txt((3.5, 1.9), anchor: "center", tsize: 0.30, text(fill: rgb("#1b7a2b"))[$f > 0$])
       },
     ),
     caption: figcap([第 7 题  奇函数性质与符号示意图]),

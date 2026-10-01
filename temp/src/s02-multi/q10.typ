@@ -80,72 +80,72 @@
 
   *对于 C*：令 $t = 2x - 1$。因为 $0 < x < 1$，所以 $t in (-1, 1)$。由于 $f(t)$ 在 $(-1, 1)$ 上严格递减，故 $f(1) < f(2x - 1) < f(-1)$，即 $-1 < f(2x - 1) < 3$，C 正确。
 
-  *对于 D*：取特值检验：令 $x = 0 < 1$，则 $2 - x = 2$。计算得 $f(2) = 2^3 - 3 times 2 + 1 = 3$，$f(0) = 1$。显然 $f(2) > f(0)$，即 $f(2 - x) > f(x)$，与选项矛盾（亦可由代数法：令 $u = 1 - x > 0$，作差得 $f(2 - x) - f(x) = 2(1 - x)^3 > 0$）。故 D 错误。
+  *对于 D*：取特殊值检验，找反例：令 $x = 0 < 1$，则 $2 - x = 2$。计算得 $f(2) = 2^3 - 3 times 2 + 1 = 3$，$f(0) = 1$。显然 $f(2) > f(0)$，即 $f(2 - x) > f(x)$，与选项矛盾（亦可由代数法：令 $u = 1 - x > 0$，作差得 $f(2 - x) - f(x) = 2(1 - x)^3 > 0$）。故 D 错误。
 ]
 #ans[选 #text(weight: "bold")[BC]]
 
 #fcap(
-  scale: 0.68,
+  scale: 0.48,
   caption: [第 10 题  函数 $f(x) = x^3 - 3x + 1$ 的图像与单调性分析：极大值 $(-1, 3)$，极小值 $(1, -1)$],
   {
-    let sx = 1.7 // 横轴适度拉伸，使波峰波谷更舒展
-    let xmin = -4.5
-    let xmax = 4.5
+    let sx = 3.8 // 横轴大幅拉宽，曲线极度宽阔舒展
+    let xmin = -9.2
+    let xmax = 9.2
     let ymin = -1.8
     let ymax = 3.8
 
-    // 左侧：单调性与极值速查卡片（充分利用左侧空白）
-    box2((-10.4, -0.3), (-4.8, 3.6), fill: rgb("#f6f9fc"), stroke: s(rgb("#a5c0dc"), th: 0.8pt), radius: 0.25)
-    txt((-10.0, 3.2), anchor: "north-west", tsize: 0.22, text(weight: "bold", fill: blue)[【函数单调性与极值】])
-    txt((-10.0, 2.5), anchor: "north-west", tsize: 0.19, [• 对称中心：拐点 $(0, 1)$])
-    txt((-10.0, 1.8), anchor: "north-west", tsize: 0.19, text(fill: red)[• 极大值：$f(-1) = 3$])
-    txt((-10.0, 1.1), anchor: "north-west", tsize: 0.19, text(fill: red)[• 极小值：$f(1) = -1$])
-    txt((-10.0, 0.4), anchor: "north-west", tsize: 0.19, text(fill: purple)[• 减区间：$(-1, 1)$（红线）])
+    // 左侧：单调性与极值速查卡片（夸张外移至最左侧边界）
+    box2((-16.0, -0.3), (-9.8, 3.6), fill: rgb("#f6f9fc"), stroke: s(rgb("#a5c0dc"), th: 0.9pt), radius: 0.3)
+    txt((-15.5, 3.2), anchor: "north-west", tsize: 0.29, text(weight: "bold", fill: blue)[【函数单调性与极值】])
+    txt((-15.5, 2.45), anchor: "north-west", tsize: 0.25, [• 对称中心：拐点 $(0, 1)$])
+    txt((-15.5, 1.70), anchor: "north-west", tsize: 0.25, text(fill: red)[• 极大值：$f(-1) = 3$])
+    txt((-15.5, 0.95), anchor: "north-west", tsize: 0.25, text(fill: red)[• 极小值：$f(1) = -1$])
+    txt((-15.5, 0.20), anchor: "north-west", tsize: 0.25, text(fill: purple)[• 减区间：$(-1, 1)$（红线）])
 
-    // 右侧：选项 C、D 几何直观卡片（充分利用右侧空白）
-    box2((4.8, -0.3), (10.4, 3.6), fill: rgb("#fcfaf6"), stroke: s(rgb("#dfcfb5"), th: 0.8pt), radius: 0.25)
-    txt((5.2, 3.2), anchor: "north-west", tsize: 0.22, text(weight: "bold", fill: rgb("#9c6500"))[【选项 C、D 图像直观】])
-    txt((5.2, 2.5), anchor: "north-west", tsize: 0.19, text(fill: green)[• 选项 C：$x in (0, 1)$ 时])
-    txt((5.6, 1.9), anchor: "north-west", tsize: 0.185, [$t in (-1, 1) implies -1 < f(t) < 3$])
-    txt((5.2, 1.2), anchor: "north-west", tsize: 0.19, text(fill: red)[• 选项 D：$x < 1$ 时])
-    txt((5.6, 0.6), anchor: "north-west", tsize: 0.185, [特值 $f(2) = 3 > f(0) = 1$（矛盾）])
+    // 右侧：选项 C、D 几何直观卡片（夸张外移至最右侧边界）
+    box2((9.8, -0.3), (16.0, 3.6), fill: rgb("#fcfaf6"), stroke: s(rgb("#dfcfb5"), th: 0.9pt), radius: 0.3)
+    txt((10.3, 3.2), anchor: "north-west", tsize: 0.29, text(weight: "bold", fill: rgb("#9c6500"))[【选项 C、D 图像直观】])
+    txt((10.3, 2.45), anchor: "north-west", tsize: 0.25, text(fill: green)[• 选项 C：$x in (0, 1)$ 时])
+    txt((10.8, 1.80), anchor: "north-west", tsize: 0.23, [$t in (-1, 1) implies -1 < f(t) < 3$])
+    txt((10.3, 1.05), anchor: "north-west", tsize: 0.25, text(fill: red)[• 选项 D：$x < 1$ 时])
+    txt((10.8, 0.40), anchor: "north-west", tsize: 0.23, [特值 $f(2) = 3 > f(0) = 1$（矛盾）])
 
-    // 中间：坐标轴（带箭头）
-    ln((xmin, 0.0), (xmax + 0.18, 0.0), stroke: s(black, th: 1.0pt), mark: (end: ">", fill: black))
-    txt((xmax + 0.30, 0.0), anchor: "west", tsize: 0.25, text(weight: "bold")[$x$])
-    ln((0.0, ymin), (0.0, ymax + 0.18), stroke: s(black, th: 1.0pt), mark: (end: ">", fill: black))
-    txt((0.0, ymax + 0.32), anchor: "south", tsize: 0.25, text(weight: "bold")[$y$])
+    // 中间：坐标轴（带箭头，横轴极其宽阔）
+    ln((xmin, 0.0), (xmax + 0.30, 0.0), stroke: s(black, th: 1.1pt), mark: (end: ">", fill: black))
+    txt((xmax + 0.45, 0.0), anchor: "west", tsize: 0.30, text(weight: "bold")[$x$])
+    ln((0.0, ymin), (0.0, ymax + 0.20), stroke: s(black, th: 1.1pt), mark: (end: ">", fill: black))
+    txt((0.0, ymax + 0.40), anchor: "south", tsize: 0.30, text(weight: "bold")[$y$])
 
     // 刻度（横轴按 sx 变换）
     for k in (-2, -1, 1, 2) {
-      ln((k * sx, -0.12), (k * sx, 0.12), stroke: s(black, th: 0.7pt))
-      txt((k * sx, -0.22), anchor: "north", tsize: 0.22, [$#k$])
+      ln((k * sx, -0.14), (k * sx, 0.14), stroke: s(black, th: 0.8pt))
+      txt((k * sx, -0.28), anchor: "north", tsize: 0.28, [$#k$])
     }
     for k in (-1, 1, 2, 3) {
-      ln((-0.12, k * 1.0), (0.12, k * 1.0), stroke: s(black, th: 0.7pt))
-      txt((-0.22, k * 1.0), anchor: "east", tsize: 0.22, [$#k$])
+      ln((-0.14, k * 1.0), (0.14, k * 1.0), stroke: s(black, th: 0.8pt))
+      txt((-0.28, k * 1.0), anchor: "east", tsize: 0.28, [$#k$])
     }
-    txt((-0.22, -0.22), anchor: "north-east", tsize: 0.24, text(weight: "bold")[$O$])
+    txt((-0.28, -0.28), anchor: "north-east", tsize: 0.30, text(weight: "bold")[$O$])
 
-    // 原函数曲线 f(x) = x^3 - 3x + 1
-    param(t => (t * sx, t * t * t - 3.0 * t + 1.0), -2.15, 2.15, stroke: s(blue, th: 1.5pt))
+    // 原函数曲线 f(x) = x^3 - 3x + 1 (横向超宽展示)
+    param(t => (t * sx, t * t * t - 3.0 * t + 1.0), -2.15, 2.15, stroke: s(blue, th: 1.8pt))
 
-    // 单调递减区间高亮
-    param(t => (t * sx, t * t * t - 3.0 * t + 1.0), -1.0, 1.0, stroke: s(red, th: 2.4pt))
+    // 单调递减区间高亮 (水平跨度达到 7.6)
+    param(t => (t * sx, t * t * t - 3.0 * t + 1.0), -1.0, 1.0, stroke: s(red, th: 3.2pt))
 
     // 极值点与对称中心
-    dashed((-1.0 * sx, 0.0), (-1.0 * sx, 3.0), color: gray, th: 0.8pt)
-    dashed((0.0, 3.0), (-1.0 * sx, 3.0), color: gray, th: 0.8pt)
-    pt((-1.0 * sx, 3.0), label: [极大值 $(-1, 3)$], r: 0.10, fill: red, dx: -0.18, dy: 0.18, anchor: "south-east", tsize: 0.23)
+    dashed((-1.0 * sx, 0.0), (-1.0 * sx, 3.0), color: gray, th: 0.9pt)
+    dashed((0.0, 3.0), (-1.0 * sx, 3.0), color: gray, th: 0.9pt)
+    pt((-1.0 * sx, 3.0), label: [极大值 $(-1, 3)$], r: 0.13, fill: red, dx: -0.22, dy: 0.22, anchor: "south-east", tsize: 0.29)
 
-    dashed((1.0 * sx, 0.0), (1.0 * sx, -1.0), color: gray, th: 0.8pt)
-    dashed((0.0, -1.0), (1.0 * sx, -1.0), color: gray, th: 0.8pt)
-    pt((1.0 * sx, -1.0), label: [极小值 $(1, -1)$], r: 0.10, fill: red, dx: 0.18, dy: -0.18, anchor: "north-west", tsize: 0.23)
+    dashed((1.0 * sx, 0.0), (1.0 * sx, -1.0), color: gray, th: 0.9pt)
+    dashed((0.0, -1.0), (1.0 * sx, -1.0), color: gray, th: 0.9pt)
+    pt((1.0 * sx, -1.0), label: [极小值 $(1, -1)$], r: 0.13, fill: red, dx: 0.22, dy: -0.22, anchor: "north-west", tsize: 0.29)
 
-    pt((0.0, 1.0), label: [对称中心 $(0, 1)$], r: 0.09, fill: purple, dx: 0.18, dy: 0.18, anchor: "south-west", tsize: 0.22)
+    pt((0.0, 1.0), label: [对称中心 $(0, 1)$], r: 0.12, fill: purple, dx: 0.25, dy: 0.22, anchor: "south-west", tsize: 0.28)
 
-    txt((0.35, 2.8), anchor: "west", tsize: 0.21, text(fill: blue, weight: "bold")[$f(x) = x^3 - 3x + 1$])
-    txt((0.15, 0.3), anchor: "west", tsize: 0.20, text(fill: red, weight: "bold")[$(-1, 1)$ 单调递减])
+    txt((0.55, 2.8), anchor: "west", tsize: 0.27, text(fill: blue, weight: "bold")[$f(x) = x^3 - 3x + 1$])
+    txt((0.50, 0.5), anchor: "west", tsize: 0.26, text(fill: red, weight: "bold")[$(-1, 1)$ 单调递减])
   },
 )
 

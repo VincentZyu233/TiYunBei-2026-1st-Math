@@ -11,8 +11,8 @@
 //    要指定方向得用 math.accent(x, math.top) 后再手动加符号。
 // ============================================================
 
-// 向量 / 有向线段字母
-#let vec(x) = math.accent(x, math.top)
+// 向量 / 有向线段字母 (使用标准数学箭头 arrow)
+#let vec(x) = arrow(x)
 
 // 数集 (直接用 unicode 双线体, 最稳)
 #let RR = "ℝ"
@@ -33,3 +33,6 @@
 #let sinh = "sinh"
 #let cosh = "cosh"
 #let tanh = "tanh"
+
+// 点乘与居中点 (向量数量积与乘法居中点)
+#let cdot = sym.dot.c

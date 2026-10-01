@@ -24,6 +24,9 @@ temp/screenshot/
 # 题面 PDF (外部资料, 420KB)
 problem/
 
+# 打包发布归档 (走 GitHub Releases, 不入 Git)
+*.zip
+
 # ---- 个人本地配置 (会搬到仓库根目录, 但不入库) ----
 AGENTS.local.md
 AGENTS.local.*.md

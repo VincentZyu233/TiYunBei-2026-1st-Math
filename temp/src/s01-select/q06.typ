@@ -65,15 +65,15 @@
 
     ln(proj3(p0), proj3(x_axis_end), stroke: s(black, th: 0.9pt))
     arrowhead(proj3(x_axis_end), -1.0, 1.0, size: 0.26, filled: true)
-    txt(proj3(x_axis_end), anchor: "south-east", dx: -0.04, dy: -0.1, tsize: 0.28, [text(weight: "bold")[$x$]])
+    txt(proj3(x_axis_end), anchor: "south-east", dx: -0.04, dy: -0.1, tsize: 0.30, [$x$])
 
     ln(proj3(p0), proj3(y_axis_end), stroke: s(black, th: 0.9pt))
     arrowhead(proj3(y_axis_end), 1.0, 0.0, size: 0.26, filled: true)
-    txt(proj3(y_axis_end), anchor: "north", dy: 0.12, tsize: 0.28, [text(weight: "bold")[$y$]])
+    txt(proj3(y_axis_end), anchor: "north", dy: 0.12, tsize: 0.30, [$y$])
 
     ln(proj3(p0), proj3(z_axis_end), stroke: s(black, th: 0.9pt))
     arrowhead(proj3(z_axis_end), 0.0, 1.0, size: 0.26, filled: true)
-    txt(proj3(z_axis_end), anchor: "south", dy: 0.14, tsize: 0.28, [text(weight: "bold")[$z$]])
+    txt(proj3(z_axis_end), anchor: "south", dy: 0.14, tsize: 0.30, [$z$])
 
     // 4. 最顶层染色: 三条两两垂直的侧棱 PA(红), PB(蓝), PC(绿) —— 线宽 2.0pt 置于最上层
     ln(proj3(p0), proj3(pa), stroke: s(red, th: 2.0pt))
@@ -81,20 +81,20 @@
     ln(proj3(p0), proj3(pc), stroke: s(green, th: 2.0pt))
 
     // 5. 顶点标记与圆点 (顶层显示, 避免被线条覆盖)
-    let ts = 0.26
+    let ts = 0.30
     dot(proj3(p0), radius: 0.075, fill: black, stroke: none)
-    txt(proj3(p0), anchor: "south-east", dx: -0.10, dy: 0.08, tsize: ts, text(weight: "bold")[$P$])
+    txt(proj3(p0), anchor: "south-east", dx: -0.10, dy: 0.08, tsize: ts, [$P$])
 
     dot(proj3(pa), radius: 0.07, fill: red, stroke: none)
-    txt(proj3(pa), anchor: "south-east", dx: -0.10, dy: 0.02, tsize: ts, text(weight: "bold")[$A$])
+    txt(proj3(pa), anchor: "south-east", dx: -0.10, dy: 0.02, tsize: ts, [$A$])
 
     dot(proj3(pb), radius: 0.07, fill: blue, stroke: none)
-    txt(proj3(pb), anchor: "north-west", dx: 0.06, dy: -0.08, tsize: ts, text(weight: "bold")[$B$])
+    txt(proj3(pb), anchor: "north-west", dx: 0.06, dy: -0.08, tsize: ts, [$B$])
 
     dot(proj3(pc), radius: 0.07, fill: green, stroke: none)
-    txt(proj3(pc), anchor: "east", dx: -0.10, dy: 0.06, tsize: ts, text(weight: "bold")[$C$])
+    txt(proj3(pc), anchor: "east", dx: -0.10, dy: 0.06, tsize: ts, [$C$])
 
     dot(proj3(m), radius: 0.06, fill: gray, stroke: none)
-    txt(proj3(m), anchor: "west", dx: 0.10, tsize: ts * 0.9, text(fill: gray)[$M$])
+    txt(proj3(m), anchor: "west", dx: 0.10, tsize: ts * 0.95, [$M$])
   },
 )

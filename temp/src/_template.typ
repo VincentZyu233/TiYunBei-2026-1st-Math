@@ -4,7 +4,7 @@
 // ============================================================
 
 #import "@preview/cetz:0.5.2"
-#import "_math.typ": vec, RR, NN, ZZ, QQ, CC, oo, iff, Longrightarrow, implies
+#import "_math.typ": vec, RR, NN, ZZ, QQ, CC, oo, iff, Longrightarrow, implies, cdot
 
 // ---------- 字体 ----------
 // 霞鹜文楷放在 temp/fonts, 编译时由 build.py 用 --font-path 传入,
@@ -104,6 +104,9 @@
   #align(center)[#text(size: 8.5pt, fill: rgb("#777777"), body)]
   #v(5pt)
 ]
+
+// 填空题横线 (标准试卷下划线)
+#let blank(w: 4.5em) = box(width: w, stroke: (bottom: 0.75pt + black), baseline: 0.12em)[]
 
 // 题目之间分隔
 #let qsep = block[

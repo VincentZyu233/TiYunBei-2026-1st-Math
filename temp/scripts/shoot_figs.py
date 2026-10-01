@@ -320,6 +320,58 @@ def shoot_chapter(chapter: str, src_name: str, keep_pdf: bool) -> int:
         log(f"  q{qno:02d}  {span:<8} {img.width}x{img.height}  {kb:.0f} KB")
         written += 1
 
+    # 检查并导出该章节下的 bonus 文件 (如 q14_bonus.typ)
+    bonus_files = list((SRC_DIR / chapter).glob("*_bonus.typ")) if (SRC_DIR / chapter).is_dir() else []
+    for bf in bonus_files:
+        b_name = bf.stem.replace("_", "-")
+        b_pdf = WORK_DIR / f"{chapter}-{b_name}.pdf"
+        b_cmd = [typst, "compile", "--root", str(TEMP_DIR), str(bf), str(b_pdf)]
+        if FONT_DIR.is_dir():
+            b_cmd += ["--font-path", str(FONT_DIR)]
+        b_res = subprocess.run(b_cmd, capture_output=True, text=True, encoding="utf-8")
+        if b_res.returncode == 0:
+            b_doc = pymupdf.open(b_pdf)
+            b_pix = b_doc[0].get_pixmap(dpi=DPI)
+            # 裁剪左右边距及上下纯白
+            scale = DPI / 72.0
+            left_px = max(0, round((MARGIN_L - PAD_X) * scale))
+            right_px = min(b_pix.width - 1, round((MARGIN_R + PAD_X) * scale))
+            width_px = right_px - left_px + 1
+
+            samples = b_pix.samples
+            stride = b_pix.stride
+            n = b_pix.n
+            top_px = 0
+            for y in range(b_pix.height):
+                row = samples[y * stride : (y + 1) * stride]
+                if any(b < 250 for b in row):
+                    top_px = max(0, y - round(12 * scale))
+                    break
+            bot_px = b_pix.height - 1
+            for y in range(b_pix.height - 1, -1, -1):
+                row = samples[y * stride : (y + 1) * stride]
+                if any(b < 250 for b in row):
+                    bot_px = min(b_pix.height - 1, y + round(12 * scale))
+                    break
+            height_px = bot_px - top_px + 1
+
+            dst = bytearray(b"\xff" * (width_px * height_px * n))
+            dst_stride = width_px * n
+            for y in range(height_px):
+                src_off = (top_px + y) * stride + left_px * n
+                dst_off = y * dst_stride
+                dst[dst_off : dst_off + dst_stride] = samples[src_off : src_off + dst_stride]
+
+            cropped = pymupdf.Pixmap(pymupdf.csRGB, width_px, height_px, bytes(dst), False)
+            out_file = out_dir / f"{chapter}-{b_name}.png"
+            cropped.save(out_file)
+            b_kb = out_file.stat().st_size / 1024
+            log(f"  {b_name:<13} {cropped.width}x{cropped.height}  {b_kb:.0f} KB")
+            written += 1
+            b_doc.close()
+            if not keep_pdf:
+                b_pdf.unlink(missing_ok=True)
+
     doc.close()
     log(f"{chapter}: 输出 {written} 张 -> {out_dir}")
 
