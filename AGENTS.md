@@ -43,32 +43,31 @@
 2. 在 `ALIASES` 里加短名（可选，但建议加）
 3. 建 `src/sNN-slug/` 目录，放 `qNN.typ`
 4. 建 `src/sNN-slug.typ` 装配入口：只写标题块 + `#include` + `#qsep`
-5. `uv run python temp/scripts/build_pdf.py sNN-slug` 验证
+5. `uv run python scripts/build_pdf.py sNN-slug` 验证
 
 ## 项目结构
 
 ```
 01-2026/                      ← 仓库根
 ├─ .gitignore / .gitattributes
-├─ problem/                      题面 PDF（不进追踪）
-└─ temp/
-   ├─ AGENTS.md                  本文件（会被搬到仓库根目录）
-   ├─ AGENTS.local.md            个人偏好（会被搬到根目录，且 gitignore）
-   ├─ fonts/                     霞鹜文楷等字体（不入库，编译时 --font-path 传入）
-   ├─ scripts/                   见上表
-   ├─ src/
-   │  ├─ _template.typ           字体 / 页面 / 题目骨架 / 答案框
-   │  ├─ _math.typ               数学简写 (vec, RR, oo ...)
-   │  ├─ _figs.typ               绘图辅助 (cetz 封装)
-   │  ├─ s01-select/  s01-select.typ
-   │  ├─ s02-multi/   s02-multi.typ
-   │  ├─ s03-fill/    s03-fill.typ
-   │  └─ s04-solve/   s04-solve.typ
-   └─ out/
-      ├─ s01-select/s01-select.pdf + s01-select-q01.png …
-      ├─ s02-multi/s02-multi.pdf   + s02-multi-q09.png …
-      ├─ s03-fill/s03-fill.pdf     + s03-fill-q12.png …
-      └─ s04-solve/s04-solve.pdf   + s04-solve-q15.png …
+├─ AGENTS.md                  本文件
+├─ AGENTS.local.md            个人偏好（gitignore）
+├─ problem/                   题面 PDF（不进追踪）
+├─ fonts/                     霞鹜文楷等字体（不入库，编译时 --font-path 传入）
+├─ scripts/                   见上表
+├─ src/
+│  ├─ _template.typ           字体 / 页面 / 题目骨架 / 答案框
+│  ├─ _math.typ               数学简写 (vec, RR, oo ...)
+│  ├─ _figs.typ               绘图辅助 (cetz 封装)
+│  ├─ s01-select/  s01-select.typ
+│  ├─ s02-multi/   s02-multi.typ
+│  ├─ s03-fill/    s03-fill.typ
+│  └─ s04-solve/   s04-solve.typ
+└─ out/
+   ├─ s01-select/s01-select.pdf + s01-select-q01.png …
+   ├─ s02-multi/s02-multi.pdf   + s02-multi-q09.png …
+   ├─ s03-fill/s03-fill.pdf     + s03-fill-q12.png …
+   └─ s04-solve/s04-solve.pdf   + s04-solve-q15.png …
 ```
 
 产物为四个 PDF，每个大题一个目录：

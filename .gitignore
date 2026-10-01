@@ -9,17 +9,14 @@
 
 # ---- 不入库: 体积大 / 临时产物 ----
 
+# 临时工作目录
+temp/
+
 # 字体 (145MB, 由 sync_fonts.py 从本机 X:\字体 同步)
-temp/fonts/
+fonts/
 
 # 编译中间产物 (shoot_figs.py 用完即删)
-temp/build/
-
-# 源码拆分前的备份
-temp/bak/
-
-# 参考截图
-temp/screenshot/
+build/
 
 # 题面 PDF (外部资料, 420KB)
 problem/
