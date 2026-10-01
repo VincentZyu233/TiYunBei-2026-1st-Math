@@ -1,7 +1,7 @@
 # 2026 年第一届“提云杯”线上联考 · 数学参考解答
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%82%B9%E5%87%BB%E6%89%93%E5%BC%80%E9%A2%98%E8%A7%A3%E5%9C%A8%E7%BA%BF%E7%AB%99%E5%8F%B0-blue?style=flat-square&logo=github)](https://vincentzyu233.github.io/TiYunBei-2026-1st-Math/)
-[![Release](https://img.shields.io/github/v/release/VincentZyu233/TiYunBei-2026-1st-Math?style=flat-square&color=emerald)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.1.4)
+[![Release](https://img.shields.io/github/v/release/VincentZyu233/TiYunBei-2026-1st-Math?style=flat-square&color=emerald)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v1.0.5)
 [![Typst](https://img.shields.io/badge/Powered%20by-Typst-239dad?style=flat-square)](https://typst.app/)
 
 本仓库为 2026 年第一届“提云杯”线上联考数学科目的完整解答与高清排版项目，采用现代科学排版系统 **Typst** 进行全套编写与矢量渲染。
@@ -30,6 +30,7 @@
 2. **规范与深度推导**：
    - **第 3 题**：平行四边形定比放大并对角线智能避让，视觉舒适；
    - **第 8 题**：规范正弦分式与指数上标排版，新增圆角矩形深度探究框（含 $t < \tan t$ 严谨求导证明与 $y = \tan t$ vs $y = t$ 左右分栏函数图像对比）；
+   - **第 9 题**：复平面几何向量可视化，复数除法分母完整呈现平方差展开与代换细节；
    - **第 17 题**：规范建立高中数学教材标准空间直角坐标系，立体几何标点全面完整；
    - **第 18 题**：提炼导数结构特征求导圆角框，并采用优美的四项等差数列比例构造法秒出结论；
    - **第 19 题**：规范数列下标，采用首末项等差求和表述，简化数学归纳与等价证明。
@@ -61,5 +62,5 @@ uv run python scripts/build_svg.py
 - **试题命制 / 出题人**：提尔 sSwar (QQ: 1210183458)
 - **解答排版 / 写题人**：VincentZyu (QQ: 1830540513)
 - **排版引擎**：Typst + CeTZ
-- **全套离线高清包**：请前往 [GitHub Releases (v0.1.4)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.1.4) 下载 `TiYunBei_2026_Math_Solution_v0.1.4.zip`。
+- **全套离线高清包**：请前往 [GitHub Releases (v1.0.5)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v1.0.5) 下载 `TiYunBei_2026_Math_Solution_v1.0.5.zip`。
 
