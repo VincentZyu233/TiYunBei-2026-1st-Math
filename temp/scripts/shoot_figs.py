@@ -42,7 +42,7 @@ OUT_DIR = TEMP_DIR / "out"
 WORK_DIR = TEMP_DIR / "build"  # 中间产物, 可随时删
 FONT_DIR = TEMP_DIR / "fonts"
 
-DPI = 150
+DPI = 333  # 默认 333 DPI 高清输出 (正文宽约 2321 px)
 # A4 595.28 x 841.89 pt
 PAGE_W, PAGE_H = 595.28, 841.89
 MARGIN_L = 56.7

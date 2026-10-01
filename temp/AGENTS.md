@@ -100,10 +100,11 @@ uv run python temp/scripts/build_pdf.py s01-select s04-solve
 # 监听 src/ 自动重编译
 uv run python temp/scripts/build_pdf.py --watch
 
-# 把每题单独截成 PNG（需 pymupdf）
+# 把每题单独截成 PNG（需 pymupdf，默认 333 DPI 高清出图，正文宽约 2321 px）
 uv pip install pymupdf
-uv run python temp/scripts/shoot_figs.py                    # 全部章节
+uv run python temp/scripts/shoot_figs.py                    # 全部章节（默认 333 DPI）
 uv run python temp/scripts/shoot_figs.py select             # 指定章节
+uv run python temp/scripts/shoot_figs.py select --dpi 333   # 可自定义指定 DPI（默认 333）
 uv run python temp/scripts/shoot_figs.py select --keep-pdf  # 保留中间 PDF
 
 # 句末西文句点 → 中文句号（写之前先 --check）
@@ -221,14 +222,30 @@ uv run python temp/scripts/fix_punct.py            # 写入
 - 配图优先用 `_figs.typ` 的封装：
   - 函数图像 / 曲线 → `plot()` 或 `param()`
   - 平面几何 → 直接 `cetz.draw.*`
-  - 立体几何 → `proj3()` 做轴测投影
+  - 立体几何 → `proj3()` 做轴测投影（**方向不可改**：z 垂直向上、
+    y 水平向右、x 斜向左下，这是教材标准画法）
 - 图题统一用 `fcap(...)` 并写中文图注，说明"这图在证明什么"。
 - 坐标系图要画坐标轴 + 刻度，只标关键几个刻度即可。
+- **坐标轴必须带箭头 + 轴名（强制）**：无论平面还是立体，坐标轴末端一律画
+  箭头，并标注轴名。用 `_figs.typ` 的封装，不要手写坐标轴：
+  - 平面 → `axes(xmin, xmax, ymin, ymax, xl: [...], yl: [...])`，箭头已内置
+  - 立体 → `axes3(xlen:, ylen:, zlen:, xlab:, ylab:, zlab:, origin:)`，箭头已内置
+  - 轴名按实际含义给，不要一律写 `x`/`y`：
+    | 场景 | 写法 |
+    |---|---|
+    | 直角坐标系 | `xl: [$x$]`, `yl: [$y$]` |
+    | 复平面 | `xl: [实轴 $"Re"$]`, `yl: [虚轴 $"Im"$]` |
+    | 数轴（单轴） | `txt((xmax, 0), [数轴])` 配 `arrowhead()` |
+  - 手写坐标轴时用 `arrowhead(tip, dirx, diry)` 补箭头，
+    或用 cetz 的 `mark: (end: ">")`（如 `q09.typ` 的实轴/虚轴）。
+- **函数图像的定义域要留边距**：坐标轴范围要比曲线范围宽，
+  否则曲线端点会顶在轴端或被箭头压住。曲线参数区间取轴范围的 60%–70%。
 - 布局优先**左右并列**而非上下堆叠，省版面。
 - 非等比坐标的图**必须**给 `vb:` 锚定框，否则 cetz 按 bounding box
   拉伸导致变形（这是最容易忘的坑）。
 - 答案用 `#ans[...]` 包起来，标明选项字母。
 - 中文正文用霞鹜文楷；数学交给 Typst 默认数学字体（New Computer Modern Math）。
+- **出图分辨率标准（强制）**：切图脚本 `shoot_figs.py` 统一默认使用 **333 DPI**（横向正文宽度约 `2321 px`），保证公式上下标、根号分式、微小刻度与几何线段在 4K 屏或双指放大时绝对清晰锐利，无锯齿或发虚。
 
 ## 提交约定
 

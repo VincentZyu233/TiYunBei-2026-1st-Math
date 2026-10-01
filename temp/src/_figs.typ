@@ -85,12 +85,55 @@
   if label != none { txt(p, anchor: anchor, dx: dx, dy: dy, tsize: tsize, label) }
 }
 
-// 坐标轴
-#let axes(xmin, xmax, ymin, ymax, xl: none, yl: none) = {
-  ln((xmin * 1.0, 0.0), (xmax * 1.0, 0.0), stroke: s(black, th: 0.7pt))
-  ln((0.0, ymin * 1.0), (0.0, ymax * 1.0), stroke: s(black, th: 0.7pt))
-  if xl != none { txt((xmax * 1.0, 0.0), anchor: "west", dx: 0.06, tsize: 0.16, xl) }
-  if yl != none { txt((0.0, ymax * 1.0), anchor: "south", dy: 0.05, tsize: 0.16, yl) }
+// ---- 坐标轴箭头 ----
+// 两笔倒钩 (barb) 组成的实心箭头。dirx/diry 是轴的单位方向。
+// 倒钩方向取轴的法向量, 故无论轴朝哪个方向箭头都张向外侧。
+#let arrowhead(tip, dirx, diry, size: 0.2, color: black, th: 0.8pt, barbs: 2) = {
+  let len = calc.sqrt(dirx * dirx + diry * diry)
+  if len == 0 {
+    return
+  }
+  let ux = dirx / len
+  let uy = diry / len
+  let (px, py) = (-uy, ux) // 法向
+  for i in range(barbs) {
+    // 沿轴回退越多张得越开 -> 经典箭头
+    let back = size * (1 - i * 0.42)
+    let side = if i == 0 { 1.0 } else { 0.62 }
+    ln(
+      tip,
+      (tip.at(0) - ux * back + px * size * side, tip.at(1) - uy * back + py * size * side),
+      stroke: s(color, th: th),
+    )
+  }
+}
+
+// ============================================================
+//  平面坐标轴 (强制规范: 必须带箭头 + 轴名)
+//
+//  xl / yl 为轴名, 省略时留空箭头不标名; 但箭头始终画。
+//  若轴表示复平面, 传 xl: [$"Re"$], yl: [$"Im"$] 之类。
+// ============================================================
+#let axes(
+  xmin,
+  xmax,
+  ymin,
+  ymax,
+  xl: none,
+  yl: none,
+  arrow: 0.18,
+  tsize: 0.16,
+) = {
+  // 正半轴画到边界, 箭头再往前伸一点, 保证箭头完整可见
+  let ex = (xmax * 1.0 + arrow * 0.9, 0.0)
+  let ey = (0.0, ymax * 1.0 + arrow * 0.9)
+  ln((xmin * 1.0, 0.0), ex, stroke: s(black, th: 0.7pt))
+  ln((0.0, ymin * 1.0), ey, stroke: s(black, th: 0.7pt))
+  arrowhead(ex, 1.0, 0.0, size: arrow, th: 0.7pt)
+  arrowhead(ey, 0.0, 1.0, size: arrow, th: 0.7pt)
+
+  if xl != none { txt(ex, anchor: "west", dx: 0.04, tsize: tsize, xl) }
+  if yl != none { txt(ey, anchor: "south", dy: 0.04, tsize: tsize, yl) }
 }
 
 // ---- 曲线 ----
@@ -160,41 +203,20 @@
 ) = {
   let o = proj3(origin, k: k)
 
-  // 单条带箭头的轴: 从 o 指向 proj3(origin+axis), 末端画 barbs 倒钩
-  let axis-arrow(from, to, color: black) = {
-    ln(from, to, stroke: s(color, th: 0.8pt))
-    let dx = to.at(0) - from.at(0)
-    let dy = to.at(1) - from.at(1)
-    let len = calc.sqrt(dx * dx + dy * dy)
-    if len > 0 {
-      let ux = dx / len
-      let uy = dy / len
-      // 倒钩方向: 与轴垂直
-      let (px, py) = (-uy, ux)
-      for i in range(barbs) {
-        // 沿轴往回退得越多, 倒钩张得越开 -> 经典箭头形
-        let back = arrow * (1 - i * 0.42)
-        let side = if i == 0 { 1.0 } else { 0.62 }
-        ln(
-          to,
-          (
-            to.at(0) - ux * back + px * arrow * side,
-            to.at(1) - uy * back + py * arrow * side,
-          ),
-          stroke: s(color, th: 0.8pt),
-        )
-      }
-    }
-  }
 
   let ex = proj3(origin + (xlen, 0.0, 0.0), k: k)
   let ey = proj3(origin + (0.0, ylen, 0.0), k: k)
   let ez = proj3(origin + (0.0, 0.0, zlen), k: k)
-  axis-arrow(o, ex)
-  axis-arrow(o, ey)
-  axis-arrow(o, ez)
 
-  // 轴标签: 贴住箭头尖端, 沿轴向外的法线一侧
+  // 三条轴 + 末端箭头 (箭头方向即该轴的投影方向, 故自动朝外)
+  ln(o, ex, stroke: s(black, th: 0.8pt))
+  ln(o, ey, stroke: s(black, th: 0.8pt))
+  ln(o, ez, stroke: s(black, th: 0.8pt))
+  arrowhead(ex, ex.at(0) - o.at(0), ex.at(1) - o.at(1), size: arrow, barbs: barbs)
+  arrowhead(ey, ey.at(0) - o.at(0), ey.at(1) - o.at(1), size: arrow, barbs: barbs)
+  arrowhead(ez, ez.at(0) - o.at(0), ez.at(1) - o.at(1), size: arrow, barbs: barbs)
+
+  // 轴标签: 贴住箭头尖端
   txt(ex, anchor: "north-west", dx: -0.12, dy: 0.08, tsize: tsize, xlab)
   txt(ey, anchor: "north", dy: 0.12, tsize: tsize, ylab)
   txt(ez, anchor: "north", dy: 0.12, tsize: tsize, zlab)

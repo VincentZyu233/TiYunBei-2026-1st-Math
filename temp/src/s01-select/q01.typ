@@ -24,21 +24,24 @@
 
 #fcap(
   scale: 0.95,
-  caption: [第 1 题  $2p = 4 ⟹ p = 2$，焦点 $(1, 0)$，准线 $x = -1$],
+  caption: [第 1 题　$2p = 4 ⟹ p = 2$，焦点 $F(1, 0)$，准线 $x = -1$],
   {
-    // y^2 = 4x  即  x = y^2/4,  参数 t: (t^2/4, t)
-    param(t => (t * t / 4, t), -2.2, 2.2, stroke: s(blue, th: 1.2pt))
+    // 坐标轴范围放宽, 曲线定义域收窄, 避免抛物线贴到轴端
+    let ytop = 3.1
+    // y^2 = 4x 即 x = y^2/4, 参数 t: (t^2/4, t)
+    param(t => (t * t / 4, t), -1.85, 1.85, stroke: s(blue, th: 1.2pt))
     // 准线 x = -1
-    dashed((-1.0, -2.45), (-1.0, 2.45))
-    txt((-1.0, 2.45), anchor: "south", dy: 0.04, [准线 $x=-1$])
-    axes(-1.75, 1.9, -2.45, 2.45, xl: [$x$], yl: [$y$])
+    dashed((-1.0, -ytop * 0.86), (-1.0, ytop * 0.86))
+    txt((-1.0, ytop * 0.86), anchor: "south", dy: 0.04, [准线 $x=-1$])
+    axes(-2.9, 3.3, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.22)
+    // 焦点与顶点
     pt((1.0, 0.0), label: [$F(1,0)$], r: 0.06, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west")
     pt((0.0, 0.0), r: 0.05, fill: black)
     txt((0.0, 0.0), anchor: "south-east", dx: -0.06, dy: -0.06, [$O$])
     // 标出 p = 1 的长度
-    ln((0.0, 1.85), (1.0, 1.85), stroke: s(gray, th: 0.5pt))
-    ln((0.0, 1.75), (0.0, 1.95), stroke: s(gray, th: 0.5pt))
-    ln((1.0, 1.75), (1.0, 1.95), stroke: s(gray, th: 0.5pt))
-    txt((0.5, 1.85), anchor: "south", dy: 0.05, [$1$])
+    ln((0.0, 2.5), (1.0, 2.5), stroke: s(gray, th: 0.5pt))
+    ln((0.0, 2.4), (0.0, 2.6), stroke: s(gray, th: 0.5pt))
+    ln((1.0, 2.4), (1.0, 2.6), stroke: s(gray, th: 0.5pt))
+    txt((0.5, 2.5), anchor: "south", dy: 0.05, [$1$])
   },
 )
