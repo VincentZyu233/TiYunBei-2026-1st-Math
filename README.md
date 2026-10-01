@@ -1,7 +1,7 @@
 # 2026 年第一届“提云杯”线上联考 · 数学参考解答
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%82%B9%E5%87%BB%E6%89%93%E5%BC%80%E9%A2%98%E8%A7%A3%E5%9C%A8%E7%BA%BF%E7%AB%99%E5%8F%B0-blue?style=flat-square&logo=github)](https://vincentzyu233.github.io/TiYunBei-2026-1st-Math/)
-[![Release](https://img.shields.io/github/v/release/VincentZyu233/TiYunBei-2026-1st-Math?style=flat-square&color=emerald)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.1.1)
+[![Release](https://img.shields.io/github/v/release/VincentZyu233/TiYunBei-2026-1st-Math?style=flat-square&color=emerald)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.1.3)
 [![Typst](https://img.shields.io/badge/Powered%20by-Typst-239dad?style=flat-square)](https://typst.app/)
 
 本仓库为 2026 年第一届“提云杯”线上联考数学科目的完整解答与高清排版项目，采用现代科学排版系统 **Typst** 进行全套编写与矢量渲染。
@@ -60,5 +60,5 @@ uv run python scripts/build_svg.py
 - **试题命制 / 出题人**：提尔 sSwar (QQ: 1210183458)
 - **解答排版 / 写题人**：VincentZyu (QQ: 1830540513)
 - **排版引擎**：Typst + CeTZ
-- **全套离线高清包**：请前往 [GitHub Releases (v0.1.1)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.1.1) 下载 `TiYunBei_2026_Math_Solution_v0.1.1.zip`。
+- **全套离线高清包**：请前往 [GitHub Releases (v0.1.3)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.1.3) 下载 `TiYunBei_2026_Math_Solution_v0.1.3.zip`。
 

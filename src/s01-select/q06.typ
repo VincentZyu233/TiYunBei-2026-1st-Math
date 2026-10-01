@@ -10,8 +10,8 @@
 则该三棱锥的外接球体积为（    ）
 
 #opts((
-  [A．$4 pi / 3$],
-  [B．$8 sqrt(2) pi / 3$],
+  [A．$(4 pi) / 3$],
+  [B．$(8 sqrt(2) pi) / 3$],
   [C．$4 pi$],
   [D．$8 pi$],
 ))
@@ -26,9 +26,9 @@
   把三棱锥补成长方体，则外接球球心为长方体体对角线的中点，半径
   $R = 1/2 sqrt(a^2 + b^2 + c^2) = 1/2 sqrt(8) = sqrt(2)$。
 
-  故 $V = 4/3 pi R^3 = 4/3 pi · 2 sqrt(2) = 8 sqrt(2) pi / 3$。
+  故 $V = 4/3 pi R^3 = 4/3 pi · 2 sqrt(2) = (8 sqrt(2) pi) / 3$。
 ]
-#ans[$V = 8sqrt(2) pi / 3$，选 #text(weight: "bold")[B]]
+#ans[$V = (8 sqrt(2) pi) / 3$，选 #text(weight: "bold")[B]]
 
 #fcap(
   scale: 1.05,

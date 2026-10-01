@@ -1,7 +1,7 @@
 {
   "title": "2026 年第一届“提云杯”线上联考 · 数学参考解答",
   "author": "VincentZyu",
-  "build_time": "2026-10-02 04:00:39",
+  "build_time": "2026-10-02 04:24:50",
   "chapters": [
     {
       "id": "s01-select",
@@ -43,7 +43,7 @@
           "id": "q06",
           "title": "第 6 题",
           "svg": "svg/q06.svg",
-          "size_kb": 333.8
+          "size_kb": 336.6
         },
         {
           "id": "q07",
