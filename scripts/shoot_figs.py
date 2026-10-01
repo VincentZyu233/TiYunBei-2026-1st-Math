@@ -264,30 +264,35 @@ def shoot_chapter(chapter: str, src_name: str, keep_pdf: bool) -> int:
         doc.close()
         return 1
 
-    # 本题下边界 = 下一题起点; 末题取最后一页正文底
+    # 本题下边界 = 下一题起点; 若下一题在新页，则本题在上一页到底截断
     bounds: dict[int, tuple[int, float | None]] = {}
     for i, (qno, pno, _y) in enumerate(starts):
         if i + 1 < len(starts):
-            bounds[qno] = (starts[i + 1][1], starts[i + 1][2])
+            next_qno, next_pno, next_y = starts[i + 1]
+            if next_pno > pno:
+                bounds[qno] = (next_pno - 1, None)
+            else:
+                # 同页情况：下一题标题顶部或题号行
+                next_page_ttop = title_top(doc[next_pno])
+                if next_page_ttop is not None and next_page_ttop > _y:
+                    bounds[qno] = (next_pno, next_page_ttop)
+                else:
+                    bounds[qno] = (next_pno, next_y)
         else:
             bounds[qno] = (doc.page_count - 1, None)
 
     out_dir = OUT_DIR / chapter
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    first_qno = starts[0][0]
     written = 0
     for qno, pno, y_top in starts:
         end_page, y_end = bounds[qno]
 
-        # 首题向上把章节标题块整块包进来。
-        # 用 title_top() 定位大标题顶, 而不是从副标题往上猜,
-        # 否则会把 16pt 大标题的字形上沿切掉。
-        y0 = y_top
-        if qno == first_qno and head_top is not None and pno == 0:
-            y0 = max(BODY_TOP, head_top - 10.0)
-        elif head_bottom is not None and pno == 0:
-            # 章节内非首题: 从副标题下方起 (兼容无大标题的情形)
+        # 每道题向上把本题所在页的章节大标题整块包进来
+        page_head_top = title_top(doc[pno])
+        if page_head_top is not None and page_head_top < y_top:
+            y0 = max(BODY_TOP, page_head_top - 10.0)
+        else:
             y0 = max(BODY_TOP, y_top)
 
         clips: list[tuple] = []

@@ -6,13 +6,16 @@
 
 #show figure.caption: it => it.body
 
-#title-block(
-  title: "2026 年第一届\u{201C}提云杯\u{201D}线上联考 · 数学",
-  subtitle: "参考解答 · 二、选择题（第 9—11 题，每小题 6 分，共 18 分）",
-)
+#let t = "2026 年第一届\u{201C}提云杯\u{201D}线上联考 · 数学"
+#let sub = "参考解答 · 二、选择题（第 9—11 题，每小题 6 分，共 18 分）"
 
+#title-block(title: t, subtitle: sub)
 #include "s02-multi/q09.typ"
 #pagebreak()
+
+#title-block(title: t, subtitle: sub)
 #include "s02-multi/q10.typ"
 #pagebreak()
+
+#title-block(title: t, subtitle: sub)
 #include "s02-multi/q11.typ"

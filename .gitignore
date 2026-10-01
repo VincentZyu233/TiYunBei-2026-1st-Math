@@ -18,8 +18,8 @@ fonts/
 # 编译中间产物 (shoot_figs.py 用完即删)
 build/
 
-# 题面 PDF (外部资料, 420KB)
-problem/
+# 题面 PDF 纳入版本管理
+!problem/2026年第一届提云杯线上联考.pdf
 
 # 打包发布归档 (走 GitHub Releases, 不入 Git)
 *.zip
