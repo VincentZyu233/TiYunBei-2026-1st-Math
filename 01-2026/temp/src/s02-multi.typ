@@ -11,8 +11,8 @@
   subtitle: "参考解答 · 二、选择题（第 9—11 题，每小题 6 分，共 18 分）",
 )
 
-#include "multi/q09.typ"
+#include "s02-multi/q09.typ"
 #qsep
-#include "multi/q10.typ"
+#include "s02-multi/q10.typ"
 #qsep
-#include "multi/q11.typ"
+#include "s02-multi/q11.typ"

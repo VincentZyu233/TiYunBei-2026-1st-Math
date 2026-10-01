@@ -3,54 +3,89 @@
 本仓库用于整理「提云杯」数学竞赛试题的**解答排版**。核心工作流：把题目 PDF 转成
 可编译的 Typst 源码，输出分栏目的参考解答 PDF。
 
+## 命名规范（强制）
+
+### 章节：`sNN-<slug>`
+
+目录名与装配入口文件名统一用 `sNN-<slug>`，`NN` 是**试卷上的大题序号**。
+这样 VS Code 文件树按名字排序就等于试卷顺序，不需要再靠别的手段对齐。
+
+| 章节 | 目录 | 装配入口 | 单题文件 | 命令别名 |
+|---|---|---|---|---|
+| 一、选择题 1—8 | `s01-select/` | `s01-select.typ` | `q01.typ` … `q08.typ` | `select` |
+| 二、多选题 9—11 | `s02-multi/` | `s02-multi.typ` | `q09.typ` … `q11.typ` | `multi` |
+| 三、填空题 12—14 | `s03-fill/` | `s03-fill.typ` | `q12.typ` … `q14.typ` | `fill` |
+| 四、解答题 15—19 | `s04-solve/` | `s04-solve.typ` | `q15.typ` … `q19.typ` | `solve` |
+
+`src/` 与 `out/` 用**同名**章节目录，一一对应。
+
+### 单题：`qNN.typ`
+
+`NN` 是**试卷上的题号**（两位，不足补零），与章节前缀无关。
+因此 `q01`–`q08`、`q09`–`q11`、`q12`–`q14`、`q15`–`q19` 在各自目录里都是连续的。
+
+### 脚本：`动词_名词.py`
+
+| 脚本 | 职责 |
+|---|---|
+| `build_pdf.py` | 编译章节 → `out/<章节>/<章节>.pdf` |
+| `shoot_figs.py` | 按题切图 → `out/<章节>/<章节>-qNN.png` |
+| `fix_punct.py` | 句末西文句点 → 中文句号 |
+| `norm_math.py` | LaTeX → Typst 数学写法规范化 |
+| `sync_fonts.py` | 从本机字体目录同步到 `temp/fonts/` |
+
+`_chapters.py` 是内部模块（下划线前缀），存章节配置的**唯一来源**，
+被 `build_pdf.py` 与 `shoot_figs.py` 共用。新增章节只改这一处。
+
+### 新增章节的步骤
+
+1. 在 `_chapters.py` 的 `CHAPTERS` 里加一项（含 `entry` / `title` / `qnos`）
+2. 在 `ALIASES` 里加短名（可选，但建议加）
+3. 建 `src/sNN-slug/` 目录，放 `qNN.typ`
+4. 建 `src/sNN-slug.typ` 装配入口：只写标题块 + `#include` + `#qsep`
+5. `uv run python temp/scripts/build_pdf.py sNN-slug` 验证
+
 ## 项目结构
 
 ```
 01-2026/
 ├─ .gitignore / .gitattributes
 ├─ problem/                      题面 PDF（不进追踪）
-└─ temp/                         排版试验区（不进追踪，见下）
+└─ temp/
    ├─ AGENTS.md                  本文件（会被搬到仓库根目录）
    ├─ AGENTS.local.md            个人偏好（会被搬到根目录，且 gitignore）
    ├─ fonts/                     霞鹜文楷等字体（不入库，编译时 --font-path 传入）
-   ├─ scripts/                  统一「两段式」命名: 动词_名词.py
-   │  ├─ build_pdf.py           编译章节 → out/<章节>/<章节>.pdf
-   │  ├─ shoot_figs.py          按题切图 → out/<章节>/<章节>-qNN.png
-   │  ├─ fix_punct.py           句末西文句点 → 中文句号
-   │  ├─ norm_math.py           LaTeX → Typst 数学写法规范化
-   │  └─ sync_fonts.py          从本机 X:\字体 同步字体到 temp/fonts
-   ├─ src/                       Typst 源码
+   ├─ scripts/                   见上表
+   ├─ src/
    │  ├─ _template.typ           字体 / 页面 / 题目骨架 / 答案框
    │  ├─ _math.typ               数学简写 (vec, RR, oo ...)
    │  ├─ _figs.typ               绘图辅助 (cetz 封装)
-   │  ├─ select/                 一、选择题 1-8 单题源码 (q01.typ ~ q08.typ)
-   │  ├─ multi/                  二、多选题 9-11 单题源码 (q09.typ ~ q11.typ)
-   │  ├─ fill/                   三、填空题 12-14 单题源码 (q12.typ ~ q14.typ)
-   │  ├─ solve/                  四、解答题 15-19 单题源码 (q15.typ ~ q19.typ)
-   │  ├─ select.typ              一、选择题章节装配入口 (#include "select/q01.typ" ...)
-   │  ├─ multi.typ               二、多选题章节装配入口 (#include "multi/q09.typ" ...)
-   │  ├─ fill.typ                三、填空题章节装配入口
-   │  └─ solve.typ               四、解答题章节装配入口
-   └─ out/                       产物
-      ├─ select/select.pdf  +  select-q01.png …   每题一张完整截图
-      ├─ multi/multi.pdf    +  multi-q09.png …
-      ├─ fill/fill.pdf      +  fill-q12.png …
-      └─ solve/solve.pdf    +  solve-q15.png …
+   │  ├─ s01-select/  s01-select.typ
+   │  ├─ s02-multi/   s02-multi.typ
+   │  ├─ s03-fill/    s03-fill.typ
+   │  └─ s04-solve/   s04-solve.typ
+   └─ out/
+      ├─ s01-select/s01-select.pdf + s01-select-q01.png …
+      ├─ s02-multi/s02-multi.pdf   + s02-multi-q09.png …
+      ├─ s03-fill/s03-fill.pdf     + s03-fill-q12.png …
+      └─ s04-solve/s04-solve.pdf   + s04-solve-q15.png …
 ```
 
-产物固定为四个 PDF，分别对应试卷四个大题；每个大题一个目录：
+产物为四个 PDF，每个大题一个目录：
 
 | 目录 | PDF 内容 | 分值 | 截图 |
 |---|---|---|---|
-| `out/select/` | 选择题 1—8 | 40 | `select-q01..q08.png` |
-| `out/multi/`  | 多选题 9—11 | 18 | `multi-q09..q11.png` |
-| `out/fill/`   | 填空题 12—14 | 15 | `fill-q12..q14.png` |
-| `out/solve/`  | 解答题 15—19 | 77 | `solve-q15..q19.png` |
+| `out/s01-select/` | 选择题 1—8 | 40 | `s01-select-q01..q08.png` |
+| `out/s02-multi/`  | 多选题 9—11 | 18 | `s02-multi-q09..q11.png` |
+| `out/s03-fill/`   | 填空题 12—14 | 15 | `s03-fill-q12..q14.png` |
+| `out/s04-solve/`  | 解答题 15—19 | 77 | `s04-solve-q15..q19.png` |
 
 截图不是"只截插图"，而是**该题在 PDF 里的完整版面**：
 含题干、选项、解答、答案框、配图；第一题的截图额外包含章节标题块。
 
 ## 常用命令
+
+章节参数可写规范名（`s01-select`）或短别名（`select`），两种都行。
 
 ```bash
 cd 01-2026
@@ -60,14 +95,16 @@ uv run python temp/scripts/build_pdf.py
 
 # 只编译某几份
 uv run python temp/scripts/build_pdf.py select solve
+uv run python temp/scripts/build_pdf.py s01-select s04-solve
 
 # 监听 src/ 自动重编译
 uv run python temp/scripts/build_pdf.py --watch
 
 # 把每题单独截成 PNG（需 pymupdf）
 uv pip install pymupdf
-uv run python temp/scripts/shoot_figs.py              # 全部章节
-uv run python temp/scripts/shoot_figs.py select --no-head   # 不含章节标题块
+uv run python temp/scripts/shoot_figs.py                    # 全部章节
+uv run python temp/scripts/shoot_figs.py select             # 指定章节
+uv run python temp/scripts/shoot_figs.py select --keep-pdf  # 保留中间 PDF
 
 # 句末西文句点 → 中文句号（写之前先 --check）
 uv run python temp/scripts/fix_punct.py --check
@@ -171,7 +208,7 @@ uv run python temp/scripts/fix_punct.py            # 写入
    - 每道题的题干、选项、推导与配图一律独立存放在 `src/<章节>/qNN.typ` 中。
    - 每个 Agent 仅认领并编辑自己负责的题目文件，严禁修改他人正在编写的题目。
 2. **章节装配入口保持极简**：
-   - `select.typ` / `multi.typ` / `fill.typ` / `solve.typ` 仅保留大标题块 `#title-block` 和若干 `#include "<章节>/qNN.typ"` 与 `#qsep`。
+   - `sNN-slug.typ` 装配入口仅保留大标题块 `#title-block` 和若干 `#include` 与 `#qsep`，不写题目内容或绘图逻辑。
    - 不要在聚合入口中直接编写题目或绘图逻辑。
 3. **公共设施防写保护**：
    - `_template.typ`、`_figs.typ`、`_math.typ` 属于基础共用设施。除非全体对公共规范达成一致，否则严禁单方面随意修改，避免引发其他 Agent 编译中断。

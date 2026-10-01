@@ -11,18 +11,18 @@
   subtitle: "参考解答 · 一、选择题（第 1—8 题，每小题 5 分，共 40 分）",
 )
 
-#include "select/q01.typ"
+#include "s01-select/q01.typ"
 #qsep
-#include "select/q02.typ"
+#include "s01-select/q02.typ"
 #qsep
-#include "select/q03.typ"
+#include "s01-select/q03.typ"
 #qsep
-#include "select/q04.typ"
+#include "s01-select/q04.typ"
 #qsep
-#include "select/q05.typ"
+#include "s01-select/q05.typ"
 #qsep
-#include "select/q06.typ"
+#include "s01-select/q06.typ"
 #qsep
-#include "select/q07.typ"
+#include "s01-select/q07.typ"
 #qsep
-#include "select/q08.typ"
+#include "s01-select/q08.typ"

@@ -34,18 +34,13 @@ import subprocess
 import sys
 from pathlib import Path
 
+import _chapters as ch
+
 TEMP_DIR = Path(__file__).resolve().parent.parent
 SRC_DIR = TEMP_DIR / "src"
 OUT_DIR = TEMP_DIR / "out"
 WORK_DIR = TEMP_DIR / "build"  # 中间产物, 可随时删
 FONT_DIR = TEMP_DIR / "fonts"
-
-CHAPTERS = {
-    "select": ("select.typ", range(1, 9)),
-    "multi": ("multi.typ", range(9, 12)),
-    "fill": ("fill.typ", range(12, 15)),
-    "solve": ("solve.typ", range(15, 20)),
-}
 
 DPI = 150
 # A4 595.28 x 841.89 pt
@@ -336,8 +331,18 @@ def shoot_chapter(chapter: str, src_name: str, keep_pdf: bool) -> int:
 def main() -> int:
     global DPI
 
-    ap = argparse.ArgumentParser(description="shoot_figs —— 按题输出 PNG (不产 PDF)")
-    ap.add_argument("chapters", nargs="*", default=list(CHAPTERS))
+    ap = argparse.ArgumentParser(
+        description="shoot_figs —— 按题输出 PNG (不产 PDF)",
+        epilog=(
+            f"章节: {', '.join(ch.ORDER)}\n"
+            f"短别名: {', '.join(ch.ALIASES)}"
+        ),
+    )
+    ap.add_argument(
+        "chapters",
+        nargs="*",
+        help="只处理指定章节, 用规范名 (s01-select) 或短名 (select)",
+    )
     ap.add_argument("--keep-pdf", action="store_true", help="保留中间 PDF 到 temp/build/")
     ap.add_argument("--dpi", type=int, default=DPI)
     args = ap.parse_args()
@@ -350,13 +355,18 @@ def main() -> int:
 
     DPI = args.dpi
 
+    targets = ch.all_targets(args.chapters)
+    if not targets:
+        log(
+            f"没有匹配的章节: {', '.join(args.chapters)}  "
+            f"(可用: {', '.join(ch.ORDER)} 或短名 {', '.join(ch.ALIASES)})"
+        )
+        return 2
+
     rc = 0
-    for ch in args.chapters:
-        if ch not in CHAPTERS:
-            log(f"未知章节: {ch}")
-            return 2
-        src_name, _qnos = CHAPTERS[ch]
-        rc |= shoot_chapter(ch, src_name, args.keep_pdf)
+    for chapter in ch.ORDER:
+        if chapter in targets:
+            rc |= shoot_chapter(chapter, ch.CHAPTERS[chapter]["entry"], args.keep_pdf)
     return rc
 
 

@@ -2,7 +2,7 @@
 * text=auto
 
 # ---- 源码 ----
-*.py           text diff=python
+*.py           text diff=python eol=lf
 *.typ          text eol=lf
 *.md           text eol=lf
 *.txt          text eol=lf

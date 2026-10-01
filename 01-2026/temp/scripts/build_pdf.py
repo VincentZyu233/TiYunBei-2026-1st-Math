@@ -26,21 +26,14 @@ import sys
 import time
 from pathlib import Path
 
+import _chapters as ch
+
 # 目录约定: <repo>/01-2026/temp/{scripts,src,out}
-# 整个 temp/ 已在 .gitignore 中, 属试验区。
 TEMP_DIR = Path(__file__).resolve().parent.parent
 SRC_DIR = TEMP_DIR / "src"
 OUT_DIR = TEMP_DIR / "out"
 # 字体目录: 霞鹜文楷等放在 temp/fonts, 不进仓库, 编译时用 --font-path 传入
 FONT_DIR = TEMP_DIR / "fonts"
-
-# 入口文件 -> (章节名, 中文标题)
-TARGETS: dict[str, tuple[str, str]] = {
-    "select.typ": ("select", "一、选择题 (1-8)"),
-    "multi.typ": ("multi", "二、选择题 (9-11, 多选)"),
-    "fill.typ": ("fill", "三、填空题 (12-14)"),
-    "solve.typ": ("solve", "四、解答题 (15-19)"),
-}
 
 WATCH_SUFFIXES = {".typ", ".png", ".svg", ".jpg", ".ttf", ".otf"}
 IGNORE_PARTS = {"out", "__pycache__"}
@@ -124,13 +117,13 @@ def count_pages(pdf: Path) -> int:
     return len(re.findall(rb"/Type\s*/Page[^s]", data))
 
 
-def compile_one(typst: str, src_name: str) -> bool:
-    src = SRC_DIR / src_name
+def compile_one(typst: str, chapter: str) -> bool:
+    meta = ch.CHAPTERS[chapter]
+    src = SRC_DIR / meta["entry"]
     if not src.exists():
-        log(f"[跳过] 缺少入口文件 {src_name}", Style.YELLOW)
+        log(f"[跳过] 缺少入口文件 {meta['entry']}", Style.YELLOW)
         return True
 
-    chapter, _title = TARGETS[src_name]
     out_dir = OUT_DIR / chapter
     out_dir.mkdir(parents=True, exist_ok=True)
     dst = out_dir / f"{chapter}.pdf"
@@ -155,22 +148,23 @@ def build(names: list[str] | None) -> int:
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    targets = TARGETS
-    if names:
-        wanted = {f"{n}.typ" if not n.endswith(".typ") else n for n in names}
-        targets = {k: v for k, v in TARGETS.items() if k in wanted}
-        if not targets:
-            log(f"没有匹配的入口文件: {', '.join(sorted(wanted))}", Style.RED)
-            return 2
+    targets = ch.all_targets(names)
+    if not targets:
+        log(
+            f"没有匹配的章节: {', '.join(names or [])}  "
+            f"(可用: {', '.join(ch.ORDER)} 或短名 {', '.join(ch.ALIASES)})",
+            Style.RED,
+        )
+        return 2
 
     t0 = time.perf_counter()
-    failed = [s for s in targets if not compile_one(typst, s)]
+    failed = [c for c in targets if not compile_one(typst, c)]
     dt = time.perf_counter() - t0
 
     log()
     if failed:
         log(f"编译失败 {len(failed)}/{len(targets)} 个, 用时 {dt:.1f}s", Style.RED, Style.BOLD)
-        log("失败文件: " + ", ".join(failed), Style.RED)
+        log("失败章节: " + ", ".join(failed), Style.RED)
         return 1
     log(f"全部完成, 用时 {dt:.1f}s -> {OUT_DIR}", Style.CYAN, Style.BOLD)
     return 0
@@ -192,8 +186,18 @@ def watch(names: list[str] | None) -> int:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="build_pdf —— 编译 2026 提云杯数学解答")
-    ap.add_argument("targets", nargs="*", help="只编译指定部分, 如 select solve")
+    ap = argparse.ArgumentParser(
+        description="build_pdf —— 编译 2026 提云杯数学解答",
+        epilog=(
+            f"章节: {', '.join(ch.ORDER)}\n"
+            f"短别名: {', '.join(ch.ALIASES)}"
+        ),
+    )
+    ap.add_argument(
+        "targets",
+        nargs="*",
+        help="只编译指定章节, 用规范名 (s01-select) 或短名 (select)",
+    )
     ap.add_argument("-w", "--watch", action="store_true", help="监听 src/ 变化自动重编译")
     args = ap.parse_args()
 
