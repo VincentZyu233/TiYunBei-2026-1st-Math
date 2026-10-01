@@ -48,7 +48,7 @@
 ## 项目结构
 
 ```
-01-2026/
+01-2026/                      ← 仓库根
 ├─ .gitignore / .gitattributes
 ├─ problem/                      题面 PDF（不进追踪）
 └─ temp/
