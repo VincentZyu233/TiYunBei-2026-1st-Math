@@ -186,6 +186,16 @@
     .badge-author {
       gap: 0.32rem;
       letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
+      user-select: none;
+    }
+    .badge-author:hover {
+      transform: translateY(-1.5px) scale(1.02);
+      box-shadow: 0 3px 8px var(--primary-glow);
+    }
+    .badge-author:active {
+      transform: translateY(0) scale(0.97);
     }
     .role-tag {
       font-size: 0.62rem;
@@ -197,6 +207,45 @@
     }
     [data-theme="dark"] .role-tag {
       background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Toast 轻提示 */
+    .toast-container {
+      position: fixed;
+      top: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-bubble {
+      background: rgba(32, 26, 38, 0.94);
+      color: #ffffff;
+      padding: 9px 20px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 650;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(12px);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: toastAnim 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: opacity 0.22s, transform 0.22s;
+    }
+    [data-theme="dark"] .toast-bubble {
+      background: rgba(247, 243, 250, 0.96);
+      color: #1b1523;
+      border-color: rgba(0, 0, 0, 0.15);
+    }
+    @keyframes toastAnim {
+      from { opacity: 0; transform: translateY(-12px) scale(0.92); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
     .badge-typst {
       background: var(--typst-light);
@@ -328,6 +377,28 @@
       flex: 1;
       overflow-y: auto;
       padding: 0.85rem;
+    }
+    .aside-footer {
+      padding: 0.65rem 0.85rem;
+      border-top: 1px solid var(--panel-border);
+      background: var(--panel);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .aside-repo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.76rem;
+      font-weight: 650;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.16s ease;
+    }
+    .aside-repo-link:hover {
+      color: var(--primary);
     }
     .nav-chap-group {
       margin-bottom: 1.15rem;
@@ -608,8 +679,8 @@
       
       <!-- 提尔 × VincentZyu 双头像组 -->
       <div class="avatar-pair">
-        <img class="avatar-bubble avatar-tier" src="assets/avatars/tier.png" alt="提尔" title="提尔 (试题命制)">
-        <img class="avatar-bubble avatar-zyu" src="assets/avatars/vincentzyu.png" alt="VincentZyu" title="VincentZyu (解答排版)">
+        <img class="avatar-bubble avatar-tier" id="avatarTier" src="assets/avatars/tier.png" alt="提尔" title="点击复制出题人 提尔 QQ: 1210183458" data-qq="1210183458">
+        <img class="avatar-bubble avatar-zyu" id="avatarZyu" src="assets/avatars/vincentzyu.png" alt="VincentZyu" title="点击复制写题人 VincentZyu QQ: 1830540513" data-qq="1830540513">
       </div>
 
       <div class="brand-text">
@@ -617,8 +688,8 @@
           2026 年第一届“提云杯”线上联考 · 数学参考解答
         </div>
         <div class="brand-meta">
-          <span class="badge badge-author badge-tier"><span class="role-tag">出题人</span>提尔sSwar</span>
-          <span class="badge badge-author badge-zyu"><span class="role-tag">写题人</span>VincentZyu</span>
+          <span class="badge badge-author badge-tier" id="badgeTier" title="点击复制出题人 提尔 QQ: 1210183458" data-qq="1210183458"><span class="role-tag">出题人</span>提尔sSwar</span>
+          <span class="badge badge-author badge-zyu" id="badgeZyu" title="点击复制写题人 VincentZyu QQ: 1830540513" data-qq="1830540513"><span class="role-tag">写题人</span>VincentZyu</span>
           <span class="badge badge-typst">Typst 矢量</span>
           <span class="badge badge-python badge-sub">Python 管线</span>
           <span class="badge badge-vector badge-sub">333 DPI</span>
@@ -636,6 +707,11 @@
       <a class="btn btn-typst" id="btnDownloadSvg" href="#" download="question.svg" title="下载当前题目的纯矢量 SVG 文件">
         ⬇ 导出当前 SVG
       </a>
+      <a class="btn btn-icon" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math" target="_blank" rel="noopener noreferrer" title="访问 GitHub 开源仓库 (TiYunBei-2026-1st-Math)">
+        <svg height="17" width="17" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block; vertical-align:middle;">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+      </a>
       <button class="btn btn-icon" id="btnToggleTheme" title="切换深色/浅色模式">🌓</button>
     </div>
   </header>
@@ -652,6 +728,14 @@
       </div>
       <div class="nav-content" id="navContainer">
         <!-- 动态生成章节与题目按钮 -->
+      </div>
+      <div class="aside-footer">
+        <a class="aside-repo-link" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math" target="_blank" rel="noopener noreferrer" title="前往 GitHub 查看项目源码">
+          <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span>GitHub 开源仓库 (Star ★)</span>
+        </a>
       </div>
     </aside>
 
@@ -1097,6 +1181,63 @@
 
       document.getElementById("btnToggleAside").addEventListener("click", () => {
         document.getElementById("asideNav").classList.toggle("open");
+      });
+
+      // ---- 复制 QQ 与 Toast 轻提示 ----
+      function showToast(msg) {
+        let container = document.getElementById("toastContainer");
+        if (!container) {
+          container = document.createElement("div");
+          container.id = "toastContainer";
+          container.className = "toast-container";
+          document.body.appendChild(container);
+        }
+        const bubble = document.createElement("div");
+        bubble.className = "toast-bubble";
+        bubble.innerHTML = `<span>📋</span> ${msg}`;
+        container.appendChild(bubble);
+
+        setTimeout(() => {
+          bubble.style.opacity = "0";
+          bubble.style.transform = "translateY(-10px)";
+          setTimeout(() => bubble.remove(), 250);
+        }, 2200);
+      }
+
+      function copyQQ(qq, label) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(qq).then(() => {
+            showToast(`已复制 ${label} QQ: ${qq}`);
+          }).catch(() => fallbackCopy(qq, label));
+        } else {
+          fallbackCopy(qq, label);
+        }
+      }
+
+      function fallbackCopy(qq, label) {
+        const ta = document.createElement("textarea");
+        ta.value = qq;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          showToast(`已复制 ${label} QQ: ${qq}`);
+        } catch (e) {
+          prompt(`请手动复制 ${label} QQ:`, qq);
+        }
+        document.body.removeChild(ta);
+      }
+
+      ["avatarTier", "badgeTier"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener("click", () => copyQQ("1210183458", "出题人 提尔"));
+      });
+
+      ["avatarZyu", "badgeZyu"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener("click", () => copyQQ("1830540513", "写题人 VincentZyu"));
       });
     }
 
