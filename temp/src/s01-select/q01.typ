@@ -26,22 +26,28 @@
   scale: 0.95,
   caption: [第 1 题　$2p = 4 ⟹ p = 2$，焦点 $F(1, 0)$，准线 $x = -1$],
   {
-    // 坐标轴范围放宽, 曲线定义域收窄, 避免抛物线贴到轴端
+    // 高度 (y 轴范围) 不变; x 轴负半轴不变, 正半轴上限加长
     let ytop = 3.1
     // y^2 = 4x 即 x = y^2/4, 参数 t: (t^2/4, t)
-    param(t => (t * t / 4, t), -1.85, 1.85, stroke: s(blue, th: 1.2pt))
+    // t 取 ±2.8 -> 曲线右端 x ≈ 1.96, 明显越过焦点 F(1,0);
+    // 须小于 ytop, 否则曲线会顶到 y 轴箭头。
+    param(t => (t * t / 4, t), -2.8, 2.8, stroke: s(blue, th: 1.2pt))
     // 准线 x = -1
     dashed((-1.0, -ytop * 0.86), (-1.0, ytop * 0.86))
     txt((-1.0, ytop * 0.86), anchor: "south", dy: 0.04, [准线 $x=-1$])
-    axes(-2.9, 3.3, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.22)
+    axes(-2.9, 4.2, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.22)
+    // 准线 x = -1
+    dashed((-1.0, -ytop * 0.86), (-1.0, ytop * 0.86))
+    txt((-1.0, ytop * 0.86), anchor: "south", dy: 0.04, [准线 $x=-1$])
+    axes(-2.9, 4.2, -ytop, ytop, xl: [$x$], yl: [$y$], arrow: 0.22)
     // 焦点与顶点
     pt((1.0, 0.0), label: [$F(1,0)$], r: 0.06, fill: red, dx: 0.08, dy: 0.06, anchor: "south-west")
     pt((0.0, 0.0), r: 0.05, fill: black)
     txt((0.0, 0.0), anchor: "south-east", dx: -0.06, dy: -0.06, [$O$])
-    // 标出 p = 1 的长度
-    ln((0.0, 2.5), (1.0, 2.5), stroke: s(gray, th: 0.5pt))
-    ln((0.0, 2.4), (0.0, 2.6), stroke: s(gray, th: 0.5pt))
-    ln((1.0, 2.4), (1.0, 2.6), stroke: s(gray, th: 0.5pt))
-    txt((0.5, 2.5), anchor: "south", dy: 0.05, [$1$])
+    // 标出顶点到焦点的距离 p/2 = 1 (画在 x 轴下方, 避开曲线)
+    ln((0.0, -0.62), (1.0, -0.62), stroke: s(gray, th: 0.5pt))
+    ln((0.0, -0.72), (0.0, -0.52), stroke: s(gray, th: 0.5pt))
+    ln((1.0, -0.72), (1.0, -0.52), stroke: s(gray, th: 0.5pt))
+    txt((0.5, -0.62), anchor: "north", dy: -0.05, [$p/2 = 1$])
   },
 )

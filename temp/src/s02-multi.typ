@@ -12,7 +12,7 @@
 )
 
 #include "s02-multi/q09.typ"
-#qsep
+#pagebreak()
 #include "s02-multi/q10.typ"
-#qsep
+#pagebreak()
 #include "s02-multi/q11.typ"
