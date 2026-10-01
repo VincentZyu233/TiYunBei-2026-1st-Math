@@ -681,6 +681,468 @@
       .hud-controls { bottom: 16px; right: 16px; }
       .nav-bar-bottom { bottom: 76px; }
     }
+
+    /* ---- 版本徽章与 Lean 样式 ---- */
+    .badge-version {
+      background: linear-gradient(135deg, #7d6688 0%, #df91a7 100%);
+      color: #ffffff !important;
+      font-size: 0.72rem;
+      font-weight: 750;
+      padding: 0.12rem 0.5rem;
+      border-radius: 9999px;
+      letter-spacing: 0.03em;
+      box-shadow: 0 2px 6px rgba(125, 102, 136, 0.25);
+    }
+    .btn-lean {
+      background: linear-gradient(135deg, rgba(108, 52, 131, 0.12) 0%, rgba(223, 145, 167, 0.15) 100%);
+      border-color: rgba(108, 52, 131, 0.45);
+      color: #6c3483;
+      font-weight: 700;
+    }
+    .btn-lean:hover {
+      background: linear-gradient(135deg, #6c3483 0%, #8e44ad 100%);
+      color: #ffffff;
+      border-color: #6c3483;
+      box-shadow: 0 3px 10px rgba(108, 52, 131, 0.3);
+    }
+    [data-theme="dark"] .btn-lean {
+      background: rgba(175, 151, 190, 0.18);
+      border-color: #af97be;
+      color: #dfcbe8;
+    }
+    [data-theme="dark"] .btn-lean:hover {
+      background: #af97be;
+      color: #1b1523;
+    }
+
+    /* ---- 侧栏双模式切换 Tabs ---- */
+    .aside-tab-bar {
+      display: flex;
+      background: var(--bg);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 6px 8px;
+      gap: 6px;
+    }
+    .aside-tab-btn {
+      flex: 1;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.16s ease;
+      white-space: nowrap;
+    }
+    .aside-tab-btn:hover {
+      color: var(--text);
+      background: var(--panel);
+    }
+    .aside-tab-btn.active {
+      background: var(--panel);
+      color: var(--primary);
+      border-color: var(--panel-border);
+      box-shadow: var(--shadow-sm);
+    }
+    [data-theme="dark"] .aside-tab-btn.active {
+      color: #dfcbe8;
+    }
+
+    .lean-nav-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .lean-nav-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 14px;
+      background: var(--panel-subtle, var(--bg));
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: left;
+    }
+    .lean-nav-item:hover {
+      transform: translateX(3px);
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .lean-nav-item.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 3px 8px var(--primary-glow);
+    }
+    .lean-nav-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .lean-nav-no {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .lean-nav-type {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(125, 102, 136, 0.12);
+      color: var(--primary);
+    }
+    .lean-nav-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .lean-nav-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* Lean 视图主区域 */
+    .lean-snapshot-view {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      position: relative;
+    }
+    .lean-view-header {
+      height: 54px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      flex-shrink: 0;
+    }
+    .lean-view-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .lean-badge-pill {
+      background: linear-gradient(135deg, #6c3483 0%, #8e44ad 100%);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 750;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 6px rgba(108, 52, 131, 0.25);
+    }
+    .lean-q-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .lean-q-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .lean-content-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+      padding: 16px;
+      overflow: hidden;
+      min-height: 0;
+    }
+    @media (max-width: 960px) {
+      .lean-content-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        overflow-y: auto;
+      }
+    }
+
+    .lean-code-card, .lean-state-card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      min-height: 0;
+    }
+    .lean-card-header {
+      height: 40px;
+      background: var(--primary-subtle);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .lean-card-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+    }
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .code-dot.red { background: #ff5f56; }
+    .code-dot.yellow { background: #ffbd2e; }
+    .code-dot.green { background: #27c93f; }
+
+    .lean-card-hint {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .lean-status-indicator {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(125, 102, 136, 0.15);
+      color: var(--primary);
+    }
+    .lean-status-indicator.finished {
+      background: rgba(39, 201, 63, 0.18);
+      color: #1a7a4d;
+    }
+
+    /* 代码区域 */
+    .lean-code-scroll {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: auto;
+      padding: 10px 0;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      line-height: 1.65;
+      background: #1e1e24;
+      color: #d4d4d8;
+    }
+    [data-theme="dark"] .lean-code-scroll {
+      background: #141019;
+    }
+    .lean-code-line {
+      display: flex;
+      align-items: flex-start;
+      padding: 1px 12px;
+      cursor: pointer;
+      transition: background 0.14s ease;
+      user-select: none;
+    }
+    .lean-code-line:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .lean-code-line.active {
+      background: rgba(175, 151, 190, 0.22);
+      border-left: 3px solid #df91a7;
+      padding-left: 9px;
+    }
+    .lean-line-no {
+      width: 38px;
+      text-align: right;
+      color: #6c6c78;
+      font-size: 0.76rem;
+      padding-right: 12px;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .lean-line-cursor {
+      width: 18px;
+      color: #df91a7;
+      font-weight: bold;
+      flex-shrink: 0;
+      visibility: hidden;
+    }
+    .lean-code-line.active .lean-line-cursor {
+      visibility: visible;
+    }
+    .lean-line-text {
+      flex: 1;
+      white-space: pre;
+      font-family: inherit;
+    }
+
+    /* 语法高亮配色 */
+    .token-kw { color: #f28b82; font-weight: 600; }
+    .token-tactic { color: #c58af9; font-weight: 600; }
+    .token-type { color: #78d9ec; font-weight: 600; }
+    .token-sym { color: #fdba74; }
+    .token-num { color: #a8dab5; }
+    .token-comment { color: #80868b; font-style: italic; }
+
+    /* 状态监视面板 */
+    .lean-state-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .lean-sec-card {
+      background: var(--primary-subtle);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .lean-sec-header {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .lean-goal-item {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 750;
+      color: var(--text);
+      background: var(--panel);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border-left: 3px solid var(--primary);
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+    .lean-hyp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .lean-hyp-item {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: var(--panel);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--panel-border);
+      word-break: break-all;
+    }
+    .lean-insight-box {
+      background: linear-gradient(135deg, rgba(125, 102, 136, 0.08) 0%, rgba(223, 145, 167, 0.1) 100%);
+      border: 1px dashed rgba(125, 102, 136, 0.35);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .lean-qed-banner {
+      background: linear-gradient(135deg, #1a7a4d 0%, #27c93f 100%);
+      color: #ffffff;
+      padding: 14px 18px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(39, 201, 63, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      animation: qedBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes qedBounce {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* 底部控制器条 */
+    .lean-debugger-toolbar {
+      height: 56px;
+      background: var(--panel);
+      border-top: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      flex-shrink: 0;
+      gap: 16px;
+    }
+    .dbg-ctrl-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dbg-btn {
+      padding: 5px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .btn-dbg-play {
+      background: linear-gradient(135deg, var(--primary) 0%, #685273 100%);
+      color: #fff !important;
+      border-color: var(--primary);
+    }
+    .btn-dbg-play:hover {
+      background: var(--primary-hover);
+      color: #fff !important;
+    }
+    .btn-dbg-play.playing {
+      background: linear-gradient(135deg, #df91a7 0%, #c0392b 100%);
+      border-color: #df91a7;
+    }
+    .dbg-slider-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 420px;
+    }
+    .dbg-step-text {
+      font-size: 0.82rem;
+      font-weight: 750;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    .dbg-slider {
+      flex: 1;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .dbg-speed-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .dbg-speed-select {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--panel-border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -699,6 +1161,7 @@
       <div class="brand-text">
         <div class="brand-title">
           2026 年第一届“提云杯”线上联考 · 数学参考解答
+          <span class="badge badge-version" id="badgeVersion">v0.2.0</span>
         </div>
         <div class="brand-meta">
           <span class="badge badge-author badge-tier" id="badgeTier" title="点击复制出题人 提尔 QQ: 1210183458" data-qq="1210183458"><span class="role-tag">出题人</span>提尔sSwar</span>
@@ -714,9 +1177,12 @@
       <a class="btn" href="problem/2026年第一届提云杯线上联考.pdf" target="_blank" title="查看/下载 2026 年第一届“提云杯”线上联考原题试卷 PDF">
         📄 原题试卷
       </a>
-      <a class="btn btn-python" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v1.0.5" target="_blank" title="下载全套 333 DPI 离线压缩包 (v1.0.5)">
+      <a class="btn btn-python" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.2.0" target="_blank" title="下载全套 333 DPI 离线压缩包 (v0.2.0)">
         📦 离线 ZIP
       </a>
+      <button class="btn btn-lean" id="btnToggleLean" title="进入 Lean 4 形式化推导与交互调试展台">
+        🔬 Lean 4 快照
+      </button>
       <a class="btn btn-typst" id="btnDownloadSvg" href="#" download="question.svg" title="下载当前题目的纯矢量 SVG 文件">
         ⬇ 导出当前 SVG
       </a>
@@ -732,7 +1198,12 @@
   <div class="app-layout">
     <!-- 左侧导航 -->
     <aside id="asideNav">
-      <div class="aside-header">
+      <div class="aside-tab-bar">
+        <button class="aside-tab-btn active" id="tabModeSvg" title="切换到试卷矢量题卡 (1-19题)">📐 试卷题卡 (19题)</button>
+        <button class="aside-tab-btn" id="tabModeLean" title="切换到 Lean 4 定理推演 (5题)">🔬 Lean 4 (5题)</button>
+      </div>
+
+      <div class="aside-header" id="svgNavHeader">
         <span class="aside-title">题号导航 (1—19)</span>
         <div class="view-toggle">
           <button class="view-toggle-btn active" id="btnModeSingle">单题缩放</button>
@@ -742,6 +1213,12 @@
       <div class="nav-content" id="navContainer">
         <!-- 动态生成章节与题目按钮 -->
       </div>
+
+      <!-- Lean 题目专区导航 (5题) -->
+      <div class="lean-nav-container" id="leanNavContainer" style="display: none;">
+        <!-- 动态生成 5 道题目的卡片按钮 -->
+      </div>
+
       <div class="aside-footer">
         <a class="aside-repo-link" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math" target="_blank" rel="noopener noreferrer" title="前往 GitHub 查看项目源码">
           <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor">
@@ -786,6 +1263,72 @@
         <button class="hud-btn" id="btnFitWidth" title="适应屏幕宽度">↔</button>
         <button class="hud-btn" id="btnResetZoom" title="居中复位 (快捷键: 0)">↺</button>
         <button class="hud-btn" id="btnFullscreen" title="全屏显示">⛶</button>
+      </div>
+
+      <!-- Lean 4 定理推演与单步调试展台 (lean-snapshot) -->
+      <div class="lean-snapshot-view" id="leanSnapshotView" style="display: none;">
+        <div class="lean-view-header">
+          <div class="lean-view-title-group">
+            <span class="lean-badge-pill">Mathlib 4</span>
+            <h2 class="lean-q-title" id="leanQTitle">第 08 题 · 严格单调性与切线放缩</h2>
+            <span class="lean-q-desc" id="leanQDesc"></span>
+          </div>
+          <div class="lean-view-actions">
+            <button class="btn btn-sm" id="btnBackToSvg">✕ 返回试卷题卡</button>
+          </div>
+        </div>
+
+        <div class="lean-content-grid">
+          <!-- 代码编辑器 -->
+          <div class="lean-code-card">
+            <div class="lean-card-header">
+              <div class="lean-card-title">
+                <span class="code-dot red"></span>
+                <span class="code-dot yellow"></span>
+                <span class="code-dot green"></span>
+                <span style="margin-left: 8px;">TiYunBei/<span id="leanFileName">Q08.lean</span></span>
+              </div>
+              <div class="lean-card-hint">💡 点击任意代码行可直接跳转至该步骤</div>
+            </div>
+            <div class="lean-code-scroll" id="leanCodeContainer">
+              <!-- 动态填充代码行 -->
+            </div>
+          </div>
+
+          <!-- 证明状态监视面板 -->
+          <div class="lean-state-card">
+            <div class="lean-card-header">
+              <div class="lean-card-title">🎯 证明战术状态 (Tactic State)</div>
+              <div class="lean-status-indicator" id="leanStatusIndicator">推演中...</div>
+            </div>
+            <div class="lean-state-body" id="leanStateBody">
+              <!-- 动态填充 Goal / Context / Insight / Q.E.D. -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 底部单步调试与自动播放控制器 -->
+        <div class="lean-debugger-toolbar">
+          <div class="dbg-ctrl-group">
+            <button class="btn dbg-btn" id="btnDbgReset" title="重置到第一步 (快捷键: R)">⏮ 重置</button>
+            <button class="btn dbg-btn" id="btnDbgPrev" title="单步后退 (快捷键: [ 或 ←)">◀ 上一步</button>
+            <button class="btn dbg-btn btn-dbg-play" id="btnDbgPlay" title="自动播放 / 暂停 (快捷键: 空格)">▶ 自动播放</button>
+            <button class="btn dbg-btn" id="btnDbgNext" title="单步前进 (快捷键: ] 或 →)">下一步 ▶</button>
+          </div>
+          <div class="dbg-slider-group">
+            <span class="dbg-step-text" id="dbgStepText">步骤 1 / 6</span>
+            <input type="range" class="dbg-slider" id="dbgSlider" min="0" max="5" value="0">
+          </div>
+          <div class="dbg-speed-group">
+            <span class="dbg-speed-label">播放间隔:</span>
+            <select class="dbg-speed-select" id="dbgSpeedSelect">
+              <option value="800">0.8s 疾速</option>
+              <option value="1200" selected>1.2s 推荐</option>
+              <option value="2000">2.0s 适中</option>
+              <option value="3000">3.0s 细读</option>
+            </select>
+          </div>
+        </div>
       </div>
     </main>
   </div>
@@ -963,19 +1506,36 @@
     //  应用状态与业务逻辑
     // ============================================================
     const state = {
+      viewMode: "svg", // "svg" | "lean"
       manifest: null,
       currentQuestionId: "q01",
       allQuestions: [],
       mode: "single",
       svgCache: new Map(),
+
+      // Lean 4 单步调试展台状态
+      lean: {
+        manifest: null,
+        currentQno: "q08",
+        currentData: null,
+        currentStep: 0,
+        isPlaying: false,
+        timer: null,
+        speed: 1200,
+      }
     };
 
     let pz = null;
 
     async function init() {
       try {
-        const res = await fetch("manifest.json");
-        state.manifest = await res.json();
+        const [svgRes, leanRes] = await Promise.all([
+          fetch("manifest.json").then(r => r.json()),
+          fetch("lean/manifest.json").then(r => r.json()).catch(() => null)
+        ]);
+
+        state.manifest = svgRes;
+        state.lean.manifest = leanRes;
         
         state.allQuestions = [];
         state.manifest.chapters.forEach(ch => {
@@ -985,6 +1545,7 @@
         });
 
         renderNav();
+        renderLeanNav();
         setupEvents();
 
         await loadQuestion(state.allQuestions[0].id);
@@ -1032,6 +1593,9 @@
           btn.title = q.title;
 
           btn.addEventListener("click", () => {
+            if (state.viewMode !== "svg") {
+              switchViewMode("svg");
+            }
             if (state.mode === "single") {
               loadQuestion(q.id).then(() => {
                 pz.fitWidth();
@@ -1049,6 +1613,322 @@
         group.appendChild(grid);
         container.appendChild(group);
       });
+    }
+
+    // ---- Lean 4 题目导航渲染 ----
+    function renderLeanNav() {
+      const container = document.getElementById("leanNavContainer");
+      container.innerHTML = "";
+      if (!state.lean.manifest || !state.lean.manifest.items) return;
+
+      state.lean.manifest.items.forEach(item => {
+        const el = document.createElement("div");
+        el.className = `lean-nav-item ${item.qno === state.lean.currentQno ? "active" : ""}`;
+        el.dataset.qno = item.qno;
+        el.innerHTML = `
+          <div class="lean-nav-top">
+            <span class="lean-nav-no">第 ${item.displayNo} 题</span>
+            <span class="lean-nav-type">${item.type}</span>
+          </div>
+          <div class="lean-nav-title">${item.title}</div>
+          <div class="lean-nav-desc">${item.desc}</div>
+        `;
+        el.addEventListener("click", () => {
+          loadLeanQuestion(item.qno);
+          document.getElementById("asideNav").classList.remove("open");
+        });
+        container.appendChild(el);
+      });
+    }
+
+    // ---- 加载单题 Lean 4 数据 ----
+    async function loadLeanQuestion(qno) {
+      state.lean.currentQno = qno;
+      leanPause();
+
+      document.querySelectorAll(".lean-nav-item").forEach(el => {
+        el.classList.toggle("active", el.dataset.qno === qno);
+      });
+
+      try {
+        const res = await fetch(`lean/${qno}.json`);
+        const data = await res.json();
+        state.lean.currentData = data;
+        state.lean.currentStep = 0;
+
+        document.getElementById("leanQTitle").textContent = data.title;
+        document.getElementById("leanQDesc").textContent = data.problemSummary || "";
+        document.getElementById("leanFileName").textContent = `Q${data.displayNo}.lean`;
+
+        // 初始化代码视窗
+        renderLeanCode(data.codeLines, data.steps[0].line);
+        // 渲染第 0 步
+        renderLeanStep(0);
+
+        // 配置拖动滑块最大范围
+        const slider = document.getElementById("dbgSlider");
+        slider.min = 0;
+        slider.max = data.steps.length - 1;
+        slider.value = 0;
+
+      } catch (err) {
+        console.error(`加载 Lean 数据 ${qno} 失败:`, err);
+      }
+    }
+
+    // ---- Lean 4 语法高亮轻量解析器 ----
+    function highlightLeanCode(raw) {
+      if (!raw) return "&nbsp;";
+      let s = raw.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      if (s.trim().startsWith("--")) {
+        return `<span class="token-comment">${s}</span>`;
+      }
+      const kwRegex = /\b(import|open|scoped|variable|theorem|def|lemma|have|calc|rw|ring|ring_nf|linarith|nlinarith|norm_num|exact|intro|by|sorry|constructor|rcases|by_contra|push_neg|at)\b/g;
+      s = s.replace(kwRegex, '<span class="token-kw">$1</span>');
+      const typeRegex = /(ℝ|ℂ|ℕ|Type\*|I|StrictMono|Set\.Ioo|Set\.Ico|Real|Complex|Nat)/g;
+      s = s.replace(typeRegex, '<span class="token-type">$1</span>');
+      const symRegex = /(:=|⊢|⟪|⟫_ℝ|‖|‖²|\^|\+|≤|≥|↔|∧|∨|∀|∃|→|⟹)/g;
+      s = s.replace(symRegex, '<span class="token-sym">$1</span>');
+      return s;
+    }
+
+    // ---- 渲染代码视窗 ----
+    function renderLeanCode(codeLines, activeLine) {
+      const container = document.getElementById("leanCodeContainer");
+      container.innerHTML = "";
+
+      codeLines.forEach((line, idx) => {
+        const lineNo = idx + 1;
+        const lineEl = document.createElement("div");
+        lineEl.className = `lean-code-line ${lineNo === activeLine ? "active" : ""}`;
+        lineEl.id = `lean-line-${lineNo}`;
+        lineEl.innerHTML = `
+          <div class="lean-line-no">${lineNo}</div>
+          <div class="lean-line-cursor">▶</div>
+          <div class="lean-line-text">${highlightLeanCode(line)}</div>
+        `;
+
+        // 点击行跳转至匹配该行的步骤
+        lineEl.addEventListener("click", () => {
+          if (!state.lean.currentData) return;
+          const matchIdx = state.lean.currentData.steps.findIndex(s => s.line === lineNo);
+          if (matchIdx !== -1) {
+            renderLeanStep(matchIdx);
+          } else {
+            // 找最近的步骤
+            let closest = 0;
+            let minDist = 999;
+            state.lean.currentData.steps.forEach((s, sIdx) => {
+              const dist = Math.abs(s.line - lineNo);
+              if (dist < minDist) {
+                minDist = dist;
+                closest = sIdx;
+              }
+            });
+            renderLeanStep(closest);
+          }
+        });
+
+        container.appendChild(lineEl);
+      });
+    }
+
+    // ---- 渲染证明状态 (Tactic State) ----
+    function renderLeanStep(stepIndex) {
+      if (!state.lean.currentData) return;
+      const data = state.lean.currentData;
+      const steps = data.steps;
+      if (stepIndex < 0 || stepIndex >= steps.length) return;
+
+      state.lean.currentStep = stepIndex;
+      const step = steps[stepIndex];
+
+      // 高亮代码行并居中滚动
+      document.querySelectorAll(".lean-code-line").forEach(el => el.classList.remove("active"));
+      const activeLineEl = document.getElementById(`lean-line-${step.line}`);
+      if (activeLineEl) {
+        activeLineEl.classList.add("active");
+        activeLineEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      // 更新步骤条与滑块
+      document.getElementById("dbgSlider").value = stepIndex;
+      document.getElementById("dbgStepText").textContent = `步骤 ${stepIndex + 1} / ${steps.length}`;
+
+      // 更新状态标签
+      const statusTag = document.getElementById("leanStatusIndicator");
+      if (step.isFinished) {
+        statusTag.textContent = "已证毕 (Q.E.D.) 🎉";
+        statusTag.classList.add("finished");
+      } else {
+        statusTag.textContent = "推演中 Running...";
+        statusTag.classList.remove("finished");
+      }
+
+      // 渲染 Tactic 状态面板
+      const stateBody = document.getElementById("leanStateBody");
+      stateBody.innerHTML = "";
+
+      // 1. 待证明目标 (Goals)
+      if (step.goals && step.goals.length > 0) {
+        const goalCard = document.createElement("div");
+        goalCard.className = "lean-sec-card";
+        goalCard.innerHTML = `
+          <div class="lean-sec-header"><span>🎯</span> 待证明目标 (Goal)</div>
+          ${step.goals.map(g => `<div class="lean-goal-item">${g.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>`).join("")}
+        `;
+        stateBody.appendChild(goalCard);
+      }
+
+      // 2. 假设上下文 (Hypotheses)
+      if (step.hypotheses && step.hypotheses.length > 0) {
+        const hypCard = document.createElement("div");
+        hypCard.className = "lean-sec-card";
+        hypCard.innerHTML = `
+          <div class="lean-sec-header"><span>📚</span> 当前作用域假设 (Hypotheses)</div>
+          <div class="lean-hyp-list">
+            ${step.hypotheses.map(h => `<div class="lean-hyp-item">${h.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>`).join("")}
+          </div>
+        `;
+        stateBody.appendChild(hypCard);
+      }
+
+      // 3. 证明闭合庆祝横幅
+      if (step.isFinished) {
+        const qedBanner = document.createElement("div");
+        qedBanner.className = "lean-qed-banner";
+        qedBanner.innerHTML = `
+          <span>🎉</span>
+          <span>Goals accomplished! 证明圆满闭合 · Q.E.D.</span>
+        `;
+        stateBody.appendChild(qedBanner);
+      }
+
+      // 4. 直观数学解析
+      if (step.insight) {
+        const insightBox = document.createElement("div");
+        insightBox.className = "lean-insight-box";
+        insightBox.innerHTML = `
+          <div style="font-weight: 750; color: var(--primary); margin-bottom: 4px;">💡 数学直观剖析</div>
+          <div>${step.insight}</div>
+        `;
+        stateBody.appendChild(insightBox);
+      }
+    }
+
+    // ---- 播放与单步控制 ----
+    function leanNext() {
+      if (!state.lean.currentData) return;
+      const total = state.lean.currentData.steps.length;
+      if (state.lean.currentStep < total - 1) {
+        renderLeanStep(state.lean.currentStep + 1);
+      } else {
+        leanPause();
+      }
+    }
+
+    function leanPrev() {
+      if (!state.lean.currentData) return;
+      if (state.lean.currentStep > 0) {
+        renderLeanStep(state.lean.currentStep - 1);
+      }
+    }
+
+    function leanReset() {
+      leanPause();
+      renderLeanStep(0);
+    }
+
+    function leanPlay() {
+      if (state.lean.isPlaying) return;
+      state.lean.isPlaying = true;
+      const playBtn = document.getElementById("btnDbgPlay");
+      playBtn.textContent = "⏸ 暂停播放";
+      playBtn.classList.add("playing");
+
+      if (state.lean.currentData && state.lean.currentStep >= state.lean.currentData.steps.length - 1) {
+        renderLeanStep(0);
+      }
+
+      state.lean.timer = setInterval(() => {
+        if (!state.lean.currentData) return;
+        const total = state.lean.currentData.steps.length;
+        if (state.lean.currentStep < total - 1) {
+          leanNext();
+        } else {
+          leanPause();
+        }
+      }, state.lean.speed);
+    }
+
+    function leanPause() {
+      state.lean.isPlaying = false;
+      const playBtn = document.getElementById("btnDbgPlay");
+      if (playBtn) {
+        playBtn.textContent = "▶ 自动播放";
+        playBtn.classList.remove("playing");
+      }
+      if (state.lean.timer) {
+        clearInterval(state.lean.timer);
+        state.lean.timer = null;
+      }
+    }
+
+    // ---- 视图模式切换 (SVG 题卡 vs Lean 4 定理推演) ----
+    function switchViewMode(targetMode) {
+      state.viewMode = targetMode;
+
+      const tabSvg = document.getElementById("tabModeSvg");
+      const tabLean = document.getElementById("tabModeLean");
+      const svgNavHeader = document.getElementById("svgNavHeader");
+      const navContainer = document.getElementById("navContainer");
+      const leanNavContainer = document.getElementById("leanNavContainer");
+
+      const viewport = document.getElementById("viewport");
+      const continuousView = document.getElementById("continuousScrollView");
+      const bottomNav = document.getElementById("bottomNav");
+      const hudControls = document.getElementById("hudControls");
+      const leanView = document.getElementById("leanSnapshotView");
+
+      if (targetMode === "lean") {
+        tabSvg.classList.remove("active");
+        tabLean.classList.add("active");
+        svgNavHeader.style.display = "none";
+        navContainer.style.display = "none";
+        leanNavContainer.style.display = "flex";
+
+        viewport.style.display = "none";
+        continuousView.style.display = "none";
+        bottomNav.style.display = "none";
+        hudControls.style.display = "none";
+        leanView.style.display = "flex";
+
+        if (!state.lean.currentData) {
+          loadLeanQuestion(state.lean.currentQno || "q08");
+        }
+      } else {
+        tabLean.classList.remove("active");
+        tabSvg.classList.add("active");
+        svgNavHeader.style.display = "flex";
+        navContainer.style.display = "block";
+        leanNavContainer.style.display = "none";
+
+        leanView.style.display = "none";
+        leanPause();
+
+        if (state.mode === "single") {
+          viewport.style.display = "flex";
+          continuousView.style.display = "none";
+          bottomNav.style.display = "flex";
+          hudControls.style.display = "flex";
+          if (pz) pz.fitWidth();
+        } else {
+          viewport.style.display = "none";
+          continuousView.style.display = "block";
+          bottomNav.style.display = "none";
+          hudControls.style.display = "none";
+        }
+      }
     }
 
     async function loadQuestion(qid) {
@@ -1101,6 +1981,7 @@
     }
 
     function setupEvents() {
+      // 缩放控制
       document.getElementById("btnZoomIn").addEventListener("click", () => {
         const rect = document.getElementById("viewport").getBoundingClientRect();
         pz.zoomAt(1.25, rect.left + rect.width / 2, rect.top + rect.height / 2);
@@ -1125,8 +2006,30 @@
       document.getElementById("btnPrevQ").addEventListener("click", () => stepQuestion(-1));
       document.getElementById("btnNextQ").addEventListener("click", () => stepQuestion(1));
 
+      // 键盘全局快捷键
       window.addEventListener("keydown", (e) => {
-        if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+        if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") return;
+
+        if (state.viewMode === "lean") {
+          if (e.key === " " || e.code === "Space") {
+            e.preventDefault();
+            if (state.lean.isPlaying) leanPause(); else leanPlay();
+          } else if (e.key === "ArrowRight" || e.key === "]" || e.key === "d" || e.key === "D") {
+            e.preventDefault();
+            leanNext();
+          } else if (e.key === "ArrowLeft" || e.key === "[" || e.key === "a" || e.key === "A") {
+            e.preventDefault();
+            leanPrev();
+          } else if (e.key === "r" || e.key === "R") {
+            e.preventDefault();
+            leanReset();
+          } else if (e.key === "Escape") {
+            switchViewMode("svg");
+          }
+          return;
+        }
+
+        // SVG 模式快捷键
         if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
           stepQuestion(-1);
         } else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
@@ -1142,6 +2045,7 @@
         }
       });
 
+      // SVG 单题 vs 连续切换
       const btnModeSingle = document.getElementById("btnModeSingle");
       const btnModeContinuous = document.getElementById("btnModeContinuous");
       const viewport = document.getElementById("viewport");
@@ -1168,6 +2072,37 @@
         hudControls.style.display = "none";
         state.mode = "continuous";
         await loadContinuousView();
+      });
+
+      // 侧栏模式切换 (SVG 题卡 vs Lean 4)
+      document.getElementById("tabModeSvg").addEventListener("click", () => switchViewMode("svg"));
+      document.getElementById("tabModeLean").addEventListener("click", () => switchViewMode("lean"));
+      document.getElementById("btnToggleLean").addEventListener("click", () => {
+        switchViewMode(state.viewMode === "lean" ? "svg" : "lean");
+      });
+      document.getElementById("btnBackToSvg").addEventListener("click", () => switchViewMode("svg"));
+
+      // Lean 调试播放器控制器按钮
+      document.getElementById("btnDbgReset").addEventListener("click", leanReset);
+      document.getElementById("btnDbgPrev").addEventListener("click", leanPrev);
+      document.getElementById("btnDbgNext").addEventListener("click", leanNext);
+      document.getElementById("btnDbgPlay").addEventListener("click", () => {
+        if (state.lean.isPlaying) leanPause(); else leanPlay();
+      });
+
+      const dbgSlider = document.getElementById("dbgSlider");
+      dbgSlider.addEventListener("input", (e) => {
+        leanPause();
+        renderLeanStep(parseInt(e.target.value, 10));
+      });
+
+      const dbgSpeedSelect = document.getElementById("dbgSpeedSelect");
+      dbgSpeedSelect.addEventListener("change", (e) => {
+        state.lean.speed = parseInt(e.target.value, 10);
+        if (state.lean.isPlaying) {
+          leanPause();
+          leanPlay();
+        }
       });
 
       document.getElementById("btnFullscreen").addEventListener("click", () => {

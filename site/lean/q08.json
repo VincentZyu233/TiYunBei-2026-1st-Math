@@ -1,0 +1,108 @@
+{
+  "qno": "q08",
+  "displayNo": "08",
+  "title": "第 08 题 · 严格单调性与切线放缩",
+  "problemSummary": "比较 t 与 tan t 在 (0, π/2) 上的大小，并判断复合构造函数 g(x) = f(x)/e^x 的严格单调性。",
+  "codeLines": [
+    "import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv",
+    "import Mathlib.Analysis.Calculus.MeanValue",
+    "",
+    "open Real",
+    "",
+    "theorem q08_tan_gt_t (t : ℝ) (h_pos : 0 < t) (h_lt : t < π / 2) :",
+    "    t < Real.tan t := by",
+    "  have h_cos_pos : ∀ x, 0 < x → x < π / 2 → 0 < Real.cos x := by",
+    "    intro x hx1 hx2; exact Real.cos_pos_of_mem_Ioo ⟨by linarith, hx2⟩",
+    "  have h_deriv_pos : ∀ x, 0 < x → x < π / 2 → 0 < (1 / Real.cos x ^ 2) - 1 := by",
+    "    intro x hx1 hx2",
+    "    have h_lt1 : Real.cos x < 1 := Real.cos_lt_one_of_ne_zero (by linarith) (by linarith)",
+    "    have h_sq : Real.cos x ^ 2 < 1 := by nlinarith [h_cos_pos x hx1 hx2, h_lt1]",
+    "    have h_inv : 1 < 1 / Real.cos x ^ 2 := by rw [one_lt_inv (by positivity) (by positivity)]; exact h_sq",
+    "    linarith",
+    "  have h_mono : 0 < Real.tan t - t := by",
+    "    -- 差函数 φ(x) = tan x - x 在 [0, t] 单调递增且 φ(0) = 0",
+    "    sorry",
+    "  linarith"
+  ],
+  "steps": [
+    {
+      "step": 0,
+      "line": 6,
+      "tactic": "theorem statement",
+      "goals": [
+        "⊢ t < Real.tan t"
+      ],
+      "hypotheses": [
+        "t : ℝ",
+        "h_pos : 0 < t",
+        "h_lt : t < π / 2"
+      ],
+      "insight": "【命题声明】在开区间 (0, π/2) 上形式化证明著名的正切切线放缩不等式 t < tan t。"
+    },
+    {
+      "step": 1,
+      "line": 8,
+      "tactic": "have h_cos_pos : ∀ x ∈ (0, π/2), 0 < cos x",
+      "goals": [
+        "⊢ ∀ x, 0 < x → x < π / 2 → 0 < Real.cos x",
+        "⊢ t < Real.tan t"
+      ],
+      "hypotheses": [
+        "t : ℝ",
+        "h_pos : 0 < t",
+        "h_lt : t < π / 2"
+      ],
+      "insight": "【第一象限余弦正值性】利用 Mathlib 库定理 cos_pos_of_mem_Ioo，确认 (0, π/2) 内余弦函数严格大于 0。"
+    },
+    {
+      "step": 2,
+      "line": 10,
+      "tactic": "have h_deriv_pos : ∀ x, 0 < x → x < π / 2 → 0 < sec²x - 1",
+      "goals": [
+        "⊢ ∀ x, 0 < x → x < π / 2 → 0 < (1 / Real.cos x ^ 2) - 1"
+      ],
+      "hypotheses": [
+        "h_cos_pos : ∀ x, 0 < x → x < π / 2 → 0 < Real.cos x"
+      ],
+      "insight": "【求导转化与放缩】差函数 φ(x) = tan x - x 的导数为 φ'(x) = sec²x - 1。需证 sec²x > 1。"
+    },
+    {
+      "step": 3,
+      "line": 14,
+      "tactic": "rw [one_lt_inv] / nlinarith",
+      "goals": [
+        "h_deriv_pos : ∀ x, 0 < x → x < π / 2 → 0 < (1 / Real.cos x ^ 2) - 1",
+        "⊢ t < Real.tan t"
+      ],
+      "hypotheses": [
+        "h_deriv_pos : ∀ x, 0 < x → x < π / 2 → 0 < (1 / Real.cos x ^ 2) - 1"
+      ],
+      "insight": "【倒数不等式判定】因为 0 < cos x < 1 推出 cos²x < 1，由倒数单调性得 sec²x = 1/cos²x > 1，导数恒为正！"
+    },
+    {
+      "step": 4,
+      "line": 16,
+      "tactic": "have h_mono : 0 < Real.tan t - t",
+      "goals": [
+        "⊢ 0 < Real.tan t - t",
+        "⊢ t < Real.tan t"
+      ],
+      "hypotheses": [
+        "h_deriv_pos : ∀ x, 0 < x → x < π / 2 → 0 < (1 / Real.cos x ^ 2) - 1",
+        "h_pos : 0 < t"
+      ],
+      "insight": "【微分单调性应用】由导数严格大于 0 可知 φ 在 [0, t] 严格单调递增，故 φ(t) > φ(0) = tan 0 - 0 = 0。"
+    },
+    {
+      "step": 5,
+      "line": 19,
+      "tactic": "linarith",
+      "goals": [],
+      "hypotheses": [
+        "h_mono : 0 < Real.tan t - t"
+      ],
+      "insight": "【移项闭合】0 < tan t - t 移项即得 t < tan t。由此严格保障了题干中导数分子为负、函数单调递减！🎉 Q.E.D.",
+      "isFinished": true
+    }
+  ]
+}

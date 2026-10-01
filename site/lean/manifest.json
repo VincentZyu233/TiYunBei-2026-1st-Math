@@ -1,0 +1,50 @@
+{
+  "version": "0.2.0",
+  "items": [
+    {
+      "qno": "q03",
+      "displayNo": "03",
+      "title": "向量极化恒等式与内积",
+      "desc": "实内积空间极化恒等式 4⟨a,b⟩ = ‖a+b‖² - ‖a-b‖²",
+      "type": "选择题",
+      "file": "q03.json",
+      "stepsCount": 5
+    },
+    {
+      "qno": "q07",
+      "displayNo": "07",
+      "title": "奇函数单调性与区间不等式",
+      "desc": "奇函数对称零点与严格单调性符号判定",
+      "type": "选择题",
+      "file": "q07.json",
+      "stepsCount": 6
+    },
+    {
+      "qno": "q08",
+      "displayNo": "08",
+      "title": "严格单调性与切线放缩",
+      "desc": "正切导数 sec²x - 1 = tan²x > 0 证明 t < tan t",
+      "type": "选择题",
+      "file": "q08.json",
+      "stepsCount": 6
+    },
+    {
+      "qno": "q09",
+      "displayNo": "09",
+      "title": "复数除法分母有理化",
+      "desc": "共轭展开 (1-3i)(1+3i)=10 与精确代数化简",
+      "type": "多选题",
+      "file": "q09.json",
+      "stepsCount": 7
+    },
+    {
+      "qno": "q19",
+      "displayNo": "19",
+      "title": "压轴数列指数切线放缩",
+      "desc": "累乘放缩 k < exp(k-1) 证明 (n!)² < exp(n²-n)",
+      "type": "解答题",
+      "file": "q19.json",
+      "stepsCount": 6
+    }
+  ]
+}

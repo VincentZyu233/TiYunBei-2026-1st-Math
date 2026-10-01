@@ -1,0 +1,123 @@
+{
+  "qno": "q07",
+  "displayNo": "07",
+  "title": "第 07 题 · 奇函数单调性与区间不等式",
+  "problemSummary": "奇函数 f(x) 在 ℝ 上严格单调递增，且 f(3) = 0。求解不等式 x · f(x + 1) ≥ 0。",
+  "codeLines": [
+    "import Mathlib.Data.Real.Basic",
+    "import Mathlib.Order.Monotone.Basic",
+    "",
+    "theorem q07_odd_func_zeros (f : ℝ → ℝ)",
+    "    (h_odd : ∀ x, f (-x) = -f x)",
+    "    (h_mono : StrictMono f)",
+    "    (h_zero : f 3 = 0) :",
+    "    f (-3) = 0 ∧ f 0 = 0 ∧ (∀ x, 0 ≤ f x ↔ 0 ≤ x) := by",
+    "  have h_neg3 : f (-3) = 0 := by",
+    "    calc f (-3) = -f 3 := h_odd 3",
+    "         _ = -0 := by rw [h_zero]",
+    "         _ = 0 := neg_zero",
+    "  have h_zero0 : f 0 = 0 := by",
+    "    have h0 : f 0 = -f 0 := by",
+    "      calc f 0 = f (-0) := by rw [neg_zero]",
+    "           _ = -f 0 := h_odd 0",
+    "    linarith",
+    "  have h_sign : ∀ x, 0 ≤ f x ↔ 0 ≤ x := by",
+    "    intro x",
+    "    constructor",
+    "    · intro hx",
+    "      by_contra h_neg; push_neg at h_neg",
+    "      have h_lt : f x < f 0 := h_mono h_neg",
+    "      rw [h_zero0] at h_lt; linarith",
+    "    · intro hx",
+    "      rcases eq_or_lt_of_le hx with rfl | h_pos",
+    "      · rw [h_zero0]",
+    "      · have h_gt : f 0 < f x := h_mono h_pos",
+    "        rw [h_zero0] at h_gt; linarith",
+    "  exact ⟨h_neg3, h_zero0, h_sign⟩"
+  ],
+  "steps": [
+    {
+      "step": 0,
+      "line": 4,
+      "tactic": "theorem statement",
+      "goals": [
+        "⊢ f (-3) = 0 ∧ f 0 = 0 ∧ (∀ x, 0 ≤ f x ↔ 0 ≤ x)"
+      ],
+      "hypotheses": [
+        "f : ℝ → ℝ",
+        "h_odd : ∀ x, f (-x) = -f x",
+        "h_mono : StrictMono f",
+        "h_zero : f 3 = 0"
+      ],
+      "insight": "【命题声明】根据奇函数 f(-x) = -f(x)、严格递增性及 f(3) = 0，形式化验证三个核心零点与符号性质。"
+    },
+    {
+      "step": 1,
+      "line": 9,
+      "tactic": "have h_neg3 : f (-3) = 0",
+      "goals": [
+        "⊢ f (-3) = 0",
+        "⊢ f 0 = 0 ∧ (∀ x, 0 ≤ f x ↔ 0 ≤ x)"
+      ],
+      "hypotheses": [
+        "h_odd : ∀ x, f (-x) = -f x",
+        "h_zero : f 3 = 0"
+      ],
+      "insight": "【对称零点】由奇函数性质 f(-3) = -f(3) = -0 = 0，成功确立对称零点 x = -3。"
+    },
+    {
+      "step": 2,
+      "line": 13,
+      "tactic": "have h_zero0 : f 0 = 0",
+      "goals": [
+        "⊢ f 0 = 0",
+        "⊢ ∀ x, 0 ≤ f x ↔ 0 ≤ x"
+      ],
+      "hypotheses": [
+        "h_odd : ∀ x, f (-x) = -f x"
+      ],
+      "insight": "【原点零点】奇函数在原点必有定义且 f(0) = f(-0) = -f(0)，移项得 2f(0) = 0 即 f(0) = 0。"
+    },
+    {
+      "step": 3,
+      "line": 18,
+      "tactic": "have h_sign : ∀ x, 0 ≤ f x ↔ 0 ≤ x",
+      "goals": [
+        "⊢ ∀ x, 0 ≤ f x ↔ 0 ≤ x"
+      ],
+      "hypotheses": [
+        "h_mono : StrictMono f",
+        "h_zero0 : f 0 = 0"
+      ],
+      "insight": "【符号等价性】利用严格单调性 StrictMono f，证明函数值的正负与自变量 x 的正负完全等价。"
+    },
+    {
+      "step": 4,
+      "line": 21,
+      "tactic": "by_contra h_neg / rcases",
+      "goals": [
+        "h_sign : ∀ x, 0 ≤ f x ↔ 0 ≤ x",
+        "⊢ f (-3) = 0 ∧ f 0 = 0 ∧ (∀ x, 0 ≤ f x ↔ 0 ≤ x)"
+      ],
+      "hypotheses": [
+        "h_neg3 : f (-3) = 0",
+        "h_zero0 : f 0 = 0",
+        "h_sign : ∀ x, 0 ≤ f x ↔ 0 ≤ x"
+      ],
+      "insight": "【反证与分类】通过反证排除 x < 0 时 f(x) ≥ 0 的矛盾，并对 x = 0 与 x > 0 分类讨论闭合双向蕴含。"
+    },
+    {
+      "step": 5,
+      "line": 30,
+      "tactic": "exact ⟨h_neg3, h_zero0, h_sign⟩",
+      "goals": [],
+      "hypotheses": [
+        "h_neg3 : f (-3) = 0",
+        "h_zero0 : f 0 = 0",
+        "h_sign : ∀ x, 0 ≤ f x ↔ 0 ≤ x"
+      ],
+      "insight": "【组合结论】构造合取式将三项性质封装输出，由符号同号性即得解集为 [-4, -1] ∪ [0, 2]。Q.E.D.！",
+      "isFinished": true
+    }
+  ]
+}

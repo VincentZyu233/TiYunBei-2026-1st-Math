@@ -1,0 +1,108 @@
+{
+  "qno": "q03",
+  "displayNo": "03",
+  "title": "第 03 题 · 实内积空间极化恒等式",
+  "problemSummary": "设平面向量 a, b 满足 ‖a + b‖ = √3, ‖a - b‖ = 1，求 a · b。",
+  "codeLines": [
+    "import Mathlib.Analysis.InnerProductSpace.Basic",
+    "import Mathlib.Data.Real.Basic",
+    "",
+    "open scoped RealInnerProductSpace",
+    "",
+    "variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]",
+    "",
+    "theorem q03_vector_inner_product (a b : E)",
+    "    (h1 : ‖a + b‖ ^ 2 = 3)",
+    "    (h2 : ‖a - b‖ ^ 2 = 1) :",
+    "    ⟪a, b⟫_ℝ = (1 : ℝ) / 2 := by",
+    "  have h_polar : 4 * ⟪a, b⟫_ℝ = ‖a + b‖ ^ 2 - ‖a - b‖ ^ 2 := by",
+    "    rw [norm_add_pow_two_real, norm_sub_pow_two_real]",
+    "    ring",
+    "  rw [h1, h2] at h_polar",
+    "  linarith"
+  ],
+  "steps": [
+    {
+      "step": 0,
+      "line": 8,
+      "tactic": "theorem statement",
+      "goals": [
+        "⊢ ⟪a, b⟫_ℝ = 1 / 2"
+      ],
+      "hypotheses": [
+        "E : Type*",
+        "[NormedAddCommGroup E]",
+        "[InnerProductSpace ℝ E]",
+        "a b : E",
+        "h1 : ‖a + b‖ ^ 2 = 3",
+        "h2 : ‖a - b‖ ^ 2 = 1"
+      ],
+      "insight": "【命题声明】在实内积空间 E 中，已知两个模长平方条件，目标是求解内积 ⟪a, b⟫_ℝ = 1/2。"
+    },
+    {
+      "step": 1,
+      "line": 12,
+      "tactic": "have h_polar : 4 * ⟪a, b⟫_ℝ = ‖a + b‖ ^ 2 - ‖a - b‖ ^ 2",
+      "goals": [
+        "⊢ 4 * ⟪a, b⟫_ℝ = ‖a + b‖ ^ 2 - ‖a - b‖ ^ 2",
+        "⊢ ⟪a, b⟫_ℝ = 1 / 2"
+      ],
+      "hypotheses": [
+        "a b : E",
+        "h1 : ‖a + b‖ ^ 2 = 3",
+        "h2 : ‖a - b‖ ^ 2 = 1"
+      ],
+      "insight": "【构造子目标】引入实内积空间著名的极化恒等式 (Polarization Identity)：4 ⟨a, b⟩ = ‖a+b‖² - ‖a-b‖²。"
+    },
+    {
+      "step": 2,
+      "line": 13,
+      "tactic": "rw [norm_add_pow_two_real, norm_sub_pow_two_real]",
+      "goals": [
+        "⊢ 4 * ⟪a, b⟫_ℝ = (‖a‖ ^ 2 + 2 * ⟪a, b⟫_ℝ + ‖b‖ ^ 2) - (‖a‖ ^ 2 - 2 * ⟪a, b⟫_ℝ + ‖b‖ ^ 2)"
+      ],
+      "hypotheses": [
+        "a b : E"
+      ],
+      "insight": "【展开模长平方】将 ‖a + b‖² 展开为 ‖a‖² + 2⟨a, b⟩ + ‖b‖²，同理展开 ‖a - b‖²。"
+    },
+    {
+      "step": 3,
+      "line": 14,
+      "tactic": "ring",
+      "goals": [
+        "h_polar : 4 * ⟪a, b⟫_ℝ = ‖a + b‖ ^ 2 - ‖a - b‖ ^ 2",
+        "⊢ ⟪a, b⟫_ℝ = 1 / 2"
+      ],
+      "hypotheses": [
+        "h1 : ‖a + b‖ ^ 2 = 3",
+        "h2 : ‖a - b‖ ^ 2 = 1",
+        "h_polar : 4 * ⟪a, b⟫_ℝ = ‖a + b‖ ^ 2 - ‖a - b‖ ^ 2"
+      ],
+      "insight": "【环化简闭合】ring 战术自动完成环代数同类项抵消，成功确立 h_polar 极化引理。"
+    },
+    {
+      "step": 4,
+      "line": 15,
+      "tactic": "rw [h1, h2] at h_polar",
+      "goals": [
+        "⊢ ⟪a, b⟫_ℝ = 1 / 2"
+      ],
+      "hypotheses": [
+        "h_polar : 4 * ⟪a, b⟫_ℝ = 3 - 1"
+      ],
+      "insight": "【条件代入】将条件 h1 (‖a+b‖²=3) 和 h2 (‖a-b‖²=1) 重写代入 h_polar，得 4⟨a,b⟩ = 2。"
+    },
+    {
+      "step": 5,
+      "line": 16,
+      "tactic": "linarith",
+      "goals": [],
+      "hypotheses": [
+        "h_polar : 4 * ⟪a, b⟫_ℝ = 2"
+      ],
+      "insight": "【线性算术求解】linarith 线性规划决策程序自动推得 ⟪a, b⟫_ℝ = 1/2。目标全部达成！",
+      "isFinished": true
+    }
+  ]
+}

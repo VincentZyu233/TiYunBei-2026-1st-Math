@@ -1,0 +1,124 @@
+{
+  "qno": "q09",
+  "displayNo": "09",
+  "title": "第 09 题 · 复数除法分母有理化",
+  "problemSummary": "设复数 z₁ = 3 + i, z₂ = 1 - 3i，严格代数推导除法分母有理化过程，验证 z₁/z₂ = i。",
+  "codeLines": [
+    "import Mathlib.Data.Complex.Basic",
+    "",
+    "open Complex",
+    "",
+    "theorem q09_complex_div :",
+    "    ((3 : ℂ) + I) / (1 - 3 * I) = I := by",
+    "  have h_denom : (1 - 3 * I) * (1 + 3 * I) = 10 := by",
+    "    calc (1 - 3 * I) * (1 + 3 * I)",
+    "      _ = 1 - (3 * I) ^ 2 := by ring",
+    "      _ = 1 - 9 * I ^ 2 := by ring",
+    "      _ = 1 - 9 * (-1) := by rw [I_sq]",
+    "      _ = 10 := by norm_num",
+    "  have h_numer : ((3 : ℂ) + I) * (1 + 3 * I) = 10 * I := by",
+    "    calc ((3 : ℂ) + I) * (1 + 3 * I)",
+    "      _ = 3 + 9 * I + I + 3 * I ^ 2 := by ring",
+    "      _ = 3 + 10 * I + 3 * (-1) := by rw [I_sq]; ring",
+    "      _ = 10 * I := by ring",
+    "  have h_div : ((3 : ℂ) + I) / (1 - 3 * I) = (((3 : ℂ) + I) * (1 + 3 * I)) / ((1 - 3 * I) * (1 + 3 * I)) := by",
+    "    have h_ne : 1 + 3 * I ≠ 0 := by intro h; apply_fun Complex.re at h; simp at h",
+    "    exact mul_div_mul_right ((3 : ℂ) + I) (1 - 3 * I) h_ne |>.symm",
+    "  rw [h_div, h_numer, h_denom]",
+    "  calc (10 * I) / 10",
+    "    _ = (10 / 10 : ℂ) * I := by ring",
+    "    _ = 1 * I := by norm_num",
+    "    _ = I := by ring"
+  ],
+  "steps": [
+    {
+      "step": 0,
+      "line": 5,
+      "tactic": "theorem statement",
+      "goals": [
+        "⊢ (3 + I) / (1 - 3 * I) = I"
+      ],
+      "hypotheses": [
+        "I : ℂ",
+        "I_sq : I ^ 2 = -1"
+      ],
+      "insight": "【命题声明】在复数域 ℂ 上精确验证除法商式 (3 + i)/(1 - 3i) = i。"
+    },
+    {
+      "step": 1,
+      "line": 7,
+      "tactic": "have h_denom : (1 - 3*I) * (1 + 3*I) = 10",
+      "goals": [
+        "⊢ (1 - 3 * I) * (1 + 3 * I) = 10",
+        "⊢ (3 + I) / (1 - 3 * I) = I"
+      ],
+      "hypotheses": [
+        "I : ℂ"
+      ],
+      "insight": "【分母共轭展开】引入分母与其共轭复数的乘积：利用平方差公式与 I² = -1 证明其实数化分母为 10。"
+    },
+    {
+      "step": 2,
+      "line": 11,
+      "tactic": "rw [I_sq]; norm_num",
+      "goals": [
+        "h_denom : (1 - 3 * I) * (1 + 3 * I) = 10",
+        "⊢ (3 + I) / (1 - 3 * I) = I"
+      ],
+      "hypotheses": [
+        "h_denom : (1 - 3 * I) * (1 + 3 * I) = 10"
+      ],
+      "insight": "【分母代数闭合】展开 1 - 9(-1) = 1 + 9 = 10，完全与试卷解答中细化的分母有理化过程一致！"
+    },
+    {
+      "step": 3,
+      "line": 13,
+      "tactic": "have h_numer : (3 + I) * (1 + 3*I) = 10 * I",
+      "goals": [
+        "⊢ ((3 : ℂ) + I) * (1 + 3 * I) = 10 * I",
+        "⊢ (3 + I) / (1 - 3 * I) = I"
+      ],
+      "hypotheses": [
+        "h_denom : (1 - 3 * I) * (1 + 3 * I) = 10"
+      ],
+      "insight": "【分子展开】多项式展开 (3 + i)(1 + 3i) = 3 + 9i + i + 3i² = 3 + 10i - 3 = 10i。"
+    },
+    {
+      "step": 4,
+      "line": 18,
+      "tactic": "have h_div : 同乘有理化恒等变形",
+      "goals": [
+        "⊢ (3 + I) / (1 - 3 * I) = ((3 + I) * (1 + 3 * I)) / ((1 - 3 * I) * (1 + 3 * I))"
+      ],
+      "hypotheses": [
+        "h_denom : (1 - 3 * I) * (1 + 3 * I) = 10",
+        "h_numer : ((3 : ℂ) + I) * (1 + 3 * I) = 10 * I"
+      ],
+      "insight": "【非零同乘引理】验证 1 + 3i ≠ 0，应用除法基本性质 mul_div_mul_right 确立同乘变形合法性。"
+    },
+    {
+      "step": 5,
+      "line": 21,
+      "tactic": "rw [h_div, h_numer, h_denom]",
+      "goals": [
+        "⊢ (10 * I) / 10 = I"
+      ],
+      "hypotheses": [
+        "h_denom : (1 - 3 * I) * (1 + 3 * I) = 10",
+        "h_numer : ((3 : ℂ) + I) * (1 + 3 * I) = 10 * I"
+      ],
+      "insight": "【整体代换】将展开后的分子 10i 与分母 10 同步代换回分式，目标化简为 (10i)/10 = I。"
+    },
+    {
+      "step": 6,
+      "line": 22,
+      "tactic": "calc (10 * I) / 10 = I",
+      "goals": [],
+      "hypotheses": [
+        "h_div : ((3 : ℂ) + I) / (1 - 3 * I) = (10 * I) / 10"
+      ],
+      "insight": "【纯虚数约分】通过 (10/10)*I = 1*I = I 完成最终等式闭合，选项 D 中 1+i 判定错误！🎉 Q.E.D.",
+      "isFinished": true
+    }
+  ]
+}
