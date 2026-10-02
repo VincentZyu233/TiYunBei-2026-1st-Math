@@ -25,6 +25,10 @@
 *.woff2  binary
 
 # ---- GitHub 语言统计 (Linguist) ----
+*.md               linguist-detectable=true linguist-documentation=false linguist-language=Markdown
+**/*.md            linguist-detectable=true linguist-documentation=false linguist-language=Markdown
+README.md          linguist-detectable=true linguist-documentation=false linguist-language=Markdown
+**/README.md       linguist-detectable=true linguist-documentation=false linguist-language=Markdown
 lean/**/*.lean     linguist-detectable=true linguist-language=Lean
 site/svg/**        linguist-generated=true
 site/pdf/**        linguist-generated=true
