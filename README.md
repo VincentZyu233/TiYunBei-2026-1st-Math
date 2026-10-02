@@ -1,4 +1,4 @@
-# 2026 年第一届“提云杯”线上联考 · 数学参考解答
+# 🏆 2026 年第一届“提云杯”线上联考 · 数学参考解答
 
 [![Release](https://img.shields.io/github/v/release/VincentZyu233/TiYunBei-2026-1st-Math?style=flat-square&color=emerald&logo=github)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.2.0)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%82%B9%E5%87%BB%E6%89%93%E5%BC%80%E9%A2%98%E8%A7%A3%E5%9C%A8%E7%BA%BF%E7%AB%99%E5%8F%B0-blue?style=flat-square&logo=github)](https://vincentzyu233.github.io/TiYunBei-2026-1st-Math/)
@@ -19,7 +19,7 @@
 
 ---
 
-## 试卷结构与内容
+## 📋 试卷结构与内容
 
 | 章节 | 题号 | 分值 | 产物目录 | 在线单题卡 | Lean 4 推演 |
 |---|---|---|---|---|---|
@@ -30,7 +30,7 @@
 
 ---
 
-## 项目亮点
+## ✨ 项目亮点
 
 1. **全程 Typst 题解与纯矢量图形展示**：
    - 全套试卷参考解答基于 **Typst** 科学排版系统编写，每道题目均配有高精度 CeTZ 几何与函数图像（Figure Graph）；
@@ -41,7 +41,7 @@
 
 ---
 
-## 排版与推演引擎
+## ⚙️ 排版与推演引擎
 
 | 维度 / 模块 | 技术与引擎 | 徽标 Badge | 职责与特性 |
 |---|---|---|---|
@@ -52,34 +52,34 @@
 
 ---
 
-## 本地编译与构建
+## 🛠️ 本地编译与构建
 
 项目基于 `uv` 与 Python 工具链管理：
 
 ```bash
-# 1. 安装依赖 (PyMuPDF 用于切图)
+# 📦 1. 安装依赖 (PyMuPDF 用于切图)
 uv pip install pymupdf
 
-# 2. 编译全卷分章节 PDF
+# 📑 2. 编译全卷分章节 PDF
 uv run python scripts/05_build_pdf.py
 
-# 3. 按题切割 333 DPI 超清矢量图 (输出到 out/)
+# 🖼️ 3. 按题切割 333 DPI 超清矢量图 (输出到 out/)
 uv run python scripts/06_shoot_figs.py
 
-# 4. 构建 GitHub Pages 纯矢量 SVG 展台 (输出到 site/)
+# 🌐 4. 构建 GitHub Pages 纯矢量 SVG 展台 (输出到 site/)
 uv run python scripts/07_build_svg.py
 
-# 5. 打包全套离线高清发布包 (输出到 archive/)
+# 🗜️ 5. 打包全套离线高清发布包 (输出到 archive/)
 uv run python scripts/08_pack_zip.py
 
-# 6. Lean 4 形式化源码验证 (需安装 elan / lake)
+# 🔬 6. Lean 4 形式化源码验证 (需安装 elan / lake)
 cd lean
 lake build
 ```
 
 ---
 
-## 署名
+## 👥 署名
 
 | 分工角色 | 贡献成员 | 即时沟通 |
 |---|---|---|
