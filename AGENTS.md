@@ -27,11 +27,11 @@
 ### 脚本：`动词_名词.py`
 
 | 脚本 | 职责 |
-| 脚本 | 职责 |
 |---|---|
 | `build_pdf.py` | 编译章节 → `out/<章节>/<章节>.pdf` |
 | `shoot_figs.py` | 按题切图 → `out/<章节>/<章节>-qNN.png` |
 | `build_svg.py` | 编译纯矢量 SVG 与清单 → `site/svg/`、`site/manifest.json` |
+| `pack_zip.py` | 调用 7z 极致压缩打包全套离线资源包 → `archive/` (自动读取 `VERSION`) |
 | `fix_punct.py` | 句末西文句点 → 中文句号 |
 | `norm_math.py` | LaTeX → Typst 数学写法规范化 |
 
@@ -110,6 +110,9 @@ uv run python scripts/shoot_figs.py select --keep-pdf  # 保留中间 PDF
 
 # 编译全卷单题纯矢量 SVG 与发布索引 (供 GitHub Pages 交互使用)
 uv run python scripts/build_svg.py
+
+# 调用 7z 极致压缩打包全套离线资源包到 archive/（自动读取 VERSION）
+uv run python scripts/pack_zip.py
 
 # 句末西文句点 → 中文句号（写之前先 --check）
 uv run python scripts/fix_punct.py --check
