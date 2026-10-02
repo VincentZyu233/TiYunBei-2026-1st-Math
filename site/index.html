@@ -1180,9 +1180,6 @@
       <a class="btn btn-python" id="btnDownloadZip" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v__APP_VERSION__" target="_blank" title="下载全套 333 DPI 离线压缩包 (v__APP_VERSION__)">
         📦 离线 ZIP
       </a>
-      <button class="btn btn-lean" id="btnToggleLean" title="进入 Lean 4 形式化推导与交互调试展台">
-        🔬 Lean 4 快照
-      </button>
       <a class="btn btn-typst" id="btnDownloadSvg" href="#" download="question.svg" title="下载当前题目的纯矢量 SVG 文件">
         ⬇ 导出当前 SVG
       </a>
@@ -2091,9 +2088,6 @@
       // 侧栏模式切换 (SVG 题卡 vs Lean 4)
       document.getElementById("tabModeSvg").addEventListener("click", () => switchViewMode("svg"));
       document.getElementById("tabModeLean").addEventListener("click", () => switchViewMode("lean"));
-      document.getElementById("btnToggleLean").addEventListener("click", () => {
-        switchViewMode(state.viewMode === "lean" ? "svg" : "lean");
-      });
       document.getElementById("btnBackToSvg").addEventListener("click", () => switchViewMode("svg"));
 
       // Lean 调试播放器控制器按钮
