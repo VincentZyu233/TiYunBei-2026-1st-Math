@@ -1,8 +1,9 @@
 # 2026 年第一届“提云杯”线上联考 · 数学参考解答
 
+[![Release](https://img.shields.io/github/v/release/VincentZyu233/TiYunBei-2026-1st-Math?style=flat-square&color=emerald&logo=github)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.2.0)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%82%B9%E5%87%BB%E6%89%93%E5%BC%80%E9%A2%98%E8%A7%A3%E5%9C%A8%E7%BA%BF%E7%AB%99%E5%8F%B0-blue?style=flat-square&logo=github)](https://vincentzyu233.github.io/TiYunBei-2026-1st-Math/)
-[![Release](https://img.shields.io/github/v/release/VincentZyu233/TiYunBei-2026-1st-Math?style=flat-square&color=emerald)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.2.0)
-[![Typst](https://img.shields.io/badge/Powered%20by-Typst-239dad?style=flat-square)](https://typst.app/)
+[![原题试卷 PDF](https://img.shields.io/badge/原题试卷-下载%20PDF-e05d44?style=flat-square&logo=adobeacrobatreader&logoColor=white)](./problem/2026年第一届提云杯线上联考.pdf)
+[![Typst](https://img.shields.io/badge/Powered%20by-Typst-239dad?style=flat-square&logo=typst&logoColor=white)](https://typst.app/)
 [![Lean 4](https://img.shields.io/badge/Formalized%20with-Lean%204-6c3483?style=flat-square)](https://lean-lang.org/)
 
 本仓库为 2026 年第一届“提云杯”线上联考数学科目的完整解答与高清排版项目，采用现代科学排版系统 **Typst** 进行全套编写与矢量渲染，并为重点试题提供了 **Lean 4** 交互式定理形式化验证。
@@ -34,6 +35,17 @@
 
 ---
 
+## 排版与推演引擎
+
+| 维度 / 模块 | 技术与引擎 | 徽标 Badge | 职责与特性 |
+|---|---|---|---|
+| **科学排版** | **Typst (0.14+)** | [![Typst](https://img.shields.io/badge/Typst-0.14+-239dad?style=flat-square&logo=typst&logoColor=white)](https://typst.app/) | 现代科学排版系统，负责全卷数学公式排版、试卷分栏与纯矢量 SVG/PDF 渲染编译 |
+| **矢量绘图** | **CeTZ (0.5.2)** | [![CeTZ](https://img.shields.io/badge/CeTZ-0.5.2-1f883d?style=flat-square)](https://github.com/cetz-package/cetz) | Typst 原生图形库，负责高精度函数图像、导数切线、空间直角坐标系及几何构造解析 |
+| **形式化推演** | **Lean 4 + Mathlib** | [![Lean 4](https://img.shields.io/badge/Lean_4-Mathlib-6c3483?style=flat-square)](https://lean-lang.org/) | 交互式定理证明器，负责代表性试题的严格公理化机器推演与状态流转证明 |
+| **自动化管线** | **Python + uv** | [![Python](https://img.shields.io/badge/Python-3.10+-3776ab?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![uv](https://img.shields.io/badge/uv-fast-de5d43?style=flat-square)](https://github.com/astral-sh/uv) | 自动化流水线，负责标点与公式治理、333 DPI 截图、SVG 提取及 7z 离线资源打包 |
+
+---
+
 ## 本地编译与构建
 
 项目基于 `uv` 与 Python 工具链管理：
@@ -61,9 +73,9 @@ lake build
 
 ---
 
-## 署名与归档
+## 署名
 
-- **试题命制 / 出题人**：提尔 sSwar (QQ: 1210183458)
-- **解答排版 / 写题人**：VincentZyu (QQ: 1830540513)
-- **排版与推演引擎**：Typst + CeTZ + Lean 4 (Mathlib)
-- **全套离线高清包**：请前往 [GitHub Releases (v0.2.0)](https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.2.0) 下载 `TiYunBei_2026_Math_Solution_v0.2.0.zip`。
+| 分工角色 | 贡献成员 | 即时沟通 |
+|---|---|---|
+| **试题命制 / 出题人** | **提尔 sSwar** | [![QQ: 1210183458](https://img.shields.io/badge/QQ-1210183458-12B7F5?style=flat-square&logo=qq&logoColor=white)](tencent://message/?uin=1210183458) |
+| **解答排版 / 写题人** | **VincentZyu** | [![QQ: 1830540513](https://img.shields.io/badge/QQ-1830540513-12B7F5?style=flat-square&logo=qq&logoColor=white)](tencent://message/?uin=1830540513) |
