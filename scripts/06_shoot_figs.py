@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-shoot_figs.py —— 按题切图, 只输出图片 (不再输出 PDF)
+06_shoot_figs.py —— 按题切图, 只输出图片 (不再输出 PDF)
 
 思路
 ----
@@ -20,9 +20,9 @@ shoot_figs.py —— 按题切图, 只输出图片 (不再输出 PDF)
 用法
 ----
     uv pip install pymupdf
-    uv run python temp/scripts/shoot_figs.py            # 全部章节
-    uv run python temp/scripts/shoot_figs.py select     # 指定章节
-    uv run python temp/scripts/shoot_figs.py select --keep-pdf
+    uv run python scripts/06_shoot_figs.py            # 全部章节
+    uv run python scripts/06_shoot_figs.py select     # 指定章节
+    uv run python scripts/06_shoot_figs.py select --keep-pdf
 """
 
 from __future__ import annotations

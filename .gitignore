@@ -15,7 +15,7 @@ temp/
 # 字体 (145MB, 由 sync_fonts.py 从本机 X:\字体 同步)
 fonts/
 
-# 编译中间产物 (shoot_figs.py 用完即删)
+# 编译中间产物 (06_shoot_figs.py 用完即删)
 build/
 
 # 题面 PDF 纳入版本管理

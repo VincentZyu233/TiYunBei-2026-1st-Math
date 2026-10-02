@@ -14,12 +14,12 @@
 
 ## 试卷结构与内容
 
-| 章节 | 题号 | 分值 | 产物目录 | 在线单题卡 | Lean 4 形式化验证 |
+| 章节 | 题号 | 分值 | 产物目录 | 在线单题卡 | Lean 4 推演 |
 |---|---|---|---|---|---|
-| **一、单项选择题** | 1—8 题 | 40 分 | `out/s01-select/` | `q01.svg` ~ `q08.svg` | **第 03 题**（向量极化）、**第 07 题**（奇函数单调）、**第 08 题**（切线放缩） |
-| **二、多项选择题** | 9—11 题 | 18 分 | `out/s02-multi/` | `q09.svg` ~ `q11.svg` | **第 09 题**（复数代数有理化） |
+| **一、单项选择题** | 1—8 题 | 40 分 | `out/s01-select/` | `q01.svg` ~ `q08.svg` | **03**、**07**、**08** |
+| **二、多项选择题** | 9—11 题 | 18 分 | `out/s02-multi/` | `q09.svg` ~ `q11.svg` | **09** |
 | **三、填空题** | 12—14 题 | 15 分 | `out/s03-fill/` | `q12.svg` ~ `q14.svg`、`q14_bonus.svg` | — |
-| **四、解答题** | 15—19 题 | 77 分 | `out/s04-solve/` | `q15.svg` ~ `q19.svg` | **第 19 题**（压轴数列指数切线放缩） |
+| **四、解答题** | 15—19 题 | 77 分 | `out/s04-solve/` | `q15.svg` ~ `q19.svg` | **19** |
 
 ---
 
@@ -50,15 +50,18 @@
 uv pip install pymupdf
 
 # 2. 编译全卷分章节 PDF
-uv run python scripts/build_pdf.py
+uv run python scripts/05_build_pdf.py
 
 # 3. 按题切割 333 DPI 超清矢量图 (输出到 out/)
-uv run python scripts/shoot_figs.py
+uv run python scripts/06_shoot_figs.py
 
 # 4. 构建 GitHub Pages 纯矢量 SVG 展台 (输出到 site/)
-uv run python scripts/build_svg.py
+uv run python scripts/07_build_svg.py
 
-# 5. Lean 4 形式化源码验证 (需安装 elan / lake)
+# 5. 打包全套离线高清发布包 (输出到 archive/)
+uv run python scripts/08_pack_zip.py
+
+# 6. Lean 4 形式化源码验证 (需安装 elan / lake)
 cd lean
 lake build
 ```

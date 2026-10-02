@@ -14,5 +14,5 @@ FONT_DIR=X:\字体\霞鹜文楷LXGW_WenKai\lxgw-wenkai-v1.520
 ```
 
 > **说明**：
-> - 脚本（`build_pdf.py`、`shoot_figs.py`、`build_svg.py`）会自动解析本文件中的 `FONT_DIR=` 行，并通过 `--font-path` 参数传给 Typst。
+> - 脚本（`05_build_pdf.py`、`06_shoot_figs.py`、`07_build_svg.py`）会自动解析本文件中的 `FONT_DIR=` 行，并通过 `--font-path` 参数传给 Typst。
 > - 若未配置 `AGENTS.local.md`，脚本会在终端输出高亮黄色/红色警示，提醒开发者按照此模板进行配置，并尝试在本机默认路径中探测字体。

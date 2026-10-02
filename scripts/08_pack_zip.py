@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-pack_zip.py —— 调用 7z CLI 打包全套离线题解资源包
+08_pack_zip.py —— 调用 7z CLI 打包全套离线题解资源包
 
 功能:
 1. 自动从根目录 VERSION 文件读取版本号（支持 CLI --version 覆盖）；
@@ -11,9 +11,9 @@ pack_zip.py —— 调用 7z CLI 打包全套离线题解资源包
 6. 自动计算文件大小与 SHA-256 校验码。
 
 用法:
-    uv run python scripts/pack_zip.py
-    uv run python scripts/pack_zip.py --version 0.2.0
-    uv run python scripts/pack_zip.py --no-clean-root
+    uv run python scripts/08_pack_zip.py
+    uv run python scripts/08_pack_zip.py --version 0.2.0
+    uv run python scripts/08_pack_zip.py --no-clean-root
 """
 
 from __future__ import annotations

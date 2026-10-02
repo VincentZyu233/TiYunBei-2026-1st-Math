@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-fix_punct.py —— 标点规范化: 句末西文句点 → 中文句号
+02_fix_punct.py —— 标点规范化: 句末西文句点 → 中文句号
 
 背景
 ----
@@ -20,13 +20,13 @@ fix_punct.py —— 标点规范化: 句末西文句点 → 中文句号
   - 反引号包裹的行内代码
   - import / let / set / show 等代码行
 
-同类的姊妹脚本: norm_math.py (LaTeX → Typst 数学写法)。
+同类的姊妹脚本: 01_norm_math.py (LaTeX → Typst 数学写法)。
 
 用法
 ----
-    uv run python temp/scripts/fix_punct.py --check    # 只报告
-    uv run python temp/scripts/fix_punct.py            # 写入
-    uv run python temp/scripts/fix_punct.py select.typ # 只处理某文件
+    uv run python scripts/02_fix_punct.py --check    # 只报告
+    uv run python scripts/02_fix_punct.py            # 写入
+    uv run python scripts/02_fix_punct.py select.typ # 只处理某文件
 """
 
 from __future__ import annotations

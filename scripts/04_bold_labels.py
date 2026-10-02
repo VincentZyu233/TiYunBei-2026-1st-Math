@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-bold_labels.py —— 给图内关键标注加粗
+04_bold_labels.py —— 给图内关键标注加粗
 
 背景
 ----
@@ -19,8 +19,8 @@ bold_labels.py —— 给图内关键标注加粗
   - 图注 caption(由 fcap 处理)
 
 用法:
-    uv run python temp/scripts/bold_labels.py --check
-    uv run python temp/scripts/bold_labels.py --dir s01-select
+    uv run python scripts/04_bold_labels.py --check
+    uv run python scripts/04_bold_labels.py --dir s01-select
 """
 
 from __future__ import annotations

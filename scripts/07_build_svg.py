@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-build_svg.py —— 编译全卷单题纯矢量 SVG 与发布清单
+07_build_svg.py —— 编译全卷单题纯矢量 SVG 与发布清单
 
 功能
 ----

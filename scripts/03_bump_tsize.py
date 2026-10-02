@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-bump_tsize.py —— 批量放大图内标签字号 (tsize)
+03_bump_tsize.py —— 批量放大图内标签字号 (tsize)
 
 背景
 ----
@@ -12,9 +12,9 @@ bump_tsize.py —— 批量放大图内标签字号 (tsize)
 只改 src/ 下 *.typ, 不动字体设置。
 
 用法:
-    uv run python temp/scripts/bump_tsize.py --check
-    uv run python temp/scripts/bump_tsize.py --floor 0.22 --target 0.24
-    uv run python temp/scripts/bump_tsize.py --dir s01-select --floor 0.22
+    uv run python scripts/03_bump_tsize.py --check
+    uv run python scripts/03_bump_tsize.py --floor 0.22 --target 0.24
+    uv run python scripts/03_bump_tsize.py --dir s01-select --floor 0.22
 """
 
 from __future__ import annotations

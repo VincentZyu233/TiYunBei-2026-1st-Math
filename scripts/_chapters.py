@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-_chapters.py —— 章节配置 (build_pdf.py 与 shoot_figs.py 共用)
+_chapters.py —— 章节配置 (05_build_pdf.py、06_shoot_figs.py 与 07_build_svg.py 共用)
 
 命名规范
 --------

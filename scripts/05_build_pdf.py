@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 """
-build_pdf.py —— 编译章节 Typst 源码 → out/<章节>/<章节>.pdf
+05_build_pdf.py —— 编译章节 Typst 源码 → out/<章节>/<章节>.pdf
 
 2026 年第一届"提云杯"线上联考 数学。
 
 用法:
-    uv run python temp/scripts/build_pdf.py            编译全部
-    uv run python temp/scripts/build_pdf.py --watch    监听改动自动重编译
-    uv run python temp/scripts/build_pdf.py select     只编译某几份 (select/multi/fill/solve)
+    uv run python scripts/05_build_pdf.py            编译全部
+    uv run python scripts/05_build_pdf.py --watch    监听改动自动重编译
+    uv run python scripts/05_build_pdf.py select     只编译某几份 (select/multi/fill/solve)
 
-产物 (每个大题一个目录, 每题的 PNG 由 shoot_figs.py 另行生成):
-    temp/out/select/select.pdf
-    temp/out/multi/multi.pdf
-    temp/out/fill/fill.pdf
-    temp/out/solve/solve.pdf
+产物 (每个大题一个目录, 每题的 PNG 由 06_shoot_figs.py 另行生成):
+    out/s01-select/s01-select.pdf
+    out/s02-multi/s02-multi.pdf
+    out/s03-fill/s03-fill.pdf
+    out/s04-solve/s04-solve.pdf
 """
 
 from __future__ import annotations

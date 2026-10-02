@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-norm_math.py —— LaTeX → Typst 数学写法规范化
+01_norm_math.py —— LaTeX → Typst 数学写法规范化
 
 背景: Typst 的数学模式与 LaTeX 有几处不兼容, 直接照抄 LaTeX 会报
 "unknown variable"。本脚本在 src/*.typ 上做幂等的批量替换:
@@ -12,11 +12,11 @@ norm_math.py —— LaTeX → Typst 数学写法规范化
   - \\vec{x}       → vec(x)
   - 多字母几何记号 ABC → A B C   (Typst 会把 ABC 当成 A·B·C)
 
-同类的姊妹脚本: fix_punct.py (标点规范化)。
+同类的姊妹脚本: 02_fix_punct.py (标点规范化)。
 
 用法:
-    uv run python temp/scripts/norm_math.py            # 处理 src 下所有 .typ
-    uv run python temp/scripts/norm_math.py --check    # 只报告, 不写入
+    uv run python scripts/01_norm_math.py            # 处理 src 下所有 .typ
+    uv run python scripts/01_norm_math.py --check    # 只报告, 不写入
 """
 
 from __future__ import annotations

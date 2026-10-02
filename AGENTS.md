@@ -24,19 +24,21 @@
 `NN` 是**试卷上的题号**（两位，不足补零），与章节前缀无关。
 因此 `q01`–`q08`、`q09`–`q11`、`q12`–`q14`、`q15`–`q19` 在各自目录里都是连续的。
 
-### 脚本：`动词_名词.py`
+### 脚本：`NN_动词_名词.py`
 
 | 脚本 | 职责 |
 |---|---|
-| `build_pdf.py` | 编译章节 → `out/<章节>/<章节>.pdf` |
-| `shoot_figs.py` | 按题切图 → `out/<章节>/<章节>-qNN.png` |
-| `build_svg.py` | 编译纯矢量 SVG 与清单 → `site/svg/`、`site/manifest.json` |
-| `pack_zip.py` | 调用 7z 极致压缩打包全套离线资源包 → `archive/` (自动读取 `VERSION`) |
-| `fix_punct.py` | 句末西文句点 → 中文句号 |
-| `norm_math.py` | LaTeX → Typst 数学写法规范化 |
+| `01_norm_math.py` | LaTeX → Typst 数学写法规范化 |
+| `02_fix_punct.py` | 句末西文句点 → 中文句号 |
+| `03_bump_tsize.py` | 批量放大图内标签字号 (tsize) |
+| `04_bold_labels.py` | 给图内关键标注加粗 |
+| `05_build_pdf.py` | 编译章节 → `out/<章节>/<章节>.pdf` |
+| `06_shoot_figs.py` | 按题切图 → `out/<章节>/<章节>-qNN.png` |
+| `07_build_svg.py` | 编译纯矢量 SVG 与清单 → `site/svg/`、`site/manifest.json` |
+| `08_pack_zip.py` | 调用 7z 极致压缩打包全套离线资源包 → `archive/` (自动读取 `VERSION`) |
 
 `_chapters.py` 是内部模块（下划线前缀），存章节配置与本地字体解析的**唯一来源**，
-被 `build_pdf.py`、`shoot_figs.py` 与 `build_svg.py` 共用。新增章节只改这一处。
+被 `05_build_pdf.py`、`06_shoot_figs.py` 与 `07_build_svg.py` 共用。新增章节只改这一处。
 
 ### 新增章节的步骤
 
@@ -44,7 +46,7 @@
 2. 在 `ALIASES` 里加短名（可选，但建议加）
 3. 建 `src/sNN-slug/` 目录，放 `qNN.typ`
 4. 建 `src/sNN-slug.typ` 装配入口：只写标题块 + `#include` + `#qsep`
-5. `uv run python scripts/build_pdf.py sNN-slug` 验证
+5. `uv run python scripts/05_build_pdf.py sNN-slug` 验证
 
 ## 项目结构
 
@@ -92,35 +94,39 @@
 cd 01-2026
 
 # 编译全部 PDF（推荐入口）
-uv run python scripts/build_pdf.py
+uv run python scripts/05_build_pdf.py
 
 # 只编译某几份
-uv run python scripts/build_pdf.py select solve
-uv run python scripts/build_pdf.py s01-select s04-solve
+uv run python scripts/05_build_pdf.py select solve
+uv run python scripts/05_build_pdf.py s01-select s04-solve
 
 # 监听 src/ 自动重编译
-uv run python scripts/build_pdf.py --watch
+uv run python scripts/05_build_pdf.py --watch
 
 # 把每题单独截成 PNG（需 pymupdf，默认 333 DPI 高清出图，正文宽约 2321 px）
 uv pip install pymupdf
-uv run python scripts/shoot_figs.py                    # 全部章节（默认 333 DPI）
-uv run python scripts/shoot_figs.py select             # 指定章节
-uv run python scripts/shoot_figs.py select --dpi 333   # 可自定义指定 DPI（默认 333）
-uv run python scripts/shoot_figs.py select --keep-pdf  # 保留中间 PDF
+uv run python scripts/06_shoot_figs.py                    # 全部章节（默认 333 DPI）
+uv run python scripts/06_shoot_figs.py select             # 指定章节
+uv run python scripts/06_shoot_figs.py select --dpi 333   # 可自定义指定 DPI（默认 333）
+uv run python scripts/06_shoot_figs.py select --keep-pdf  # 保留中间 PDF
 
 # 编译全卷单题纯矢量 SVG 与发布索引 (供 GitHub Pages 交互使用)
-uv run python scripts/build_svg.py
+uv run python scripts/07_build_svg.py
 
 # 调用 7z 极致压缩打包全套离线资源包到 archive/（自动读取 VERSION）
-uv run python scripts/pack_zip.py
+uv run python scripts/08_pack_zip.py
+
+# 批量调整图内标签字号 / 批量关键标注加粗
+uv run python scripts/03_bump_tsize.py --check
+uv run python scripts/04_bold_labels.py --check
 
 # 句末西文句点 → 中文句号（写之前先 --check）
-uv run python scripts/fix_punct.py --check
-uv run python scripts/fix_punct.py
+uv run python scripts/02_fix_punct.py --check
+uv run python scripts/02_fix_punct.py
 
 # 把源码里的 LaTeX 写法批量改成 Typst 写法
-uv run python scripts/norm_math.py --check   # 先看会改什么
-uv run python scripts/norm_math.py           # 实际写入
+uv run python scripts/01_norm_math.py --check   # 先看会改什么
+uv run python scripts/01_norm_math.py           # 实际写入
 ```
 
 ## 环境
@@ -160,7 +166,7 @@ uv run python scripts/norm_math.py           # 实际写入
 
 7. **多字母几何记号要拆开。**
    Typst 数学模式把 `ABC` 当成 `A·B·C`，几何里它是顶点名，应写 `A B C`。
-   （`norm_math.py` 会自动处理大部分，但 `ABC` 这类在 `KEEP_WHOLE` 白名单里，
+   （`01_norm_math.py` 会自动处理大部分，但 `ABC` 这类在 `KEEP_WHOLE` 白名单里，
    需要时手动改。）
 
 8. **数学里写自定义符号要在顶层 `#let`。**
@@ -199,14 +205,14 @@ uv run python scripts/norm_math.py           # 实际写入
 - 英文缩写：`e.g.`、`etc.`
 - 代码行与注释行
 
-批量检查用 `fix_punct.py`，它已内置上述例外规则：
+批量检查用 `02_fix_punct.py`，它已内置上述例外规则：
 
 ```bash
-uv run python temp/scripts/fix_punct.py --check    # 只报告
-uv run python temp/scripts/fix_punct.py            # 写入
+uv run python scripts/02_fix_punct.py --check    # 只报告
+uv run python scripts/02_fix_punct.py            # 写入
 ```
 
-注意：`fix_punct.py` 只处理**单行数学块**（`$ … $` 起止在同一行）。
+注意：`02_fix_punct.py` 只处理**单行数学块**（`$ … $` 起止在同一行）。
 跨行的 `$\n … \n$` 块需要手工调整——把句末的 `.` 改成 `,`，
 让中文句号落在块外的下一段，或直接省掉（公式列表用逗号分隔即可）。
 
@@ -259,7 +265,7 @@ uv run python temp/scripts/fix_punct.py            # 写入
   | 原点 `$O$`、关键点标签 | 0.24–0.28 | **bold** |
   | 刻度数值 | 0.22–0.25 | bold |
   | 曲线名 / 公式标注 | 0.24–0.29 | bold |
-  批量调整用 `bump_tsize.py`（改字号）与 `bold_labels.py`（加粗），
+  批量调整用 `03_bump_tsize.py`（改字号）与 `04_bold_labels.py`（加粗），
   两者都支持 `--check` 预演。`axes()` / `axes3()` 的轴名已由
   `axisweight` 默认加粗，不需再包。
 - **放大标签后必须复查重叠**。字号变大常把原本凑得下的标注挤到
@@ -279,7 +285,7 @@ uv run python temp/scripts/fix_punct.py            # 写入
   `vb:` 只是外框留白，不是"锁比例"手段，多数情况不需要传。
 - 答案用 `#ans[...]` 包起来，标明选项字母。
 - 中文正文用霞鹜文楷；数学交给 Typst 默认数学字体（New Computer Modern Math）。
-- **出图分辨率标准（强制）**：切图脚本 `shoot_figs.py` 统一默认使用 **333 DPI**（横向正文宽度约 `2321 px`），保证公式上下标、根号分式、微小刻度与几何线段在 4K 屏或双指放大时绝对清晰锐利，无锯齿或发虚。
+- **出图分辨率标准（强制）**：切图脚本 `06_shoot_figs.py` 统一默认使用 **333 DPI**（横向正文宽度约 `2321 px`），保证公式上下标、根号分式、微小刻度与几何线段在 4K 屏或双指放大时绝对清晰锐利，无锯齿或发虚。
 
 ## 提交约定
 
