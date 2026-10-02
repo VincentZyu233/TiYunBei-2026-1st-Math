@@ -11,6 +11,12 @@
 🌐 **浏览器点击打开题解在线站台**：[https://vincentzyu233.github.io/TiYunBei-2026-1st-Math/](https://vincentzyu233.github.io/TiYunBei-2026-1st-Math/)  
 *(支持鼠标滚轮与移动端触控的无限平滑缩放，纯矢量数学公式与几何绘图，放大 1000% 依然绝对锐利无锯齿；新增 Lean 4 单步推演调试器)*
 
+<p align="center">
+  <a href="https://vincentzyu233.github.io/TiYunBei-2026-1st-Math/" target="_blank">
+    <img src="docs/images/preview/preview.site.png" alt="2026 年第一届“提云杯”线上联考数学参考解答 · 纯矢量在线展台" width="100%">
+  </a>
+</p>
+
 ---
 
 ## 试卷结构与内容
