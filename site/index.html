@@ -1161,7 +1161,7 @@
       <div class="brand-text">
         <div class="brand-title">
           2026 年第一届“提云杯”线上联考 · 数学参考解答
-          <span class="badge badge-version" id="badgeVersion">v0.2.0</span>
+          <span class="badge badge-version" id="badgeVersion">v__APP_VERSION__</span>
         </div>
         <div class="brand-meta">
           <span class="badge badge-author badge-tier" id="badgeTier" title="点击复制出题人 提尔 QQ: 1210183458" data-qq="1210183458"><span class="role-tag">出题人</span>提尔sSwar</span>
@@ -1177,7 +1177,7 @@
       <a class="btn" href="problem/2026年第一届提云杯线上联考.pdf" target="_blank" title="查看/下载 2026 年第一届“提云杯”线上联考原题试卷 PDF">
         📄 原题试卷
       </a>
-      <a class="btn btn-python" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v0.2.0" target="_blank" title="下载全套 333 DPI 离线压缩包 (v0.2.0)">
+      <a class="btn btn-python" id="btnDownloadZip" href="https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v__APP_VERSION__" target="_blank" title="下载全套 333 DPI 离线压缩包 (v__APP_VERSION__)">
         📦 离线 ZIP
       </a>
       <button class="btn btn-lean" id="btnToggleLean" title="进入 Lean 4 形式化推导与交互调试展台">
@@ -1547,6 +1547,20 @@
         renderNav();
         renderLeanNav();
         setupEvents();
+
+        // 占位符兜底容错（若本地静态打开未走 CI 替换，保证本地展示平滑）
+        const badge = document.getElementById("badgeVersion");
+        if (badge && badge.textContent.includes("__APP_VERSION__")) {
+          const fallbackVer = (state.lean && state.lean.manifest && state.lean.manifest.version && !state.lean.manifest.version.includes("__APP_VERSION__"))
+            ? state.lean.manifest.version
+            : "0.2.0";
+          badge.textContent = `v${fallbackVer}`;
+          const zipBtn = document.getElementById("btnDownloadZip");
+          if (zipBtn && zipBtn.href.includes("__APP_VERSION__")) {
+            zipBtn.href = `https://github.com/VincentZyu233/TiYunBei-2026-1st-Math/releases/tag/v${fallbackVer}`;
+            zipBtn.title = `下载全套 333 DPI 离线压缩包 (v${fallbackVer})`;
+          }
+        }
 
         await loadQuestion(state.allQuestions[0].id);
 

@@ -25,6 +25,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Inject version from VERSION file
+        run: |
+          VERSION=$(cat VERSION | tr -d '[:space:]' | sed 's/^v//')
+          echo "Deploying version: v$VERSION"
+          sed -i "s/__APP_VERSION__/$VERSION/g" site/index.html
+          sed -i "s/__APP_VERSION__/$VERSION/g" site/lean/manifest.json
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
